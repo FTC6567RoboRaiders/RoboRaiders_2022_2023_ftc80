@@ -93,8 +93,8 @@ public class TestRobot {
 
         // Define and initialize sensors
         imu = hwMap.get(BNO055IMU.class, "imu");
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        //parameters.mode = BNO055IMU.SensorMode.IMU;
         imu.initialize(parameters);
 
     }

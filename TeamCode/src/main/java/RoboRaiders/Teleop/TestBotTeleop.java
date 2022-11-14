@@ -28,7 +28,7 @@ public class TestBotTeleop extends OpMode {
     public void loop() {
 
         // Read inverse IMU heading, as the IMU heading is CW positive
-        double botHeading = -stevesRobot.getHeading();
+        double botHeading = stevesRobot.getHeading();
 
         double y = -gamepad1.left_stick_y; // Remember, this is reversed!
         double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
