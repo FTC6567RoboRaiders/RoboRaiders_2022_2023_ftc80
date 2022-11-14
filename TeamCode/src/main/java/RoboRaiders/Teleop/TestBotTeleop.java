@@ -27,35 +27,34 @@ public class TestBotTeleop extends OpMode {
     @Override
     public void loop() {
 
-        /*---------------------------------------------------------------------------------
-          For this robot, gamepad1 will control the movement of the robot
-          the left Y stick, will control the left drive side motors, the right Y
-          will control the right drive side motors.
+        // Read inverse IMU heading, as the IMU heading is CW positive
+        double botHeading = -stevesRobot.getHeading();
 
-          The values returned by left_stick_y and right_stick_y are negated because:
-           - When the stick is pushed away from the driver, the value returned is negative.
-           - When the stick is pulled towards the driver, the value returned is positive.
+        double y = -gamepad1.left_stick_y; // Remember, this is reversed!
+        double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+        double rx = gamepad1.right_stick_x;
 
-          First get the value for the left Y and right Y sticks
-          ---------------------------------------------------------------------------------*/
+        double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
+        double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
-        double left  = gamepad1.left_stick_y;
-        double right = gamepad1.right_stick_y;
 
-        /* Insure that the values from the gamepad for left and right will
-           always be between -1.0 and 1.0.  This is done since motor powers
-           can only be between -1.0 (100% reverse) and 1.0 (100% forward)
-         */
-        left = Range.clip(left, -1.0, 1.0);
-        right = Range.clip(right, -1.0, 1.0);
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio, but only when
+        // at least one is out of the range [-1, 1]
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+        double frontLeftPower = (rotY + rotX + rx) / denominator;
+        double backLeftPower = (rotY - rotX + rx) / denominator;
+        double frontRightPower = (rotY - rotX - rx) / denominator;
+        double backRightPower = (rotY + rotX - rx) / denominator;
 
-        /* Smooth the right and left powers.  Smoothing will give the driver better control.
-           See the smoothPower method for more information.
-         */
-        left  = smoothPower(left);
-        right = smoothPower(right);
+        stevesRobot.setDriveMotorPower(
+                frontLeftPower,
+                frontRightPower,
+                backLeftPower,
+                backRightPower);
 
-        stevesRobot.setDriveMotorPower(left, right, left, right);
+
+
 
     }
     /**
