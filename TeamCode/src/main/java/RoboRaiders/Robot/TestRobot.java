@@ -272,8 +272,9 @@ public class TestRobot {
 
         float heading;
 
-        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES); //this sets up the how we want the IMU to report data
-        heading = Math.abs(angles.firstAngle); //heading is equal to the absolute value of the first angle
+//        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES); //this sets up the how we want the IMU to report data
+ //       heading = Math.abs(angles.firstAngle); //heading is equal to the absolute value of the first angle
+        heading = -imu.getAngularOrientation().firstAngle;
 
         return heading;
     }

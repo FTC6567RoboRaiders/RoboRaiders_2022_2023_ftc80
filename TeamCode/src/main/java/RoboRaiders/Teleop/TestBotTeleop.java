@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
+import RoboRaiders.Logger.Logger;
 import RoboRaiders.Robot.TestRobot;
 
 // This line establishes this op mode as a teleop op mode and allows for it to be displayed
@@ -14,6 +15,7 @@ public class TestBotTeleop extends OpMode {
 
     // Create an instance of the TestRobot and store it into StevesRobot
     public TestRobot stevesRobot = new TestRobot();
+    public Logger myLogger =  new Logger("TestBotTeleop");
 
     @Override
     public void init() {
@@ -38,6 +40,7 @@ public class TestBotTeleop extends OpMode {
         double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
 
+
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
         // at least one is out of the range [-1, 1]
@@ -46,6 +49,15 @@ public class TestBotTeleop extends OpMode {
         double backLeftPower = (rotY - rotX + rx) / denominator;
         double frontRightPower = (rotY - rotX - rx) / denominator;
         double backRightPower = (rotY + rotX - rx) / denominator;
+
+        myLogger.Debug("botheading ", botHeading);
+        myLogger.Debug("x / y / rx ", x, y, rx);
+        myLogger.Debug("rotX / rotY ", rotX, rotY);
+        myLogger.Debug("frontLeftPower / backLeftPower / frontRightPower / backRightPower ",
+                frontLeftPower,
+                backLeftPower,
+                frontRightPower,
+                backRightPower);
 
         stevesRobot.setDriveMotorPower(
                 frontLeftPower,
