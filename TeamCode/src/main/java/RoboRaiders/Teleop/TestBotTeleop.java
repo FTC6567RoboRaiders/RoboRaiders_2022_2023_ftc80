@@ -17,6 +17,11 @@ public class TestBotTeleop extends OpMode {
     public TestRobot stevesRobot = new TestRobot();
     public Logger myLogger =  new Logger("TestBotTeleop");
 
+
+
+
+    boolean yButton = false;
+
     @Override
     public void init() {
 
@@ -25,6 +30,7 @@ public class TestBotTeleop extends OpMode {
         telemetry.addData("Robot Initialized waiting your command", true);
         telemetry.update();
     }
+
 
     @Override
     public void loop() {
@@ -39,16 +45,33 @@ public class TestBotTeleop extends OpMode {
         double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
         double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
+        //Defining gamepad buttons
+        yButton = gamepad1.y;
+
 
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
-        // at least one is out of the range [-1, 1]
+        // at least one is ocut of the range [-1, 1]
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
         double frontRightPower = (rotY - rotX - rx) / denominator;
         double backRightPower = (rotY + rotX - rx) / denominator;
+
+        telemetry.addLine("MAKE SURE THE ARROWS ON MOTORS 1 AND 3 FACE THE DRIVER");
+        telemetry.addLine("Variables");
+        telemetry.addData("botHeading", String.valueOf(botHeading));
+        telemetry.addData("y", String.valueOf(y));
+        telemetry.addData("x", String.valueOf(x));
+        telemetry.addData("rx", String.valueOf(rx));
+        telemetry.addData("rotX", String.valueOf(rotX));
+        telemetry.addData("rotY", String.valueOf(rotY));
+        telemetry.addData("denominator", String.valueOf(denominator));
+        telemetry.addData("frontLeftPower", String.valueOf(frontLeftPower));
+        telemetry.addData("backLeftPower", String.valueOf(backLeftPower));
+        telemetry.addData("frontRightPower", String.valueOf(frontRightPower));
+        telemetry.addData("backRightPower", String.valueOf(backRightPower));
 
         myLogger.Debug("botheading ", botHeading);
         myLogger.Debug("x / y / rx ", x, y, rx);
@@ -58,12 +81,19 @@ public class TestBotTeleop extends OpMode {
                 backLeftPower,
                 frontRightPower,
                 backRightPower);
+        myLogger.Debug("Y Button", yButton);
 
         stevesRobot.setDriveMotorPower(
                 frontLeftPower,
                 frontRightPower,
                 backLeftPower,
                 backRightPower);
+
+
+        if(yButton)
+        {
+            stevesRobot.resetIMU();
+        }
 
 
 

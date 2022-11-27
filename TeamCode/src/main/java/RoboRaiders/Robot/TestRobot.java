@@ -35,6 +35,8 @@ public class TestRobot {
     public float iza_newHeading;
     public Orientation iza_angles;
 
+    public static double robotHeading;
+
     //Robot Constants
 
 

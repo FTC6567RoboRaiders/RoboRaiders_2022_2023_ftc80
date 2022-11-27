@@ -1,6 +1,6 @@
 package RoboRaiders.PID;
 
-import RoboRaiders.Logger.Logger;
+//import RoboRaiders.Logger.Logger;
 
 public class RoboRaidersPID {
 
@@ -59,7 +59,7 @@ public class RoboRaidersPID {
 
     public double pidWithCounts(double Target, double Sensor) {
 
-        Logger myLogger =  new Logger("RRpid");
+    //    Logger myLogger =  new Logger("RRpid");
         currentTime = (double)System.currentTimeMillis();
         timeChange = currentTime - previous_time;
 
@@ -77,7 +77,7 @@ public class RoboRaidersPID {
         power = (kp * error) + (ki * integral) + (kd * derivative);
 
         previous_time = (double) System.currentTimeMillis();
-        myLogger.Debug("pwc", error, integral, derivative);
+     //   myLogger.Debug("pwc", error, integral, derivative);
         return power;
 
 
