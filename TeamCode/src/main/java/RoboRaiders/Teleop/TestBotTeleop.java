@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import RoboRaiders.Logger.Logger;
+import RoboRaiders.Properties.RoboRaidersProperties;
 import RoboRaiders.Robot.TestRobot;
 
 // This line establishes this op mode as a teleop op mode and allows for it to be displayed
@@ -35,6 +36,9 @@ public class TestBotTeleop extends OpMode {
     @Override
     public void loop() {
 
+        double autoHeading = RoboRaidersProperties.getHeading();
+        telemetry.addLine().addData("auto heading: ", "autoHeading");
+
         // Read inverse IMU heading, as the IMU heading is CW positive
         double botHeading = stevesRobot.getHeading();
 
@@ -45,8 +49,7 @@ public class TestBotTeleop extends OpMode {
         double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
         double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
-        //Defining gamepad buttons
-        yButton = gamepad1.y;
+
 
 
 
@@ -72,6 +75,7 @@ public class TestBotTeleop extends OpMode {
         telemetry.addData("backLeftPower", String.valueOf(backLeftPower));
         telemetry.addData("frontRightPower", String.valueOf(frontRightPower));
         telemetry.addData("backRightPower", String.valueOf(backRightPower));
+        telemetry.addData("auto heading: ", autoHeading);
 
         myLogger.Debug("botheading ", botHeading);
         myLogger.Debug("x / y / rx ", x, y, rx);
@@ -90,10 +94,7 @@ public class TestBotTeleop extends OpMode {
                 backRightPower);
 
 
-        if(yButton)
-        {
-            stevesRobot.resetIMU();
-        }
+
 
 
 
