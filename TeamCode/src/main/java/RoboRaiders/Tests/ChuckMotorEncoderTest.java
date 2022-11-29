@@ -45,7 +45,6 @@ public class ChuckMotorEncoderTest extends LinearOpMode
 
         TestRobot dogMan = new TestRobot();
         dogMan.initialize(hardwareMap);
-        RoboRaidersProperties rRProperties = new RoboRaidersProperties();
 
         telemetry.addData("Robot Initialized waiting your command", true);
         telemetry.update();
