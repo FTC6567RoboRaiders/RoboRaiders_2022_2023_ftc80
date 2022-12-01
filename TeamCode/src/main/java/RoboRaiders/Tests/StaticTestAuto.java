@@ -53,6 +53,7 @@ public class StaticTestAuto extends LinearOpMode {
             telemetry.update();
 
      */
+            telemetry.update();
 
         }
 

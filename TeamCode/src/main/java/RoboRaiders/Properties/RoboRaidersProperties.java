@@ -1,7 +1,5 @@
 package RoboRaiders.Properties;
-
 public class RoboRaidersProperties {
-
     /** Class to contain static variables to hold data that may be needed
      * for opmodes to communicate with each other.
      *
@@ -12,11 +10,9 @@ public class RoboRaidersProperties {
      *
      *
      **/
-
     public static double lastHeading;
     public static boolean redAlliance;
     public static boolean blueAlliance;
-
     //Setter method
     public static void setHeading(double aHeading){
         lastHeading = aHeading;
@@ -25,5 +21,4 @@ public class RoboRaidersProperties {
     public static double getHeading(){
         return lastHeading;
     }
-
 }
