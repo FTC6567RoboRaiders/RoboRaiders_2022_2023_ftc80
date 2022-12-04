@@ -31,6 +31,8 @@ public class DetectATandPark extends LinearOpMode  {
     double fy = 578.272;
     double cx = 402.145;
     double cy = 221.506;
+    double numofticks;
+
 
     // UNITS ARE METERS
     double tagsize = 0.166;
@@ -66,21 +68,51 @@ public class DetectATandPark extends LinearOpMode  {
             }
         });
 
-        waitForStart();
+        int AprilTagId = getAprilTag();
+        telemetry.addData("AprilTagId: ",AprilTagId);
+        telemetry.addData("Robot initialized: ", true);
+        telemetry.update();
 
+        waitForStart();
+        bill.resetEncoders();
+        bill.runWithEncoders();
 
 
         telemetry.setMsTransmissionInterval(50);
 
         while (opModeIsActive())
         {
+            switch (AprilTagId) {
+                case 1:
+                    //move left than forward
+                    break;
+                case 2:
+                    //move forward
+                    telemetry.addData("AprileTagId: ",AprilTagId);
+                    numofticks =  bill.driveTrainCalculateCounts(30);
+                    telemetry.addData("numofticks: ", numofticks);
+                    bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+                    while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+                        telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                    }
+                    telemetry.update();
+                    bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                    break;
+                case 3:
+                    //move right than forward
+                    break;
+                default:
+                    telemetry.addData("No April Tag Found Parking In Default", AprilTagId);
 
             }
-
-            sleep(20);
         }
 
-    public int getAprilTag() {
+        // sleep(20);
+    }
+
+    public int getAprilTag()
+    {
         // Calling getDetectionsUpdate() will only return an object if there was a new frame
         // processed since the last time we called it. Otherwise, it will return null. This
         // enables us to only run logic when there has been a new frame, as opposed to the
@@ -88,11 +120,13 @@ public class DetectATandPark extends LinearOpMode  {
         ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
 
         // If there's been a new frame...
-        if (detections != null) {
+        if (detections != null)
+        {
 
 
             // If we don't see any tags
-            if (detections.size() == 0) {
+            if (detections.size() == 0)
+            {
                 numFramesWithoutDetection++;
 
                 // If we haven't seen a tag for a few frames, lower the decimation
@@ -102,7 +136,8 @@ public class DetectATandPark extends LinearOpMode  {
                 }
             }
             // We do see tags!
-            else {
+            else
+            {
                 numFramesWithoutDetection = 0;
 
                 // If the target is within 1 meter, turn on high decimation to
@@ -113,12 +148,14 @@ public class DetectATandPark extends LinearOpMode  {
 
                 for (AprilTagDetection detection : detections) {
                     telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+                    return detection.id;
 
                 }
             }
 
             telemetry.update();
         }
+        return 0;
     }
 }
 
