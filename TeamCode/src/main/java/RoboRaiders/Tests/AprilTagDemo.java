@@ -32,6 +32,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
+import RoboRaiders.Pipelines.AprilTagDetectionPipeline;
+
 @TeleOp
 public class AprilTagDemo extends LinearOpMode
 {
