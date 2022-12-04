@@ -69,6 +69,7 @@ public class DetectATandPark extends LinearOpMode  {
         waitForStart();
 
 
+
         telemetry.setMsTransmissionInterval(50);
 
         while (opModeIsActive())
