@@ -20,7 +20,6 @@ import RoboRaiders.Robot.TestRobot;
 public class DetectATandPark extends LinearOpMode  {
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
-
     static final double FEET_PER_METER = 3.28084;
 
     // Lens intrinsics
@@ -85,7 +84,28 @@ public class DetectATandPark extends LinearOpMode  {
             switch (AprilTagId) {
                 case 1:
                     //move left than forward
+                    numofticks =  bill.driveTrainCalculateCounts(15);
+                    telemetry.addData("numofticks: ", numofticks);
+                    bill.setDriveMotorPower(0.5, -0.5, -0.5, 0.5);
+                    while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+                        telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                    }
+                    telemetry.update();
+                    bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                    numofticks = bill.driveTrainCalculateCounts(30);
+                    telemetry.addData("numofticks: ", numofticks);
+
+                    bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+
+                    while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+                        telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                    }
+                    telemetry.update();
+                    bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
                     break;
+
+
                 case 2:
                     //move forward
                     telemetry.addData("AprileTagId: ",AprilTagId);
@@ -101,6 +121,25 @@ public class DetectATandPark extends LinearOpMode  {
                     break;
                 case 3:
                     //move right than forward
+                    numofticks =  bill.driveTrainCalculateCounts(15);
+                    telemetry.addData("numofticks: ", numofticks);
+                    bill.setDriveMotorPower(-0.5, 0.5, 0.5, -0.5);
+                    while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+                        telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                    }
+                    telemetry.update();
+                    bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                    numofticks = bill.driveTrainCalculateCounts(30);
+                    telemetry.addData("numofticks: ", numofticks);
+
+                    bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+
+                    while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+                        telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                    }
+                    telemetry.update();
+                    bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
                     break;
                 default:
                     telemetry.addData("No April Tag Found Parking In Default", AprilTagId);
