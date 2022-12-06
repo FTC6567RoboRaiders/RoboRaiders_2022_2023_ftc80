@@ -22,12 +22,12 @@ public class DetectATandPark extends OpMode
 {
 
     enum State {
-        NOT_INITIALIZED,
-        INITIALIZED,
-        STARTED,
-        PARKED,
-        STOP,
-        DONE
+        NOT_INITIALIZED,            // Robot has not been initialized, this is the starting state
+        INITIALIZED,                // Robot has been initialized properly, occurs after pushing the INIT button
+        STARTED,                    // Robot has been started, occurs after the START button has been pushed
+        PARKED,                     // Robot is parked in one of 4 locations on the field
+        STOP,                       // Robot is stopped, occurs at the end of autonomous after 30 seconds
+        DONE                        // Robot is done, nothing more for it to do
     }
 
     State state = State.NOT_INITIALIZED;
