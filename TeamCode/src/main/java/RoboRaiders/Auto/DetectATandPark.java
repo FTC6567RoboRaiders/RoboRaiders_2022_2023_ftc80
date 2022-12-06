@@ -2,6 +2,7 @@ package RoboRaiders.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.apriltag.AprilTagDetection;
@@ -17,9 +18,22 @@ import RoboRaiders.Robot.TestRobot;
 @Autonomous
 
 
-public class DetectATandPark extends LinearOpMode  {
+public class DetectATandPark extends OpMode {
+    enum State {
+        NOT_INITIALIZED,
+        INITIALIZED,
+        STARTED,
+        PARKED,
+        STOP,
+        DONE
+    }
+
+    State state = State.NOT_INITIALIZED;
+
     OpenCvCamera camera;
+    int cameraMonitorViewId;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
+    TestRobot bill;
 
     static final double FEET_PER_METER = 3.28084;
 
@@ -38,17 +52,19 @@ public class DetectATandPark extends LinearOpMode  {
     double tagsize = 0.166;
 
     int numFramesWithoutDetection = 0;
+    int aprilTagId;
 
     final float DECIMATION_HIGH = 3;
     final float DECIMATION_LOW = 2;
     final float THRESHOLD_HIGH_DECIMATION_RANGE_METERS = 1.0f;
     final int THRESHOLD_NUM_FRAMES_NO_DETECTION_BEFORE_LOW_DECIMATION = 4;
+
     @Override
-    public void runOpMode()
+    public void init()
     {
-        TestRobot bill = new TestRobot();
+        bill = new TestRobot();
         bill.initialize(hardwareMap);
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
@@ -67,48 +83,77 @@ public class DetectATandPark extends LinearOpMode  {
 
             }
         });
+        state = State.INITIALIZED;
+    }
 
-        int AprilTagId = getAprilTag();
-        telemetry.addData("AprilTagId: ",AprilTagId);
-        telemetry.addData("Robot initialized: ", true);
+    @Override
+    public void init_loop() {
+
+        telemetry.addData("Status", "Robot is stopped and Initialized...");
+        aprilTagId = getAprilTag();
+        telemetry.addData("AprilTagId: ",aprilTagId);
+        telemetry.update();
+    }
+
+    @Override
+    public void loop()
+    {
+
+        telemetry.addData("State: ", state);
+        state = State.STARTED;
+
+        switch(state)
+        {
+            case STARTED:
+                bill.resetEncoders();
+                bill.runWithEncoders();
+                switch (aprilTagId) {
+                    case 1:
+                        //move left than forward
+                        telemetry.addData("Status", "Case 1");
+                        state = State.PARKED;
+                        break;
+
+                    case 2:
+                        //move forward
+                        telemetry.addData("aprilTagId: ", aprilTagId);
+                        numofticks = bill.driveTrainCalculateCounts(30);
+                        telemetry.addData("numofticks: ", numofticks);
+                        bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+                        while (bill.getSortedEncoderCount() <= numofticks) {
+                            telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                        }
+                        telemetry.update();
+                        bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+                        state = State.PARKED;
+                        break;
+
+                    case 3:
+                        //move right than forward
+                        telemetry.addData("Status", "Case 3");
+                        state = State.PARKED;
+                        break;
+
+                    default:
+                        telemetry.addData("No April Tag Found Parking In Default Location", aprilTagId);
+                        state = State.PARKED;
+                        break;
+                }
+                telemetry.addData("Robot State: ",state);
+                break;
+
+            case PARKED:
+                state = State.STOP;
+                telemetry.addData("Robot State: ",state);
+                break;
+
+            case STOP:
+                state = State.DONE;
+                telemetry.addData("Robot State: ",state);
+                break;
+        }
         telemetry.update();
 
-        waitForStart();
-        bill.resetEncoders();
-        bill.runWithEncoders();
-
-
-        telemetry.setMsTransmissionInterval(50);
-
-        while (opModeIsActive())
-        {
-            switch (AprilTagId) {
-                case 1:
-                    //move left than forward
-                    break;
-                case 2:
-                    //move forward
-                    telemetry.addData("AprileTagId: ",AprilTagId);
-                    numofticks =  bill.driveTrainCalculateCounts(30);
-                    telemetry.addData("numofticks: ", numofticks);
-                    bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
-                    while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
-                        telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
-                    }
-                    telemetry.update();
-                    bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-
-                    break;
-                case 3:
-                    //move right than forward
-                    break;
-                default:
-                    telemetry.addData("No April Tag Found Parking In Default", AprilTagId);
-
-            }
-        }
-
-        // sleep(20);
     }
 
     public int getAprilTag()
@@ -157,5 +202,6 @@ public class DetectATandPark extends LinearOpMode  {
         }
         return 0;
     }
+
 }
 
