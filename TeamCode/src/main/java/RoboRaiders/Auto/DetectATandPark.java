@@ -18,7 +18,9 @@ import RoboRaiders.Robot.TestRobot;
 @Autonomous
 
 
-public class DetectATandPark extends OpMode {
+public class DetectATandPark extends OpMode
+{
+
     enum State {
         NOT_INITIALIZED,
         INITIALIZED,
@@ -60,8 +62,7 @@ public class DetectATandPark extends OpMode {
     final int THRESHOLD_NUM_FRAMES_NO_DETECTION_BEFORE_LOW_DECIMATION = 4;
 
     @Override
-    public void init()
-    {
+    public void init() {
         bill = new TestRobot();
         bill.initialize(hardwareMap);
         cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -69,17 +70,14 @@ public class DetectATandPark extends OpMode {
         aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
         camera.setPipeline(aprilTagDetectionPipeline);
-        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
-            public void onOpened()
-            {
+            public void onOpened() {
                 camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
-            public void onError(int errorCode)
-            {
+            public void onError(int errorCode) {
 
             }
         });
@@ -96,17 +94,20 @@ public class DetectATandPark extends OpMode {
     }
 
     @Override
-    public void loop()
-    {
+    public void start() {
+        state = State.STARTED;
+    }
+
+    @Override
+    public void loop() {
 
         telemetry.addData("State: ", state);
-        state = State.STARTED;
 
-        switch(state)
-        {
+        switch(state)  {
             case STARTED:
                 bill.resetEncoders();
                 bill.runWithEncoders();
+
                 switch (aprilTagId) {
                     case 1:
                         //move left than forward
@@ -156,8 +157,7 @@ public class DetectATandPark extends OpMode {
 
     }
 
-    public int getAprilTag()
-    {
+    public int getAprilTag() {
         // Calling getDetectionsUpdate() will only return an object if there was a new frame
         // processed since the last time we called it. Otherwise, it will return null. This
         // enables us to only run logic when there has been a new frame, as opposed to the
@@ -165,13 +165,11 @@ public class DetectATandPark extends OpMode {
         ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
 
         // If there's been a new frame...
-        if (detections != null)
-        {
+        if (detections != null) {
 
 
             // If we don't see any tags
-            if (detections.size() == 0)
-            {
+            if (detections.size() == 0) {
                 numFramesWithoutDetection++;
 
                 // If we haven't seen a tag for a few frames, lower the decimation
@@ -181,8 +179,7 @@ public class DetectATandPark extends OpMode {
                 }
             }
             // We do see tags!
-            else
-            {
+            else {
                 numFramesWithoutDetection = 0;
 
                 // If the target is within 1 meter, turn on high decimation to
