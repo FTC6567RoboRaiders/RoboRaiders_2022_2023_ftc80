@@ -113,7 +113,29 @@ public class DetectATandPark extends OpMode
                         //move left than forward
                         telemetry.addData("Status", "Case 1");
                         state = State.PARKED;
+
+//                        numofticks =  bill.driveTrainCalculateCounts(15);
+//                        telemetry.addData("numofticks: ", numofticks);
+//                        bill.setDriveMotorPower(0.5, -0.5, -0.5, 0.5);
+//                        while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+//                            telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+//                        }
+//                        telemetry.update();
+//                        bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//
+//                        numofticks = bill.driveTrainCalculateCounts(30);
+//                        telemetry.addData("numofticks: ", numofticks);
+//
+//                        bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+//
+//                        while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+//                            telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+//                        }
+//                        telemetry.update();
+//                        bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//                        break;
                         break;
+
 
                     case 2:
                         //move forward
@@ -133,6 +155,31 @@ public class DetectATandPark extends OpMode
                         //move right than forward
                         telemetry.addData("Status", "Case 3");
                         state = State.PARKED;
+
+//                        numofticks =  bill.driveTrainCalculateCounts(15);
+//                        telemetry.addData("numofticks: ", numofticks);
+//                        bill.setDriveMotorPower(-0.5, 0.5, 0.5, -0.5);
+//                        while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+//                            telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+//                        }
+//                        telemetry.update();
+//                        bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//
+//                        numofticks = bill.driveTrainCalculateCounts(30);
+//                        telemetry.addData("numofticks: ", numofticks);
+//
+//                        bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+//
+//                        while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+//                            telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+//                        }
+//                        telemetry.update();
+//                        bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//                        break;
+//                    default:
+//                        telemetry.addData("No April Tag Found Parking In Default", AprilTagId);
+//
+//                }
                         break;
 
                     default:
