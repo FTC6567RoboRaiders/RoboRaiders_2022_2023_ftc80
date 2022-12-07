@@ -20,14 +20,13 @@ import RoboRaiders.Robot.TestRobot;
 @Autonomous
 
 
-public class DetectATandPark extends OpMode
+public class DetectATandParkWithHubbot extends OpMode
 {
 
     enum State {
         NOT_INITIALIZED,            // Robot has not been initialized, this is the starting state
         INITIALIZED,                // Robot has been initialized properly, occurs after pushing the INIT button
         STARTED,                    // Robot has been started, occurs after the START button has been pushed
-        ON_THE_MOVE,                // Robot is on the move, that is a power other than 0.0 has been applied to the drive train motors.
         PARKED,                     // Robot is parked in one of 4 locations on the field
         STOP,                       // Robot is stopped, occurs at the end of autonomous after 30 seconds
         DONE                        // Robot is done, nothing more for it to do
@@ -39,7 +38,7 @@ public class DetectATandPark extends OpMode
     OpenCvCamera camera;
     int cameraMonitorViewId;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
-    TestRobot bill;
+    Hubbot bill;
 
     static final double FEET_PER_METER = 3.28084;
 
@@ -70,7 +69,7 @@ public class DetectATandPark extends OpMode
      */
     @Override
     public void init() {
-        bill = new TestRobot();
+        bill = new Hubbot();
         bill.initialize(hardwareMap);
         cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
@@ -134,13 +133,13 @@ public class DetectATandPark extends OpMode
 
         switch(state)  {
             case STARTED:
-                bill.resetEncoders();
-                bill.runWithEncoders();
+                //    bill.resetEncoders();
+                //    bill.runWithEncoders();
 
                 switch (aprilTagId) {
                     case 1:
                         //move left than forward
-                        telemetry.addData("Status", "Case 1");
+                        //      telemetry.addData("Status", "Case 1");
                         myLogger.Debug("loop() - Case 1");
                         state = State.PARKED;
                         break;
@@ -148,35 +147,33 @@ public class DetectATandPark extends OpMode
                     case 2:
                         //move forward
                         myLogger.Debug("loop() - Case 2");
-                        telemetry.addData("Status", "Case 2");
-                        telemetry.addData("aprilTagId: ", aprilTagId);
-                        numofticks = bill.driveTrainCalculateCounts(30);
-                        telemetry.addData("numofticks: ", numofticks);
-                        bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
-                        state = State.ON_THE_MOVE;
+                        //          telemetry.addData("Status", "Case 2");
+                        //          telemetry.addData("aprilTagId: ", aprilTagId);
+                        //          numofticks = bill.driveTrainCalculateCounts(30);
+                        //          telemetry.addData("numofticks: ", numofticks);
+                        //        bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+                        //      while (bill.getSortedEncoderCount() <= numofticks) {
+                        //         telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                        //     }
+                        //         telemetry.update();
+                        //     bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+                        state = State.PARKED;
                         break;
 
                     case 3:
                         //move right than forward
                         myLogger.Debug("loop() - Case 3");
-                        telemetry.addData("Status", "Case 3");
+                        //          telemetry.addData("Status", "Case 3");
                         state = State.PARKED;
                         break;
 
                     default:
                         myLogger.Debug("loop() - default");
-                        telemetry.addData("No April Tag Found Parking In Default Location", aprilTagId);
+                        //        telemetry.addData("No April Tag Found Parking In Default Location", aprilTagId);
                         state = State.PARKED;
                         break;
                 }
                 //telemetry.addData("Robot State: ",state);
-                break;
-
-            case ON_THE_MOVE:
-                if (bill.getSortedEncoderCount() >= numofticks) {
-                    bill.setDriveMotorPower(0.0,0.0,0.0,0.0);
-                    state = state.PARKED;
-                }
                 break;
 
             case PARKED:
@@ -207,7 +204,7 @@ public class DetectATandPark extends OpMode
         // getLatestDetections() method which will always return an object.
 
         //ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
-        ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getLatestDetections();  // Changed to this line to always return an object
+        ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getLatestDetections();
 
         // If there's been a new frame...
         if (detections != null) {
@@ -236,22 +233,16 @@ public class DetectATandPark extends OpMode
                     telemetry.addData("setting decimation to: ", "HIGH");
                 }
 
-                // get the first detection rather than all the detections, we will need to test this
-                // out on the field since there could be other teams using apriltags for their sleeve
-                // that are across the field, so we just need to print another sleeve and put in the
-                // position across field from where the robot is stating from.
-                AprilTagDetection detection = detections.get(0);
+                AprilTagDetection detection = detections.get(0);  // get the first detection
 
-               // for (AprilTagDetection detection : detections) {
-               //     telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+                // for (AprilTagDetection detection : detections) {
+                //     telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+                atId = detection.id;
 
-               // get the detection id information and stash it into a variable for now
-               atId = detection.id;
-
-               // }
+                // }
             }
 
-           // telemetry.update();
+            // telemetry.update();
         }
         return atId;
     }
