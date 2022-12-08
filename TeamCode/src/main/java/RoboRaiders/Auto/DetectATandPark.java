@@ -33,7 +33,6 @@ public class DetectATandPark extends OpMode
         DONE                        // Robot is done, nothing more for it to do
     }
 
-
     State state = State.NOT_INITIALIZED;
 
     Logger myLogger;
@@ -141,10 +140,30 @@ public class DetectATandPark extends OpMode
 
                 switch (aprilTagId) {
                     case 1:
-                        //move left than forward
+                        //move left, then forward
                         telemetry.addData("Status", "Case 1");
-                        myLogger.Debug("loop() - Case 1");
-                        state = State.PARKED;    // Once code is added to power the motors, then state should be set to ON_THE_MOVE
+                        state = State.PARKED;
+
+//                        numofticks =  bill.driveTrainCalculateCounts(15);
+//                        telemetry.addData("numofticks: ", numofticks);
+//                        bill.setDriveMotorPower(0.5, -0.5, -0.5, 0.5);
+//                        while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+//                            telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+//                        }
+//                        telemetry.update();
+//                        bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//
+//                        numofticks = bill.driveTrainCalculateCounts(30);
+//                        telemetry.addData("numofticks: ", numofticks);
+//
+//                        bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+//
+//                        while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+//                            telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+//                        }
+//                        telemetry.update();
+//                        bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//                        break;
                         break;
 
 
