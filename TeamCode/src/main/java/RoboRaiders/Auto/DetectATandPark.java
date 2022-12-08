@@ -105,9 +105,9 @@ public class DetectATandPark extends OpMode
 
         telemetry.addData("Status", "Robot is stopped and Initialized...");
         aprilTagId = getAprilTag();
-        telemetry.addData("AprilTagId: ",aprilTagId);
+        telemetry.addData("AprilTagId: ", aprilTagId);
         telemetry.update();
-        myLogger.Debug("init_loop() - aprilTagId: ",aprilTagId);
+        myLogger.Debug("init_loop() - aprilTagId: ", aprilTagId);
         myLogger.Debug("init_loop() - state: ", state.toString());
     }
 
@@ -139,7 +139,7 @@ public class DetectATandPark extends OpMode
                 bill.runWithEncoders();
 
                 switch (aprilTagId) {
-                    case 1:
+                    case 0:
                         //move left, then forward
                         telemetry.addData("Status", "Case 1");
                         state = State.PARKED;
@@ -152,7 +152,7 @@ public class DetectATandPark extends OpMode
 //                        }
 //                        telemetry.update();
 //                        bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-//
+//                        sleep(500)
 //                        numofticks = bill.driveTrainCalculateCounts(30);
 //                        telemetry.addData("numofticks: ", numofticks);
 //
@@ -167,26 +167,45 @@ public class DetectATandPark extends OpMode
                         break;
 
 
-                    case 2:
+                    case 1:
                         //move forward
                         myLogger.Debug("loop() - Case 2");
                         telemetry.addData("Status", "Case 2");
                         telemetry.addData("aprilTagId: ", aprilTagId);
 
-                        numofticks = bill.driveTrainCalculateCounts(30);
+                        numofticks = bill.driveTrainCalculateCounts(12.5);
                         telemetry.addData("numofticks: ", numofticks);
-                        bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+                        bill.setDriveMotorPower(-0.5, -0.5, -0.5, -0.5);
 
                         state = State.ON_THE_MOVE;
                         break;
 
-                    case 3:
-                        //move right than forward
+                    case 2:
+                        //move right then forward
                         myLogger.Debug("loop() - Case 3");
                         telemetry.addData("Status", "Case 3");
                         state = State.PARKED;     // Once code is added to power the motors, then state should be set to ON_THE_MOVE
                         break;
-
+//                        numofticks =  bill.driveTrainCalculateCounts(15);
+//                        telemetry.addData("numofticks: ", numofticks);
+//                        bill.setDriveMotorPower(0.5, -0.5, -0.5, 0.5);
+//                        while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+//                            telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+//                        }
+//                        telemetry.update();
+//                        bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//                        sleep(500)
+//                        numofticks = bill.driveTrainCalculateCounts(30);
+//                        telemetry.addData("numofticks: ", numofticks);
+//
+//                        bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+//
+//                        while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+//                            telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+//                        }
+//                        telemetry.update();
+//                        bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//                        break;
                     default:
                         myLogger.Debug("loop() - default");
                         telemetry.addData("No April Tag Found Parking In Default Location", aprilTagId);
