@@ -33,6 +33,7 @@ public class DetectATandPark extends OpMode
         DONE                        // Robot is done, nothing more for it to do
     }
 
+
     State state = State.NOT_INITIALIZED;
 
     Logger myLogger;
