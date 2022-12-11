@@ -6,6 +6,7 @@
 
 package RoboRaiders.Auto;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import RoboRaiders.Logger.Logger;
 import RoboRaiders.Pipelines.AprilTagDetectionPipeline;
 import RoboRaiders.Robot.TestRobot;
+
+@Autonomous
 
 public class DectectATAndParkLO extends LinearOpMode {
 
@@ -62,6 +65,7 @@ public class DectectATAndParkLO extends LinearOpMode {
         /**
          * Initialize some stuff
          */
+        myLogger = new Logger("DectectATAndParkLO");
         bill = new TestRobot();
         bill.initialize(hardwareMap);
         cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -97,18 +101,50 @@ public class DectectATAndParkLO extends LinearOpMode {
                 //move left, then forward
                 telemetry.addData("Status", "Case 1");
 
-                numofticks =  bill.driveTrainCalculateCounts(15);
+                numofticks = bill.driveTrainCalculateCounts(0.5);
+                telemetry.addData("numofticks: ", numofticks);
+                bill.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+                while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                }
+                bill.resetEncoders();
+                bill.runWithEncoders();
+                telemetry.update();
+                bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+                numofticks =  bill.driveTrainCalculateCounts(12);
                 telemetry.addData("numofticks: ", numofticks);
                 bill.setDriveMotorPower(0.5, -0.5, -0.5, 0.5);
                 while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
                     telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
                 }
+                numofticks = bill.driveTrainCalculateCounts(0.5);
+                telemetry.addData("numofticks: ", numofticks);
+                bill.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
+                while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                }
+                bill.resetEncoders();
+                bill.runWithEncoders();
                 telemetry.update();
                 bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-                numofticks = bill.driveTrainCalculateCounts(30);
+                numofticks = bill.driveTrainCalculateCounts(2);
                 telemetry.addData("numofticks: ", numofticks);
                 bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
+                while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+                    telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                }
+                telemetry.update();
+                bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
 
+
+                sleep(100);
+                bill.resetEncoders();
+                bill.runWithEncoders();
+                telemetry.update();
+                bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+                numofticks = bill.driveTrainCalculateCounts(11);
+                telemetry.addData("numofticks: ", numofticks);
+                bill.setDriveMotorPower(-0.5, -0.5, -0.5, -0.5);
                 while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
                     telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
                 }
@@ -134,22 +170,52 @@ public class DectectATAndParkLO extends LinearOpMode {
 
             case 2:
                 //move right then forward
-                myLogger.Debug("loop() - Case 3");
-                telemetry.addData("Status", "Case 3");
-                numofticks =  bill.driveTrainCalculateCounts(15);
+                telemetry.addData("Status", "Case 1");
+
+                numofticks = bill.driveTrainCalculateCounts(0.35);
                 telemetry.addData("numofticks: ", numofticks);
-                bill.setDriveMotorPower(0.5, -0.5, -0.5, 0.5);
+                bill.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+                while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                }
+                bill.resetEncoders();
+                bill.runWithEncoders();
+                telemetry.update();
+                bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+                numofticks =  bill.driveTrainCalculateCounts(12);
+                telemetry.addData("numofticks: ", numofticks);
+                bill.setDriveMotorPower(-0.5, 0.5, 0.5, -0.5);
+                while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
+                    telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                }
+                numofticks = bill.driveTrainCalculateCounts(0.5);
+                telemetry.addData("numofticks: ", numofticks);
+                bill.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
+                while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
+                }
+                bill.resetEncoders();
+                bill.runWithEncoders();
+                telemetry.update();
+                bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+                numofticks = bill.driveTrainCalculateCounts(2);
+                telemetry.addData("numofticks: ", numofticks);
+                bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
                 while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
                     telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
                 }
                 telemetry.update();
                 bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
 
-                numofticks = bill.driveTrainCalculateCounts(30);
+
+                sleep(100);
+                bill.resetEncoders();
+                bill.runWithEncoders();
+                telemetry.update();
+                bill.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+                numofticks = bill.driveTrainCalculateCounts(11);
                 telemetry.addData("numofticks: ", numofticks);
-
-                bill.setDriveMotorPower(0.5, 0.5, 0.5, 0.5);
-
+                bill.setDriveMotorPower(-0.5, -0.5, -0.5, -0.5);
                 while (opModeIsActive() && bill.getSortedEncoderCount() <= numofticks){
                     telemetry.addData("getSortEncoderCount()", bill.getSortedEncoderCount());
                 }
