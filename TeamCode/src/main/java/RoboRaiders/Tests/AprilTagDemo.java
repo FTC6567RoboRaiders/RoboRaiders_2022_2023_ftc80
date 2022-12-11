@@ -72,9 +72,13 @@ public class AprilTagDemo extends LinearOpMode
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
+     //       public void onOpened()
+     //       {
+     //           camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+     //       }
             public void onOpened()
             {
-                camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override

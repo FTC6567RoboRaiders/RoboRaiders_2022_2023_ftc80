@@ -78,8 +78,9 @@ public class DetectATandParkWithHubbot extends OpMode
         camera.setPipeline(aprilTagDetectionPipeline);
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
+   //         public void onOpened() {camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT); }
             public void onOpened() {
-                camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -88,7 +89,7 @@ public class DetectATandParkWithHubbot extends OpMode
             }
         });
 
-        myLogger = new Logger("DetectATandPark");
+        myLogger = new Logger("DetectATandParkWithHubbot");
         state = State.INITIALIZED;
         myLogger.Debug("init() - aprilTagId: ",aprilTagId);
         myLogger.Debug("init() - state: ", state.toString());
@@ -137,14 +138,14 @@ public class DetectATandParkWithHubbot extends OpMode
                 //    bill.runWithEncoders();
 
                 switch (aprilTagId) {
-                    case 1:
+                    case 0:
                         //move left than forward
                         //      telemetry.addData("Status", "Case 1");
                         myLogger.Debug("loop() - Case 1");
                         state = State.PARKED;
                         break;
 
-                    case 2:
+                    case 1:
                         //move forward
                         myLogger.Debug("loop() - Case 2");
                         //          telemetry.addData("Status", "Case 2");
@@ -160,7 +161,7 @@ public class DetectATandParkWithHubbot extends OpMode
                         state = State.PARKED;
                         break;
 
-                    case 3:
+                    case 2:
                         //move right than forward
                         myLogger.Debug("loop() - Case 3");
                         //          telemetry.addData("Status", "Case 3");

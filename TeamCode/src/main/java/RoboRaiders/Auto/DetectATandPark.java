@@ -89,7 +89,6 @@ public class DetectATandPark extends OpMode
             }
         });
 
-
         myLogger = new Logger("DetectATandPark");
         state = State.INITIALIZED;
         myLogger.Debug("init() - aprilTagId: ",aprilTagId);
