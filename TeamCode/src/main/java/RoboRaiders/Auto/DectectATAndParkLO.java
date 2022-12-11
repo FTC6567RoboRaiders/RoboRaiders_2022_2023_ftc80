@@ -52,6 +52,8 @@ public class DectectATAndParkLO extends LinearOpMode {
     final float THRESHOLD_HIGH_DECIMATION_RANGE_METERS = 1.0f;
     final int THRESHOLD_NUM_FRAMES_NO_DETECTION_BEFORE_LOW_DECIMATION = 4;
 
+    final int[] OUR_APRIL_TAGS = {0,1,2};
+
 
 
     @Override
@@ -70,7 +72,7 @@ public class DectectATAndParkLO extends LinearOpMode {
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                camera.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT);
+                camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override
@@ -87,12 +89,10 @@ public class DectectATAndParkLO extends LinearOpMode {
             telemetry.addData("AprilTagId: ", aprilTagId);
             telemetry.update();
             myLogger.Debug("init_loop() - aprilTagId: ", aprilTagId);
-            myLogger.Debug("init_loop() - state: ", state.toString());
-
         }
     }
     public int getAprilTag() {
-
+        boolean april_tag_found = false;
         int atId = 0;
         // Calling getDetectionsUpdate() will only return an object if there was a new frame
         // processed since the last time we called it. Otherwise, it will return null. This
@@ -141,11 +141,24 @@ public class DectectATAndParkLO extends LinearOpMode {
                 // get the detection id information and stash it into a variable for now
                 atId = detection.id;
 
+                for (int i = 0; i<=2; i++){
+                    if(atId == OUR_APRIL_TAGS[i]){
+                        april_tag_found = true;
+                    }
+
+                }
+
                 // }
             }
 
             // telemetry.update();
         }
-        return atId;
+        if(april_tag_found){
+            return atId;
+        }
+        else{
+            return 99999999;
+        }
+
     }
 }
