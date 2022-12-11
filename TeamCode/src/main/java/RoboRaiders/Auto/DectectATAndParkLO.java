@@ -9,9 +9,12 @@ package RoboRaiders.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+
+import java.util.ArrayList;
 
 import RoboRaiders.Logger.Logger;
 import RoboRaiders.Pipelines.AprilTagDetectionPipeline;
@@ -77,8 +80,72 @@ public class DectectATAndParkLO extends LinearOpMode {
         });
 
 
-        waitForStart();
+        // waitForStart();
+        while (!isStarted() && !isStopRequested()) {
+            telemetry.addData("Status", "Robot is stopped and Initialized...");
+            aprilTagId = getAprilTag();
+            telemetry.addData("AprilTagId: ", aprilTagId);
+            telemetry.update();
+            myLogger.Debug("init_loop() - aprilTagId: ", aprilTagId);
+            myLogger.Debug("init_loop() - state: ", state.toString());
+
+        }
+    }
+    public int getAprilTag() {
+
+        int atId = 0;
+        // Calling getDetectionsUpdate() will only return an object if there was a new frame
+        // processed since the last time we called it. Otherwise, it will return null. This
+        // enables us to only run logic when there has been a new frame, as opposed to the
+        // getLatestDetections() method which will always return an object.
+
+        //ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
+        ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getLatestDetections();  // Changed to this line to always return an object
+
+        // If there's been a new frame...
+        if (detections != null) {
 
 
+            // If we don't see any tags
+            if (detections.size() == 0) {
+                numFramesWithoutDetection++;
+                telemetry.addData("numFramesWithoutDetection: ",numFramesWithoutDetection);
+
+                // If we haven't seen a tag for a few frames, lower the decimation
+                // so we can hopefully pick one up if we're e.g. far back
+                if (numFramesWithoutDetection >= THRESHOLD_NUM_FRAMES_NO_DETECTION_BEFORE_LOW_DECIMATION) {
+                    aprilTagDetectionPipeline.setDecimation(DECIMATION_LOW);
+                    telemetry.addData("setting decimation to: ", "LOW");
+                }
+            }
+            // We do see tags!
+            else {
+                numFramesWithoutDetection = 0;
+
+                // If the target is within 1 meter, turn on high decimation to
+                // increase the frame rate
+                if (detections.get(0).pose.z < THRESHOLD_HIGH_DECIMATION_RANGE_METERS) {
+                    aprilTagDetectionPipeline.setDecimation(DECIMATION_HIGH);
+                    telemetry.addData("setting decimation to: ", "HIGH");
+                }
+
+                // get the first detection rather than all the detections, we will need to test this
+                // out on the field since there could be other teams using apriltags for their sleeve
+                // that are across the field, so we just need to print another sleeve and put in the
+                // position across field from where the robot is stating from.
+                AprilTagDetection detection = detections.get(0);
+
+                // for (AprilTagDetection detection : detections) {
+                //     telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+
+                // get the detection id information and stash it into a variable for now
+                atId = detection.id;
+
+                // }
+            }
+
+            // telemetry.update();
+        }
+        return atId;
     }
 }
