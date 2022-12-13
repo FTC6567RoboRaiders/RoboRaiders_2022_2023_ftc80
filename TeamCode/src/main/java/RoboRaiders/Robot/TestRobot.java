@@ -128,7 +128,7 @@ public class TestRobot {
 
 
     /**
-     * Calculates the number of encoder counts to travel a given distance for the drive train motors
+     * calculates the number of encoder counts to travel a given distance for the drive train motors
      * @param distance
      * @return
      */
@@ -136,16 +136,37 @@ public class TestRobot {
 
         double COUNTS;
 
-        int DIAMETER = 4; //diameter of wheel
-        double GEAR_RATIO = (1.0 / 1.0); //gear ratio
+        int DIAMETER = 4; // diameter of wheel
+        double GEAR_RATIO = (1.0 / 1.0); // gear ratio
 
-//        double PULSES = 537.6; //encoder counts in one revolution - neverest 20 orbital
-        double PULSES = 1120.0; //encoder counts in one revolution - neverest 40 orbital
-//        double PULSES = 1680.0; //encoder counts in one revolution - neverest 60 orbital
+//        double PULSES = 537.6; // encoder counts in one revolution - neverest 20 orbital
+        double PULSES = 1120.0; // encoder counts in one revolution - neverest 40 orbital
+//        double PULSES = 1680.0; // encoder counts in one revolution - neverest 60 orbital
 
-        double CIRCUMFERENCE = Math.PI * DIAMETER; //gives you circumference
-        double ROTATIONS = (distance / CIRCUMFERENCE) * GEAR_RATIO; //gives the rotations
-        COUNTS = PULSES * ROTATIONS; //gives the counts
+        double CIRCUMFERENCE = Math.PI * DIAMETER; // gives circumference
+        double ROTATIONS = (distance / CIRCUMFERENCE) * GEAR_RATIO; // gives rotations
+        COUNTS = PULSES * ROTATIONS; // gives counts
+
+        return COUNTS;
+    }
+
+    /**
+     * calculates the number of encoder counts to travel a given distance for the turret
+     * @param distance
+     * @return
+     */
+    public double turretCalculateCounts(double distance) {
+
+        double COUNTS;
+
+        double DIAMETER = 3.5; // diameter of turret
+        double GEAR_RATIO = (3.0 / 4.0); // gear ratio
+
+        double PULSES = 288.0; // encoder counts in one revolution - core hex motor
+
+        double CIRCUMFERENCE = Math.PI * DIAMETER; //gives circumference
+        double ROTATIONS = (distance / CIRCUMFERENCE) * GEAR_RATIO; //gives rotations
+        COUNTS = PULSES * ROTATIONS; //gives counts
 
         return COUNTS;
     }
