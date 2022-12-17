@@ -18,6 +18,8 @@ public class TestRobot {
     public DcMotor rFMotor = null;
     public DcMotor lRMotor = null;
     public DcMotor rRMotor = null;
+    public DcMotor turretMotor = null;
+
 
 
     public BNO055IMU imu;
@@ -37,7 +39,7 @@ public class TestRobot {
 
     public static double robotHeading;
 
-    //Robot Constants
+
 
 
 
@@ -65,16 +67,23 @@ public class TestRobot {
         lRMotor = hwMap.get(DcMotor.class, "lRMotor");
         rRMotor = hwMap.get(DcMotor.class, "rRMotor");
 
+        turretMotor = hwMap.get(DcMotor.class, "turretMotor");
+
+
         // Defines the directions the motors will spin
         lFMotor.setDirection(DcMotor.Direction.REVERSE);
         rFMotor.setDirection(DcMotor.Direction.FORWARD);
         lRMotor.setDirection(DcMotor.Direction.REVERSE);
         rRMotor.setDirection(DcMotor.Direction.FORWARD);
 
+        turretMotor.setDirection(DcMotor.Direction.FORWARD);
+
         lFMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rFMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lRMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rRMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        turretMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //have the motors on the drivetrain break here.
         // Set all motors to zero power
@@ -82,6 +91,9 @@ public class TestRobot {
         lFMotor.setPower(0.0);
         rRMotor.setPower(0.0);
         lRMotor.setPower(0.0);
+
+        turretMotor.setPower(0.0);
+
 
         // Stop and reset encoders
         resetEncoders();
@@ -92,6 +104,9 @@ public class TestRobot {
         rFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        turretMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
         // Define and initialize sensors
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -125,6 +140,13 @@ public class TestRobot {
         rFMotor.setPower(rightFront);
 
     }
+
+    public void setTurretMotorPower(double turretMotorPower) {
+
+        turretMotor.setPower(turretMotorPower);
+
+    }
+
 
 
     /**
