@@ -139,8 +139,8 @@ public class TestRobot {
         int DIAMETER = 4; // diameter of wheel
         double GEAR_RATIO = (1.0 / 1.0); // gear ratio
 
-//        double PULSES = 537.6; // encoder counts in one revolution - neverest 20 orbital
-        double PULSES = 1120.0; // encoder counts in one revolution - neverest 40 orbital
+        double PULSES = 537.6; // encoder counts in one revolution - neverest 20 orbital
+//        double PULSES = 1120.0; // encoder counts in one revolution - neverest 40 orbital
 //        double PULSES = 1680.0; // encoder counts in one revolution - neverest 60 orbital
 
         double CIRCUMFERENCE = Math.PI * DIAMETER; // gives circumference
