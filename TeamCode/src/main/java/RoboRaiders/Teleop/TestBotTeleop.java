@@ -13,7 +13,41 @@ import RoboRaiders.Robot.TestRobot;
 @TeleOp (name="Steve's TestBot Teleop", group="Test Teleops")
 
 public class TestBotTeleop extends OpMode {
+    enum turretState {
+        turret_start,
+        turret_turning,
+        turret_returning
+    }
+    double turret_home = 0.0;
+    double turret_right = ?? // 1/4 of a turn
+    double turret_left = ?? // 1/4 of a turn
+    double turret_back = ?? // 1/2 of a turn
+    double turretFinalPosition;
 
+    public void loop(){
+        switch(turretState) {
+            case turretState.turret_start:
+                if (gamepad2.dpad_right) {
+                    turretMotor.setTargetPostion
+                    turretFinalPosition = turret_right;
+                }
+        }       else if (gamepad2.dpad_left) {
+            turretMotor.setTargetPosition(turret_left);
+            turretFinalPosition = turret_left
+                }
+        else if (gamepad2.dpad_down) {
+            turretMotor.setTargetPostion(turret_back);
+            turretFinalPosition = turret_back
+        }
+        apply power to the motor setPower(0.5)???
+        turretState = turretState.turret_turning;
+        break;
+    }
+        case turretState.turret_turning:
+            if (Math.abs(turretMotor.getPosition() – turretFinalPosition) < 10) {
+
+
+}
     // Create an instance of the TestRobot and store it into StevesRobot
     public TestRobot stevesRobot = new TestRobot();
     public Logger myLogger =  new Logger("TestBotTeleop");
