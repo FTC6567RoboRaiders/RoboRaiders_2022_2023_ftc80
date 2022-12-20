@@ -214,11 +214,13 @@ public class TestRobot {
      * Sets the target encoder value for the drive train motors
      * @param encoderPosition
      */
-    public void setDTMotorTargetPosition(int encoderPosition){
+    public void setDTMotorTargetPosition(int encoderPosition) {
+
         lFMotor.setTargetPosition(encoderPosition);
         rFMotor.setTargetPosition(encoderPosition);
         lRMotor.setTargetPosition(encoderPosition);
         rRMotor.setTargetPosition(encoderPosition);
+
     }
 
      /**
@@ -230,16 +232,19 @@ public class TestRobot {
         rFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lRMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rRMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
     }
 
     /**
      * This method will set the mode all of the drive train motors to RUN_TO_POSITION
      */
     public void runWithEncodersSTP() {
+
         lRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         lFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
     }
 
     /**
@@ -251,6 +256,7 @@ public class TestRobot {
         rFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
     /**
@@ -263,6 +269,7 @@ public class TestRobot {
         rFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
     }
 
     /**
@@ -295,6 +302,7 @@ public class TestRobot {
         COUNTS = PULSES * ROTATIONS; //gives counts
 
         return COUNTS;
+
     }
 
     /**
