@@ -172,26 +172,7 @@ public class TestRobot {
         return COUNTS;
     }
 
-    /**
-     * calculates the number of encoder counts to travel a given distance for the turret
-     * @param distance
-     * @return
-     */
-    public double turretCalculateCounts(double distance) {
 
-        double COUNTS;
-
-        double DIAMETER = 3.5; // diameter of turret
-        double GEAR_RATIO = (3.0 / 4.0); // gear ratio
-
-        double PULSES = 288.0; // encoder counts in one revolution - core hex motor
-
-        double CIRCUMFERENCE = Math.PI * DIAMETER; //gives circumference
-        double ROTATIONS = (distance / CIRCUMFERENCE) * GEAR_RATIO; //gives rotations
-        COUNTS = PULSES * ROTATIONS; //gives counts
-
-        return COUNTS;
-    }
 
     /**
      * Takes the four drive train encoder values and sorts them using a bubble sort algorithm from
@@ -283,6 +264,56 @@ public class TestRobot {
         lRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+    public void setDTMotorTargetPosition(int encoderPosition){
+        lFMotor.setTargetPosition(encoderPosition);
+        rFMotor.setTargetPosition(encoderPosition);
+        lRMotor.setTargetPosition(encoderPosition);
+        rRMotor.setTargetPosition(encoderPosition);
+    }
+
+    /**
+     * This method will set the mode of all of the drive train motors to run using encoder
+     */
+    public void runWithEncoders() {
+
+        lFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lRMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rRMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    /**
+     * This method will set the mode all of the drive train motors to RUN_TO_POSITION
+     */
+    public void runWithEncodersSTP() {
+        lRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    /**
+     * This method will set the mode of all of the drive train motors to run without encoder
+     */
+    public void runWithoutEncoders() {
+
+        lFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    /**
+     * This will set the mode of the drive train motors to STOP_AND_RESET_ENCODER, which will zero
+     * the encoder count but also set the motors into a RUN_WITHOUT_ENCODER mode
+     */
+    public void resetEncoders() {
+
+        lFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
 
     /**
      * These methods will get individual encoder position from any of the drive train motors
@@ -292,6 +323,141 @@ public class TestRobot {
     public double getBackRightDriveEncoderCounts() { return rRMotor.getCurrentPosition(); }
     public double getFrontLeftDriveEncoderCounts() { return lFMotor.getCurrentPosition(); }
     public double getFrontRightDriveEncoderCounts() { return rFMotor.getCurrentPosition(); }
+
+    // turret motor methods
+
+    /**
+     * calculates the number of encoder counts to travel a given distance for the turret
+     * @param distance
+     * @return
+     */
+    public double turretCalculateCounts(double distance) {
+
+        double COUNTS;
+
+        double DIAMETER = 3.5; // diameter of turret
+        double GEAR_RATIO = (3.0 / 4.0); // gear ratio
+
+        double PULSES = 288.0; // encoder counts in one revolution - core hex motor
+
+        double CIRCUMFERENCE = Math.PI * DIAMETER; //gives circumference
+        double ROTATIONS = (distance / CIRCUMFERENCE) * GEAR_RATIO; //gives rotations
+        COUNTS = PULSES * ROTATIONS; //gives counts
+
+        return COUNTS;
+    }
+
+    /**
+     * Sets the target encoder value for the drive train motors
+     * @param encoderPosition
+     */
+    public void setTurretMotorTargetPosition(int encoderPosition){
+        lFMotor.setTargetPosition(encoderPosition);
+        rFMotor.setTargetPosition(encoderPosition);
+        lRMotor.setTargetPosition(encoderPosition);
+        rRMotor.setTargetPosition(encoderPosition);
+    }
+
+    /**
+     * This method will set the mode of all of the drive train motors to run using encoder
+     */
+    public void turretRunWithEncoders() {
+
+        lFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lRMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rRMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    /**
+     * This method will set the mode all of the drive train motors to RUN_TO_POSITION
+     */
+    public void turretRunWithEncodersSTP() {
+        lRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    /**
+     * This method will set the mode of all of the drive train motors to run without encoder
+     */
+    public void turretRunWithoutEncoders() {
+
+        lFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    /**
+     * This will set the mode of the drive train motors to STOP_AND_RESET_ENCODER, which will zero
+     * the encoder count but also set the motors into a RUN_WITHOUT_ENCODER mode
+     */
+    public void turretResetEncoders() {
+
+        lFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    public void turretSetMotorTargetPosition(int encoderPosition){
+        lFMotor.setTargetPosition(encoderPosition);
+        rFMotor.setTargetPosition(encoderPosition);
+        lRMotor.setTargetPosition(encoderPosition);
+        rRMotor.setTargetPosition(encoderPosition);
+    }
+
+    /**
+     * This method will set the mode of all of the drive train motors to run using encoder
+     */
+    public void turretRunWithEncoders() {
+
+        lFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lRMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rRMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    /**
+     * This method will set the mode all of the drive train motors to RUN_TO_POSITION
+     */
+    public void turretRunWithEncodersSTP() {
+        lRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    /**
+     * This method will set the mode of all of the drive train motors to run without encoder
+     */
+    public void turretRunWithoutEncoders() {
+
+        lFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
+    /**
+     * This will set the mode of the drive train motors to STOP_AND_RESET_ENCODER, which will zero
+     * the encoder count but also set the motors into a RUN_WITHOUT_ENCODER mode
+     */
+    public void turretResetEncoders() {
+
+        lFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    /**
+     * These methods will get individual encoder position from any of the drive train motors
+     * @return the encoder position
+     */
+    public double getTurretEncoderCounts() { return lRMotor.getCurrentPosition();
+
 
 
     //**********************************************************************************************

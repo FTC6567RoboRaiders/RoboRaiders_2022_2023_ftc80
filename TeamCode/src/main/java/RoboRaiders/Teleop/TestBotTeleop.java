@@ -19,9 +19,9 @@ public class TestBotTeleop extends OpMode {
         turret_returning
     }
     double turret_home = 0.0;
-    double turret_right = ?? // 1/4 of a turn
-    double turret_left = ?? // 1/4 of a turn
-    double turret_back = ?? // 1/2 of a turn
+    double turret_right = 54.0; // 1/4 of a turn
+    double turret_left = 54.0; // 1/4 of a turn
+    double turret_back = 108.0; // 1/2 of a turn
     double turretFinalPosition;
 
     public void loop(){
@@ -32,12 +32,12 @@ public class TestBotTeleop extends OpMode {
                     turretFinalPosition = turret_right;
                 }
         }       else if (gamepad2.dpad_left) {
-            turretMotor.setTargetPosition(turret_left);
-            turretFinalPosition = turret_left
+                    turretMotor.setTargetPosition(turret_left);
+                    turretFinalPosition = turret_left
                 }
-        else if (gamepad2.dpad_down) {
-            turretMotor.setTargetPostion(turret_back);
-            turretFinalPosition = turret_back
+                else if (gamepad2.dpad_down) {
+                    turretMotor.setTargetPostion(turret_back);
+                    turretFinalPosition = turret_back
         }
         apply power to the motor setPower(0.5)???
         turretState = turretState.turret_turning;
