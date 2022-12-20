@@ -264,56 +264,6 @@ public class TestRobot {
         lRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
-    public void setDTMotorTargetPosition(int encoderPosition){
-        lFMotor.setTargetPosition(encoderPosition);
-        rFMotor.setTargetPosition(encoderPosition);
-        lRMotor.setTargetPosition(encoderPosition);
-        rRMotor.setTargetPosition(encoderPosition);
-    }
-
-    /**
-     * This method will set the mode of all of the drive train motors to run using encoder
-     */
-    public void runWithEncoders() {
-
-        lFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lRMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rRMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    /**
-     * This method will set the mode all of the drive train motors to RUN_TO_POSITION
-     */
-    public void runWithEncodersSTP() {
-        lRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        lFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-
-    /**
-     * This method will set the mode of all of the drive train motors to run without encoder
-     */
-    public void runWithoutEncoders() {
-
-        lFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        lRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    }
-
-    /**
-     * This will set the mode of the drive train motors to STOP_AND_RESET_ENCODER, which will zero
-     * the encoder count but also set the motors into a RUN_WITHOUT_ENCODER mode
-     */
-    public void resetEncoders() {
-
-        lFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
 
     /**
      * These methods will get individual encoder position from any of the drive train motors
@@ -401,43 +351,6 @@ public class TestRobot {
     }
 
     /**
-     * This method will set the mode of all of the drive train motors to run using encoder
-     */
-    public void turretRunWithEncoders() {
-
-        turretMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-    }
-
-    /**
-     * This method will set the mode all of the drive train motors to RUN_TO_POSITION
-     */
-    public void turretRunWithEncodersSTP() {
-
-        turretMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-    }
-
-    /**
-     * This method will set the mode of all of the drive train motors to run without encoder
-     */
-    public void turretRunWithoutEncoders() {
-
-        turretMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-    }
-
-    /**
-     * This will set the mode of the drive train motors to STOP_AND_RESET_ENCODER, which will zero
-     * the encoder count but also set the motors into a RUN_WITHOUT_ENCODER mode
-     */
-    public void turretResetEncoders() {
-
-        turretMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-    }
-
-    /**
      * These methods will get individual encoder position from any of the drive train motors
      * @return the encoder position
      */
@@ -445,7 +358,7 @@ public class TestRobot {
 
         return turretMotor.getCurrentPosition();
 
-        }
+    }
 
 
 
