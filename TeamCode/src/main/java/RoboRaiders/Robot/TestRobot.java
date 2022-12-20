@@ -351,8 +351,10 @@ public class TestRobot {
      * Sets the target encoder value for the drive train motors
      * @param encoderPosition
      */
-    public void setTurretMotorTargetPosition(int encoderPosition){
+    public void setTurretMotorTargetPosition(int encoderPosition) {
+
         turretMotor.setTargetPosition(encoderPosition);
+
     }
 
     /**
@@ -362,18 +364,24 @@ public class TestRobot {
 
         turretMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+    }
+
     /**
      * This method will set the mode all of the drive train motors to RUN_TO_POSITION
      */
     public void turretRunWithEncodersSTP() {
+
         turretMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
     }
 
     /**
      * This method will set the mode of all of the drive train motors to run without encoder
      */
     public void turretRunWithoutEncoders() {
+
         turretMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
     /**
@@ -381,11 +389,15 @@ public class TestRobot {
      * the encoder count but also set the motors into a RUN_WITHOUT_ENCODER mode
      */
     public void turretResetEncoders() {
+
         turretMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
     }
 
     public void turretSetMotorTargetPosition(int encoderPosition) {
+
         turretMotor.setTargetPosition(encoderPosition);
+
     }
 
     /**
@@ -394,13 +406,16 @@ public class TestRobot {
     public void turretRunWithEncoders() {
 
         turretMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
     }
 
     /**
      * This method will set the mode all of the drive train motors to RUN_TO_POSITION
      */
     public void turretRunWithEncodersSTP() {
+
         turretMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
     }
 
     /**
@@ -409,6 +424,7 @@ public class TestRobot {
     public void turretRunWithoutEncoders() {
 
         turretMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
     /**
@@ -418,6 +434,7 @@ public class TestRobot {
     public void turretResetEncoders() {
 
         turretMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
     }
 
     /**
@@ -425,7 +442,9 @@ public class TestRobot {
      * @return the encoder position
      */
     public double getTurretEncoderCounts() {
+
         return turretMotor.getCurrentPosition();
+
         }
 
 
