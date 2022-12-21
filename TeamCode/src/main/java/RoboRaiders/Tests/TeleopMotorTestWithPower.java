@@ -1,5 +1,6 @@
 package RoboRaiders.Tests;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,7 +13,9 @@ import RoboRaiders.Robot.MotorBotWithDCMOTOR;
 // Static Test Teleop - tests the usage of Static variable in the RoboRaidersProperties class.
 // This opmode will get the static variable.
 //----------------------------------------------------------------------------------------------
+@Disabled
 @TeleOp(name="Teleop Motor Test w/Power", group="Test Teleops")
+
 
 public class TeleopMotorTestWithPower extends OpMode {
 
