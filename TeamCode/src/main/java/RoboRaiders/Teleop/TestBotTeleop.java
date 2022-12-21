@@ -24,6 +24,8 @@ public class TestBotTeleop extends OpMode {
     double turret_back = 108.0; // 1/2 of a turn
     double turretFinalPosition;
 
+    turretState tState = turretState.turret_start;
+
     // Create an instance of the TestRobot and store it into StevesRobot
     public TestRobot stevesRobot = new TestRobot();
     public Logger myLogger =  new Logger("TestBotTeleop");
@@ -46,6 +48,42 @@ public class TestBotTeleop extends OpMode {
     @Override
     public void loop() {
 
+        // Temporary testing of turret, just to get it to move, should be removed onces the FSM is
+        // complete (see below)
+        if (gamepad2.dpad_left) {
+            stevesRobot.setTurretMotorPower(1.0);
+        }
+        else{
+            stevesRobot.setTurretMotorPower(0.0);
+        }
+        // Determine what state the turret is in set the appropriate target position
+        switch(tState) {
+            case turret_start:
+                if (gamepad2.dpad_right) {
+                    //turretMotor.setTargetPostion
+                    turretFinalPosition = turret_right;
+                } else if (gamepad2.dpad_left) {
+                    //turretMotor.setTargetPosition(turret_left);
+                    turretFinalPosition = turret_left;
+                } else if (gamepad2.dpad_down) {
+                    //turretMotor.setTargetPostion(turret_back);
+                    turretFinalPosition = turret_back;
+                }
+                // apply power to the motor setPower(0.5)???
+                tState = turretState.turret_turning;
+                break;
+
+            case turret_turning:
+               // if (Math.abs(turretMotor.getPosition() – turretFinalPosition) < 10) {
+
+               // }
+                //tState = ???
+                break;
+            default:
+                break;
+        }
+
+        // The following code should be moved into a method called something like drive or doDriveStuff, ....
         //double autoHeading = RoboRaidersProperties.getHeading();
 
 
@@ -59,36 +97,9 @@ public class TestBotTeleop extends OpMode {
         double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
         double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
-
-
-
-
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
         // at least one is ocut of the range [-1, 1]
-
-        switch(turretState) {
-            case turretState.turret_start:
-                if (gamepad2.dpad_right) {
-                    turretMotor.setTargetPostion
-                            turretFinalPosition = turret_right;
-                }
-        }       else if (gamepad2.dpad_left) {
-            turretMotor.setTargetPosition(turret_left);
-            turretFinalPosition = turret_left
-        }
-        else if (gamepad2.dpad_down) {
-            turretMotor.setTargetPostion(turret_back);
-            turretFinalPosition = turret_back
-        }
-        apply power to the motor setPower(0.5)???
-        turretState = turretState.turret_turning;
-        break;
-    }
-        case turretState.turret_turning:
-            if (Math.abs(turretMotor.getPosition() – turretFinalPosition) < 10) {
-
-
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
@@ -121,18 +132,13 @@ public class TestBotTeleop extends OpMode {
         myLogger.Debug("Y Button", yButton);
 
         stevesRobot.setDriveMotorPower(
-                frontLeftPower,
-                frontRightPower,
-                backLeftPower,
-                backRightPower);
+                frontLeftPower*0.65,
+                frontRightPower*0.65,
+                backLeftPower*0.65,
+                backRightPower*0.65);
 
 
-        if(gamepad2.dpad_left){
-            stevesRobot.setTurretMotorPower(1.0);
-        }
-        else{
-            stevesRobot.setTurretMotorPower(0.0);
-        }
+
 
 
 
