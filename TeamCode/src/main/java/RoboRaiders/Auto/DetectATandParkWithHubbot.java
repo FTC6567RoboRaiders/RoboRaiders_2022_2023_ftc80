@@ -1,7 +1,6 @@
 package RoboRaiders.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -14,8 +13,7 @@ import java.util.ArrayList;
 
 import RoboRaiders.Pipelines.AprilTagDetectionPipeline;
 import RoboRaiders.Robot.Hubbot;
-import RoboRaiders.Logger.Logger;
-import RoboRaiders.Robot.TestRobot;
+import RoboRaiders.Utilities.Logger.Logger;
 
 @Autonomous
 

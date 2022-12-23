@@ -17,7 +17,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-import RoboRaiders.Logger.Logger;
+import RoboRaiders.Utilities.Logger.Logger;
 import RoboRaiders.Pipelines.AprilTagDetectionPipeline;
 import RoboRaiders.Robot.TestRobot;
 

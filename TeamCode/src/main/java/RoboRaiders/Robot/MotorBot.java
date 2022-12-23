@@ -4,6 +4,7 @@ import com.qualcomm.hardware.ams.AMSColorSensor;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -56,7 +57,7 @@ public class MotorBot {
         aMotor = hwMap.get(DcMotorEx.class, "aMotor");
 
         // Defines the directions the motors will spin
-        aMotor.setDirection(DcMotor.Direction.FORWARD);
+        aMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
         aMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -66,10 +67,10 @@ public class MotorBot {
         aMotor.setPower(0.0);
 
         // Stop and reset encoders
-        resetEncoders();
+        resetMotorEncoders();
 
         // Set all motors to run without encoders.
-        runWithoutEncoders();
+        runMotorWithoutEncoders();
 
         // Define and initialize sensors
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -91,20 +92,21 @@ public class MotorBot {
      * @param power  power setting for the left front motor
 
      */
-    public void setDriveMotorPower(double power) { aMotor.setPower(power); }    /**
+    public void setMotorPower(double power) { aMotor.setPower(power); }
+    /**
      * This method will set the power for the drive motors
      *
-     * @param power  power setting for the left front motor
+     * @param ticksPerSecond  velocity (ticks per second) to run the motor at
 
      */
-    public void setDriveMotorVelocity(double ticksPerSecond) { aMotor.setVelocity(ticksPerSecond); }
+    public void setMotorVelocity(double ticksPerSecond) { aMotor.setVelocity(ticksPerSecond); }
 
     /**
      * calculates the number of encoder counts to travel a given distance for the turret
      * @param distance
      * @return
      */
-    public double turretCalculateCounts(double distance) {
+    public double calculateMotorEncodeCounts(double distance) {
 
         double COUNTS;
 
@@ -123,34 +125,43 @@ public class MotorBot {
      * Sets the target encoder value for the drive train motors
      * @param encoderPosition
      */
-    public void setTargetPosition(int encoderPosition){ aMotor.setTargetPosition(encoderPosition); }
+    public void setMotorTargetPosition(int encoderPosition){ aMotor.setTargetPosition(encoderPosition); }
 
     /**
      * This method will set the mode of all of the drive train motors to run using encoder
      */
-    public void runWithEncoders() { aMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER); }
+    public void runMotorWithEncoders() { aMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER); }
 
     /**
      * This method will set the mode all of the drive train motors to RUN_TO_POSITION
      */
-    public void runWithEncodersSTP() { aMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION); }
+    public void runMotorWithEncodersSTP() { aMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION); }
     /**
      * This method will set the mode of all of the drive train motors to run without encoder
      */
-    public void runWithoutEncoders() { aMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); }
+    public void runMotorWithoutEncoders() { aMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); }
 
     /**
      * This will set the mode of the drive train motors to STOP_AND_RESET_ENCODER, which will zero
      * the encoder count but also set the motors into a RUN_WITHOUT_ENCODER mode
      */
-    public void resetEncoders() { aMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); }
+    public void resetMotorEncoders() { aMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); }
 
     /**
      * These methods will get individual encoder position from any of the drive train motors
      * @return the encoder position
      */
-    public double getEncoderCounts() { return aMotor.getCurrentPosition(); }
+    public double getMotorEncoderCounts() { return aMotor.getCurrentPosition(); }
 
+    /**
+     * These methods will get individual encoder position from any of the drive train motors
+     * @return the encoder position
+     */
+    public double getMotorPosition() { return aMotor.getCurrentPosition(); }
+
+    public void setMotorSpinDirectionReverse() { aMotor.setDirection(DcMotor.Direction.REVERSE);}
+
+    public void setMotorSpinDirectionForward() { aMotor.setDirection(DcMotor.Direction.FORWARD);}
 
     //**********************************************************************************************
     //

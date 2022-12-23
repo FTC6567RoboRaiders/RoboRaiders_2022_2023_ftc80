@@ -1,4 +1,4 @@
-package RoboRaiders.Logger;
+package RoboRaiders.Utilities.Logger;
 
 import android.util.Log;
 
