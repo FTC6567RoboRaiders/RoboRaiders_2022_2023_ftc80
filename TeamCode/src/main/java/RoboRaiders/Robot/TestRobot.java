@@ -95,6 +95,7 @@ public class TestRobot {
 
         // Stop and reset encoders
         resetEncoders();
+        turretResetEncoders();
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODER if encoders are installed, and we wouldn't use encoders for teleop, even if we
@@ -103,7 +104,7 @@ public class TestRobot {
         lRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rRMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        turretMotor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        turretMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
         // Define and initialize sensors
