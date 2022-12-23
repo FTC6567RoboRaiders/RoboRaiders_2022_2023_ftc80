@@ -72,6 +72,10 @@ public class TestBotTeleop extends OpMode {
         switch(turretState){
             case turret_start:
 
+                myLogger.Debug("STARTHERE");
+                myLogger.Debug("STARTHERE");
+                myLogger.Debug("STARTHERE");
+                myLogger.Debug("STARTHERE");
                 myLogger.Debug("turretState: "+turretState);
                 myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
                 myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
@@ -79,39 +83,47 @@ public class TestBotTeleop extends OpMode {
 
                 if (gamepad2.dpad_right) {
                     stevesRobot.setTurretMotorTargetPosition(turret_right);
-                    turretFinalPosition = turret_right;
+                    turretFinalPosition = turret_right; turretState = tState.turret_turning;
+                    stevesRobot.turretRunWithEncodersSTP();
+                    stevesRobot.setTurretMotorVelocity(500.0);
                 } else if (gamepad2.dpad_left) {
                     stevesRobot.setTurretMotorTargetPosition(turret_left);
                     turretFinalPosition = turret_left;
+                    turretState = tState.turret_turning;
+                    stevesRobot.turretRunWithEncodersSTP();
+                    stevesRobot.setTurretMotorVelocity(500.0);
                 } else if (gamepad2.dpad_down) {
                     stevesRobot.setTurretMotorTargetPosition(turret_back);
                     turretFinalPosition = turret_back;
-                }
-
-                if(gamepad2.dpad_left || gamepad2.dpad_right || gamepad2.dpad_down){
                     turretState = tState.turret_turning;
                     stevesRobot.turretRunWithEncodersSTP();
                     stevesRobot.setTurretMotorVelocity(500.0);
                 }
 
+
                 break;
 
             case turret_turning:
                 myLogger.Debug("turretState: "+turretState);
+                myLogger.Debug("TEC: " + stevesRobot.getSortedEncoderCount());
                 if(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) < 10.0){
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_returning;
                 }
                 break;
             case turret_returning:
-                myLogger.Debug("turretState: "+turretState);
+                myLogger.Debug("turretState: "+ turretState);
+                myLogger.Debug("Y: " + gamepad2.y);
                 if(gamepad2.y){
                     stevesRobot.setTurretMotorTargetPosition(turret_home);
                     stevesRobot.setTurretMotorVelocity(500.0);
                     turretState = tState.turret_returningHome;
+
                 }
             case turret_returningHome:
                 myLogger.Debug("turretState: "+turretState);
+                myLogger.Debug("TEC: " + stevesRobot.getSortedEncoderCount());
+
                 if(Math.abs(stevesRobot.getTurretEncoderCounts() - turret_home) < 10.0){
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_start;
@@ -141,16 +153,16 @@ public class TestBotTeleop extends OpMode {
         telemetry.addData("frontRightPower", String.valueOf(frontRightPower));
         telemetry.addData("backRightPower", String.valueOf(backRightPower));
         telemetry.addData("auto heading: ", RoboRaidersProperties.getHeading());
-
-        myLogger.Debug("botheading ", botHeading);
-        myLogger.Debug("x / y / rx ", x, y, rx);
-        myLogger.Debug("rotX / rotY ", rotX, rotY);
-        myLogger.Debug("frontLeftPower / backLeftPower / frontRightPower / backRightPower ",
-                frontLeftPower,
-                backLeftPower,
-                frontRightPower,
-                backRightPower);
-        myLogger.Debug("Y Button", yButton);
+//
+//        myLogger.Debug("botheading ", botHeading);
+//        myLogger.Debug("x / y / rx ", x, y, rx);
+//        myLogger.Debug("rotX / rotY ", rotX, rotY);
+//        myLogger.Debug("frontLeftPower / backLeftPower / frontRightPower / backRightPower ",
+//                frontLeftPower,
+//                backLeftPower,
+//                frontRightPower,
+//                backRightPower);
+//        myLogger.Debug("Y Button", yButton);
 
         stevesRobot.setDriveMotorPower(
                 frontLeftPower,
