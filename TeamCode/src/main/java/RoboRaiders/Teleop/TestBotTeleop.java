@@ -48,6 +48,10 @@ public class TestBotTeleop extends OpMode {
     @Override
     public void loop() {
 
+        /**
+         * To Do: Move the drive code into separate method, could also move turret, lift and
+         * grabber code into separate methods.
+         */
         //double autoHeading = RoboRaidersProperties.getHeading();
 
 
@@ -61,13 +65,9 @@ public class TestBotTeleop extends OpMode {
         double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
         double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
-
-
-
-
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
-        // at least one is ocut of the range [-1, 1]
+        // at least one is out of the range [-1, 1]
 
         switch(turretState){
             case turret_start:
@@ -100,8 +100,6 @@ public class TestBotTeleop extends OpMode {
                     stevesRobot.turretRunWithEncodersSTP();
                     stevesRobot.setTurretMotorVelocity(500.0);
                 }
-
-
                 break;
 
             case turret_turning:
@@ -140,6 +138,7 @@ public class TestBotTeleop extends OpMode {
 
         }
 
+
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
@@ -171,22 +170,15 @@ public class TestBotTeleop extends OpMode {
 //                backRightPower);
 //        myLogger.Debug("Y Button", yButton);
 
+        /**
+         * To Do: Add some kind of button push to toggle or change the maximum speed of robot
+         */
         stevesRobot.setDriveMotorPower(
-                frontLeftPower,
-                frontRightPower,
-                backLeftPower,
-                backRightPower,
+                frontLeftPower*0.65,
+                frontRightPower*0.65,
+                backLeftPower*0.65,
+                backRightPower*0.65,
                 myLogger);
-
-
-
-
-
-
-
-
-
-
 
     }
     /**

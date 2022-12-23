@@ -24,10 +24,7 @@ public class TestRobot {
     public DcMotorEx rRMotor = null;
     public DcMotorEx turretMotor = null;
 
-
-
     public BNO055IMU imu;
-
 
     /* Local OpMode Members */
     public HardwareMap hwMap = null;
@@ -42,10 +39,6 @@ public class TestRobot {
     public Orientation iza_angles;
 
     public static double robotHeading;
-
-
-
-
 
     /**
      * Constructor for Robot class, current does nothing but is needed since every class needs a constructor
@@ -166,9 +159,6 @@ public class TestRobot {
         lclLogger.Debug("************* TestRobot Set Drive Motor Power TestRobot Set Drive Motor Power **********");
     }
 
-
-
-
     /**
      * calculates the number of encoder counts to travel a given distance for the drive train motors
      * @param distance
@@ -191,8 +181,6 @@ public class TestRobot {
 
         return COUNTS;
     }
-
-
 
     /**
      * Takes the four drive train encoder values and sorts them using a bubble sort algorithm from
