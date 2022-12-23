@@ -154,12 +154,7 @@ public class TestBotTeleop extends OpMode {
 
 
 
-        if(gamepad2.dpad_left){
-            stevesRobot.setTurretMotorPower(1.0);
-        }
-        else{
-            stevesRobot.setTurretMotorPower(0.0);
-        }
+
 
 
 
