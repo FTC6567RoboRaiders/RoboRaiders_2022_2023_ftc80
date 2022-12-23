@@ -113,7 +113,8 @@ public class MotorBot {
         double DIAMETER = 0.8; // diameter of turret
         double GEAR_RATIO = (1.0 / 1.0); // gear ratio
 
-        double PULSES = 1120.0; // encoder counts in one revolution - neverest 40 orbital
+       // double PULSES = 1120.0; // encoder counts in one revolution - neverest 40 orbital
+        double PULSES = 288.0; // encoder counts in one revolution - core hex motor
 
         double CIRCUMFERENCE = Math.PI * DIAMETER; //gives circumference
         double ROTATIONS = (distance / CIRCUMFERENCE) * GEAR_RATIO; //gives rotations

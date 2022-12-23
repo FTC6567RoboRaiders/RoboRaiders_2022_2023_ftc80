@@ -8,17 +8,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
+import RoboRaiders.Utilities.Logger.Logger;
 
 public class TestRobot {
 
 
 
     /* Robot Motors, Servos, CR Servos and Sensors */
-    public DcMotor lFMotor = null;
-    public DcMotor rFMotor = null;
-    public DcMotor lRMotor = null;
-    public DcMotor rRMotor = null;
+    public DcMotorEx lFMotor = null;
+    public DcMotorEx rFMotor = null;
+    public DcMotorEx lRMotor = null;
+    public DcMotorEx rRMotor = null;
     public DcMotorEx turretMotor = null;
 
 
@@ -63,10 +66,10 @@ public class TestRobot {
 
         // Define and initialize motors
         // Define and initialize motors
-        lFMotor = hwMap.get(DcMotor.class, "lFMotor");
-        rFMotor = hwMap.get(DcMotor.class, "rFMotor");
-        lRMotor = hwMap.get(DcMotor.class, "lRMotor");
-        rRMotor = hwMap.get(DcMotor.class, "rRMotor");
+        lFMotor = hwMap.get(DcMotorEx.class, "lFMotor");
+        rFMotor = hwMap.get(DcMotorEx.class, "rFMotor");
+        lRMotor = hwMap.get(DcMotorEx.class, "lRMotor");
+        rRMotor = hwMap.get(DcMotorEx.class, "rRMotor");
 
         turretMotor = hwMap.get(DcMotorEx.class, "turretMotor");
 
@@ -141,7 +144,27 @@ public class TestRobot {
         rFMotor.setPower(rightFront);
 
     }
+    /**
+     * This method will set the power for the drive motors
+     *
+     * @param leftFront  power setting for the left front motor
+     * @param rightFront power setting for the right front motor
+     * @param leftBack   power setting for the left back motor
+     * @param rightBack  power setting for the right back motor
+     */
+    public void setDriveMotorPower(double leftFront, double rightFront, double leftBack, double rightBack, Logger lclLogger) {
 
+        lFMotor.setPower(leftFront);
+        rFMotor.setPower(rightFront);
+        lRMotor.setPower(leftBack);
+        rRMotor.setPower(rightBack);
+
+        lclLogger.Debug("************* TestRobot Set Drive Motor Power TestRobot Set Drive Motor Power **********");
+        lclLogger.Debug("DT Motor Powers       (LF, RF, LB, RB): ",leftFront,rightFront,leftBack,rightBack);
+        lclLogger.Debug("Retrieved DT Powers   (LF, RF, LB, RB): ",lFMotor.getPower(),rFMotor.getPower(),lRMotor.getPower(),rRMotor.getPower());
+        lclLogger.Debug("Retrieved DT Currents (LF, RF, LB, RB): ",lFMotor.getCurrent(CurrentUnit.AMPS),rFMotor.getCurrent(CurrentUnit.AMPS),lRMotor.getCurrent(CurrentUnit.AMPS),rRMotor.getCurrent(CurrentUnit.AMPS));
+        lclLogger.Debug("************* TestRobot Set Drive Motor Power TestRobot Set Drive Motor Power **********");
+    }
 
 
 

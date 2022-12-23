@@ -83,7 +83,8 @@ public class TestBotTeleop extends OpMode {
 
                 if (gamepad2.dpad_right) {
                     stevesRobot.setTurretMotorTargetPosition(turret_right);
-                    turretFinalPosition = turret_right; turretState = tState.turret_turning;
+                    turretFinalPosition = turret_right;
+                    turretState = tState.turret_turning;
                     stevesRobot.turretRunWithEncodersSTP();
                     stevesRobot.setTurretMotorVelocity(500.0);
                 } else if (gamepad2.dpad_left) {
@@ -105,12 +106,13 @@ public class TestBotTeleop extends OpMode {
 
             case turret_turning:
                 myLogger.Debug("turretState: "+turretState);
-                myLogger.Debug("TEC: " + stevesRobot.getSortedEncoderCount());
+                myLogger.Debug("TEC: " + stevesRobot.getTurretEncoderCounts());
                 if(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) < 10.0){
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_returning;
                 }
                 break;
+
             case turret_returning:
                 myLogger.Debug("turretState: "+ turretState);
                 myLogger.Debug("Y: " + gamepad2.y);
@@ -118,8 +120,9 @@ public class TestBotTeleop extends OpMode {
                     stevesRobot.setTurretMotorTargetPosition(turret_home);
                     stevesRobot.setTurretMotorVelocity(500.0);
                     turretState = tState.turret_returningHome;
-
                 }
+                break;
+
             case turret_returningHome:
                 myLogger.Debug("turretState: "+turretState);
                 myLogger.Debug("TEC: " + stevesRobot.getSortedEncoderCount());
@@ -128,11 +131,15 @@ public class TestBotTeleop extends OpMode {
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_start;
                 }
+                break;
+
             default:
                 myLogger.Debug("turretState: "+turretState);
                 turretState = tState.turret_start;
                 break;
+
         }
+
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
@@ -168,7 +175,8 @@ public class TestBotTeleop extends OpMode {
                 frontLeftPower,
                 frontRightPower,
                 backLeftPower,
-                backRightPower);
+                backRightPower,
+                myLogger);
 
 
 
