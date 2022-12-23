@@ -2,8 +2,9 @@ package RoboRaiders.Robot;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -18,7 +19,7 @@ public class TestRobot {
     public DcMotor rFMotor = null;
     public DcMotor lRMotor = null;
     public DcMotor rRMotor = null;
-    public DcMotor turretMotor = null;
+    public DcMotorEx turretMotor = null;
 
 
 
@@ -67,7 +68,7 @@ public class TestRobot {
         lRMotor = hwMap.get(DcMotor.class, "lRMotor");
         rRMotor = hwMap.get(DcMotor.class, "rRMotor");
 
-        turretMotor = hwMap.get(DcMotor.class, "turretMotor");
+        turretMotor = hwMap.get(DcMotorEx.class, "turretMotor");
 
 
         // Defines the directions the motors will spin
@@ -141,11 +142,7 @@ public class TestRobot {
 
     }
 
-    public void setTurretMotorPower(double turretMotorPower) {
 
-        turretMotor.setPower(turretMotorPower);
-
-    }
 
 
 
@@ -310,9 +307,9 @@ public class TestRobot {
      * Sets the target encoder value for the drive train motors
      * @param encoderPosition
      */
-    public void setTurretMotorTargetPosition(int encoderPosition) {
+    public void setTurretMotorTargetPosition(double encoderPosition) {
 
-        turretMotor.setTargetPosition(encoderPosition);
+        turretMotor.setTargetPosition((int)encoderPosition);
 
     }
 
@@ -356,6 +353,16 @@ public class TestRobot {
     public void turretSetMotorTargetPosition(int encoderPosition) {
 
         turretMotor.setTargetPosition(encoderPosition);
+
+    }
+    public void setTurretMotorPower(double turretMotorPower) {
+
+        turretMotor.setPower(turretMotorPower);
+
+    }
+    public void setTurretMotorVelocity(double ticsPerSecond) {
+
+        turretMotor.setVelocity(ticsPerSecond);
 
     }
 
