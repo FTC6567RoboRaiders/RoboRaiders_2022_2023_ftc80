@@ -33,9 +33,6 @@ public class TestBotTeleop extends OpMode {
 
     tState turretState = tState.turret_start;
 
-
-
-
     boolean yButton = false;
 
     @Override
@@ -75,6 +72,11 @@ public class TestBotTeleop extends OpMode {
         switch(turretState){
             case turret_start:
 
+                myLogger.Debug("turretState: "+turretState);
+                myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
+                myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
+                myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
+
                 if (gamepad2.dpad_right) {
                     stevesRobot.setTurretMotorTargetPosition(turret_right);
                     turretFinalPosition = turret_right;
@@ -95,23 +97,27 @@ public class TestBotTeleop extends OpMode {
                 break;
 
             case turret_turning:
+                myLogger.Debug("turretState: "+turretState);
                 if(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) < 10.0){
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_returning;
                 }
                 break;
             case turret_returning:
+                myLogger.Debug("turretState: "+turretState);
                 if(gamepad2.y){
                     stevesRobot.setTurretMotorTargetPosition(turret_home);
                     stevesRobot.setTurretMotorVelocity(500.0);
                     turretState = tState.turret_returningHome;
                 }
             case turret_returningHome:
+                myLogger.Debug("turretState: "+turretState);
                 if(Math.abs(stevesRobot.getTurretEncoderCounts() - turret_home) < 10.0){
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_start;
                 }
             default:
+                myLogger.Debug("turretState: "+turretState);
                 turretState = tState.turret_start;
                 break;
         }
