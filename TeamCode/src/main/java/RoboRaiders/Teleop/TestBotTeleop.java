@@ -94,8 +94,8 @@ public class TestBotTeleop extends OpMode {
                 break;
 
             case turret_turning:
-                if(Math.abs(stevesRobot.getTurretEncoderCounts() – turretFinalPosition) < 10){
-
+                if(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) < 10.0){
+                    stevesRobot.setTurretMotorVelocity(0.0);
                 }
                 break;
             case turret_returning:
