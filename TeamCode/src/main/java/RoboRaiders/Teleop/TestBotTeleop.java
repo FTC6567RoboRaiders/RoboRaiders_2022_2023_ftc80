@@ -18,7 +18,8 @@ public class TestBotTeleop extends OpMode {
     enum tState {
         turret_start,
         turret_turning,
-        turret_returning
+        turret_returning,
+        turret_returningHome
     }
     double turret_home = 0.0;
     double turret_right = 54.0; // 1/4 of a turn
@@ -96,11 +97,22 @@ public class TestBotTeleop extends OpMode {
             case turret_turning:
                 if(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) < 10.0){
                     stevesRobot.setTurretMotorVelocity(0.0);
+                    turretState = tState.turret_returning;
                 }
                 break;
             case turret_returning:
-                break;
+                if(gamepad2.y){
+                    stevesRobot.setTurretMotorTargetPosition(turret_home);
+                    stevesRobot.setTurretMotorVelocity(500.0);
+                    turretState = tState.turret_returningHome;
+                }
+            case turret_returningHome:
+                if(Math.abs(stevesRobot.getTurretEncoderCounts() - turret_home) < 10.0){
+                    stevesRobot.setTurretMotorVelocity(0.0);
+                    turretState = tState.turret_start;
+                }
             default:
+                turretState = tState.turret_start;
                 break;
         }
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
