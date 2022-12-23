@@ -72,7 +72,8 @@ public class TestBotTeleop extends OpMode {
         // at least one is ocut of the range [-1, 1]
 
         switch(turretState){
-            case turretState.turret_start:
+            case turret_start:
+
                 if (gamepad2.dpad_right) {
                     stevesRobot.setTurretMotorTargetPosition(turret_right);
                     turretFinalPosition = turret_right;
@@ -86,15 +87,21 @@ public class TestBotTeleop extends OpMode {
 
                 if(gamepad2.dpad_left || gamepad2.dpad_right || gamepad2.dpad_down){
                     turretState = tState.turret_turning;
+                    stevesRobot.turretRunWithEncodersSTP();
                     stevesRobot.setTurretMotorVelocity(500.0);
                 }
 
                 break;
 
-            case turretState.turret_turning:
-                if(Math.abs( – turretFinalPosition) < 10){
+            case turret_turning:
+                if(Math.abs(stevesRobot.getTurretEncoderCounts() – turretFinalPosition) < 10){
 
                 }
+                break;
+            case turret_returning:
+                break;
+            default:
+                break;
         }
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double frontLeftPower = (rotY + rotX + rx) / denominator;
