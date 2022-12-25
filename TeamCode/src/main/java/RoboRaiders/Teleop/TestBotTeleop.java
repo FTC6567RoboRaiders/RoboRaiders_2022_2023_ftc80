@@ -30,6 +30,7 @@ public class TestBotTeleop extends OpMode {
     // Create an instance of the TestRobot and store it into StevesRobot
     public TestRobot stevesRobot = new TestRobot();
     public Logger myLogger =  new Logger("TestBotTeleop");
+    public Logger dtLogger = new Logger("DT");   // Drive train logger
 
     tState turretState = tState.turret_start;
 
@@ -114,7 +115,7 @@ public class TestBotTeleop extends OpMode {
             case turret_returning:
                 myLogger.Debug("turretState: "+ turretState);
                 myLogger.Debug("Y: " + gamepad2.y);
-                if(gamepad2.y){
+                if(gamepad2.y) {
                     stevesRobot.setTurretMotorTargetPosition(turret_home);
                     stevesRobot.setTurretMotorVelocity(500.0);
                     turretState = tState.turret_returningHome;
@@ -125,7 +126,7 @@ public class TestBotTeleop extends OpMode {
                 myLogger.Debug("turretState: "+turretState);
                 myLogger.Debug("TEC: " + stevesRobot.getSortedEncoderCount());
 
-                if(Math.abs(stevesRobot.getTurretEncoderCounts() - turret_home) < 10.0){
+                if(Math.abs(stevesRobot.getTurretEncoderCounts() - turret_home) < 10.0) {
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_start;
                 }
@@ -178,7 +179,7 @@ public class TestBotTeleop extends OpMode {
                 frontRightPower*0.65,
                 backLeftPower*0.65,
                 backRightPower*0.65,
-                myLogger);
+                dtLogger);
 
     }
     /**
