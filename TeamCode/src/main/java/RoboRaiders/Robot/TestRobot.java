@@ -39,6 +39,7 @@ public class TestRobot {
     public Orientation iza_angles;
 
     public static double robotHeading;
+    public boolean firstTimeCalled = true;
 
     /**
      * Constructor for Robot class, current does nothing but is needed since every class needs a constructor
@@ -151,12 +152,22 @@ public class TestRobot {
         rFMotor.setPower(rightFront);
         lRMotor.setPower(leftBack);
         rRMotor.setPower(rightBack);
+        if (firstTimeCalled) {
+            lclLogger.Debug("========================================================================================");
+            lclLogger.Debug("| FIRST TIME CALLED  FIRST TIME CALLED  FIRST TIME CALLED  FIRST TIME CALLED           |");
+            lclLogger.Debug("========================================================================================");
+            firstTimeCalled = false;
+        }
 
-        lclLogger.Debug("************* TestRobot Set Drive Motor Power TestRobot Set Drive Motor Power **********");
-        lclLogger.Debug("DT Motor Powers       (LF, RF, LB, RB): ",leftFront,rightFront,leftBack,rightBack);
-        lclLogger.Debug("Retrieved DT Powers   (LF, RF, LB, RB): ",lFMotor.getPower(),rFMotor.getPower(),lRMotor.getPower(),rRMotor.getPower());
-        lclLogger.Debug("Retrieved DT Currents (LF, RF, LB, RB): ",lFMotor.getCurrent(CurrentUnit.AMPS),rFMotor.getCurrent(CurrentUnit.AMPS),lRMotor.getCurrent(CurrentUnit.AMPS),rRMotor.getCurrent(CurrentUnit.AMPS));
-        lclLogger.Debug("************* TestRobot Set Drive Motor Power TestRobot Set Drive Motor Power **********");
+        if (leftFront!=0.0 && rightFront!=0.0 && leftBack!=0.0 && rightBack!=0.0) {
+            lclLogger.Debug("************* TestRobot Set Drive Motor Power TestRobot Set Drive Motor Power **********");
+            lclLogger.Debug("DT Motor Powers       (LF, RF, LB, RB): ", leftFront, rightFront, leftBack, rightBack);
+            lclLogger.Debug("Retrieved DT Powers   (LF, RF, LB, RB): ", lFMotor.getPower(), rFMotor.getPower(), lRMotor.getPower(), rRMotor.getPower());
+            lclLogger.Debug("Retrieved DT Currents (LF, RF, LB, RB): ", lFMotor.getCurrent(CurrentUnit.AMPS), rFMotor.getCurrent(CurrentUnit.AMPS), lRMotor.getCurrent(CurrentUnit.AMPS), rRMotor.getCurrent(CurrentUnit.AMPS));
+            lclLogger.Debug("Encoder Counts (LF, RF, LB, RB): ",lFMotor.getCurrentPosition(), rFMotor.getCurrentPosition(), lRMotor.getCurrentPosition(), rRMotor.getCurrentPosition());
+            lclLogger.Debug("************* TestRobot Set Drive Motor Power TestRobot Set Drive Motor Power **********");
+        }
+
     }
 
     /**

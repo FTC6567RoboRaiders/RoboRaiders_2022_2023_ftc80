@@ -73,14 +73,14 @@ public class TestBotTeleop extends OpMode {
         switch(turretState){
             case turret_start:
 
-                myLogger.Debug("STARTHERE");
-                myLogger.Debug("STARTHERE");
-                myLogger.Debug("STARTHERE");
-                myLogger.Debug("STARTHERE");
-                myLogger.Debug("turretState: "+turretState);
-                myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
-                myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
-                myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
+//                myLogger.Debug("STARTHERE");
+//                myLogger.Debug("STARTHERE");
+//                myLogger.Debug("STARTHERE");
+//                myLogger.Debug("STARTHERE");
+//                myLogger.Debug("turretState: "+turretState);
+//                myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
+//                myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
+//                myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
 
                 if (gamepad2.dpad_right) {
                     stevesRobot.setTurretMotorTargetPosition(turret_right);
@@ -104,8 +104,8 @@ public class TestBotTeleop extends OpMode {
                 break;
 
             case turret_turning:
-                myLogger.Debug("turretState: "+turretState);
-                myLogger.Debug("TEC: " + stevesRobot.getTurretEncoderCounts());
+//                myLogger.Debug("turretState: "+turretState);
+//                myLogger.Debug("TEC: " + stevesRobot.getTurretEncoderCounts());
                 if(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) < 10.0){
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_returning;
@@ -113,8 +113,8 @@ public class TestBotTeleop extends OpMode {
                 break;
 
             case turret_returning:
-                myLogger.Debug("turretState: "+ turretState);
-                myLogger.Debug("Y: " + gamepad2.y);
+//                myLogger.Debug("turretState: "+ turretState);
+//                myLogger.Debug("Y: " + gamepad2.y);
                 if(gamepad2.y) {
                     stevesRobot.setTurretMotorTargetPosition(turret_home);
                     stevesRobot.setTurretMotorVelocity(500.0);
@@ -123,8 +123,8 @@ public class TestBotTeleop extends OpMode {
                 break;
 
             case turret_returningHome:
-                myLogger.Debug("turretState: "+turretState);
-                myLogger.Debug("TEC: " + stevesRobot.getSortedEncoderCount());
+//                myLogger.Debug("turretState: "+turretState);
+//                myLogger.Debug("TEC: " + stevesRobot.getSortedEncoderCount());
 
                 if(Math.abs(stevesRobot.getTurretEncoderCounts() - turret_home) < 10.0) {
                     stevesRobot.setTurretMotorVelocity(0.0);
@@ -133,7 +133,7 @@ public class TestBotTeleop extends OpMode {
                 break;
 
             default:
-                myLogger.Debug("turretState: "+turretState);
+//                myLogger.Debug("turretState: "+turretState);
                 turretState = tState.turret_start;
                 break;
 
@@ -174,6 +174,7 @@ public class TestBotTeleop extends OpMode {
         /**
          * To Do: Add some kind of button push to toggle or change the maximum speed of robot
          */
+
         stevesRobot.setDriveMotorPower(
                 frontLeftPower*0.65,
                 frontRightPower*0.65,
