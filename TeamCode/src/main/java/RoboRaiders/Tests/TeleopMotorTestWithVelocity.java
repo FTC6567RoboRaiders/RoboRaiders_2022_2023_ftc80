@@ -100,11 +100,11 @@ public class TeleopMotorTestWithVelocity extends OpMode {
 //                telemetry.addData("5 Seconds: ",FIVE_SECONDS);
 //                if (liftTimer.getElaspedTime() >= FIVE_SECONDS) {
                 if (gamepad1.a) {
-                    mBot.setMotorTargetPosition(0);
-                    //       mBot.runMotorWithEncodersSTP();
-                    //       mBot.setMotorSpinDirectionForward();
-                    mBot.setMotorVelocity(200.0);
-                    myState = States.GOING_DOWN;
+                        mBot.setMotorTargetPosition(0);
+                        //       mBot.runMotorWithEncodersSTP();
+                        //       mBot.setMotorSpinDirectionForward();
+                        mBot.setMotorVelocity(200.0);
+                        myState = States.GOING_DOWN;
                 }
                 //myLogger.Debug("myState, encoder ",String.valueOf(myState) + ", " + String.valueOf(mBot.getMotorPosition()));
                 break;

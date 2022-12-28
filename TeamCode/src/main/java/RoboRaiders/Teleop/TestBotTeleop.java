@@ -24,9 +24,9 @@ public class TestBotTeleop extends OpMode {
         turret_returningHome
     }
     double turret_home = 0.0;
-    double turret_right = 92.0; // 1/4 of a turn
-    double turret_left = -92.0; // 1/4 of a turn
-    double turret_back = 195.0; // 1/2 of a turn
+    double turret_right = 100.0; // 1/4 of a turn
+    double turret_left = -100.0; // 1/4 of a turn
+    double turret_back = 190.0; // 1/2 of a turn
     double turretFinalPosition;
 
     // Create an instance of the TestRobot and store it into StevesRobot
@@ -61,7 +61,7 @@ public class TestBotTeleop extends OpMode {
         // Read inverse IMU heading, as the IMU heading is CW positive
         double botHeading = stevesRobot.getHeading();
 
-        double y = -gamepad1.left_stick_y; // Remember, this is reversed!
+        double y = -gamepad1.left_stick_y; // Remember, this is reversed!`
         double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
         double rx = gamepad1.right_stick_x;
 
@@ -75,14 +75,14 @@ public class TestBotTeleop extends OpMode {
         switch(turretState){
             case turret_start:
 
-//                myLogger.Debug("STARTHERE");
-//                myLogger.Debug("STARTHERE");
-//                myLogger.Debug("STARTHERE");
-//                myLogger.Debug("STARTHERE");
-//                myLogger.Debug("turretState: "+turretState);
-//                myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
-//                myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
-//                myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
+                myLogger.Debug("STARTHERE");
+                myLogger.Debug("STARTHERE");
+                myLogger.Debug("STARTHERE");
+                myLogger.Debug("STARTHERE");
+                myLogger.Debug("turretState: "+turretState);
+                myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
+                myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
+                myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
 
                 if (gamepad2.dpad_right) {
                     stevesRobot.setTurretMotorTargetPosition(turret_right);
@@ -114,23 +114,25 @@ public class TestBotTeleop extends OpMode {
                 }
                 break;
             case turret_deposit:
-                telemetry.addData("elapsed time: ", myStopWatch.getElaspedTime());
-                telemetry.update();
-                if(gamepad2.b){
+
+                if(gamepad2.y){
                     myStopWatch.startTime();
-                }
-                if(myStopWatch.getElaspedTime() >= 1.0){
                     turretState = tState.turret_returning;
                 }
+
                 break;
             case turret_returning:
 //                myLogger.Debug("turretState: "+ turretState);
 //                myLogger.Debug("Y: " + gamepad2.y);
-                if(gamepad2.y) {
+                telemetry.addData("elapsed time: ", myStopWatch.getElaspedTime());
+                telemetry.update();
+                if(myStopWatch.getElaspedTime() >= 5.0){
+
                     stevesRobot.setTurretMotorTargetPosition(turret_home);
                     stevesRobot.setTurretMotorVelocity(500.0);
                     turretState = tState.turret_returningHome;
                 }
+
                 break;
 
             case turret_returningHome:
@@ -190,8 +192,8 @@ public class TestBotTeleop extends OpMode {
                 frontLeftPower*0.65,
                 frontRightPower*0.65,
                 backLeftPower*0.65,
-                backRightPower*0.65,
-                dtLogger);
+                backRightPower*0.65);
+ //               dtLogger);
 
     }
     /**
