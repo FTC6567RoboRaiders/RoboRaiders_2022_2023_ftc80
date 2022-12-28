@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import RoboRaiders.Utilities.Logger.Logger;
 import RoboRaiders.Properties.RoboRaidersProperties;
 import RoboRaiders.Robot.TestRobot;
+import RoboRaiders.Utilities.RRStopWatch.RRStopWatch;
 
 // This line establishes this op mode as a teleop op mode and allows for it to be displayed
 // in the drop down list on the Driver Station phone to be chosen to run.
@@ -18,13 +19,14 @@ public class TestBotTeleop extends OpMode {
     enum tState {
         turret_start,
         turret_turning,
+        turret_deposit,
         turret_returning,
         turret_returningHome
     }
     double turret_home = 0.0;
-    double turret_right = 54.0; // 1/4 of a turn
-    double turret_left = -54.0; // 1/4 of a turn
-    double turret_back = 108.0; // 1/2 of a turn
+    double turret_right = 92.0; // 1/4 of a turn
+    double turret_left = -92.0; // 1/4 of a turn
+    double turret_back = 195.0; // 1/2 of a turn
     double turretFinalPosition;
 
     // Create an instance of the TestRobot and store it into StevesRobot
@@ -33,7 +35,7 @@ public class TestBotTeleop extends OpMode {
     public Logger dtLogger = new Logger("DT");   // Drive train logger
 
     tState turretState = tState.turret_start;
-
+    public RRStopWatch myStopWatch = new RRStopWatch();
     boolean yButton = false;
 
     @Override
@@ -106,12 +108,21 @@ public class TestBotTeleop extends OpMode {
             case turret_turning:
 //                myLogger.Debug("turretState: "+turretState);
 //                myLogger.Debug("TEC: " + stevesRobot.getTurretEncoderCounts());
-                if(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) < 10.0){
+                if(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) < 5.0){
                     stevesRobot.setTurretMotorVelocity(0.0);
+                    turretState = tState.turret_deposit;
+                }
+                break;
+            case turret_deposit:
+                telemetry.addData("elapsed time: ", myStopWatch.getElaspedTime());
+                telemetry.update();
+                if(gamepad2.b){
+                    myStopWatch.startTime();
+                }
+                if(myStopWatch.getElaspedTime() >= 1.0){
                     turretState = tState.turret_returning;
                 }
                 break;
-
             case turret_returning:
 //                myLogger.Debug("turretState: "+ turretState);
 //                myLogger.Debug("Y: " + gamepad2.y);
@@ -126,7 +137,7 @@ public class TestBotTeleop extends OpMode {
 //                myLogger.Debug("turretState: "+turretState);
 //                myLogger.Debug("TEC: " + stevesRobot.getSortedEncoderCount());
 
-                if(Math.abs(stevesRobot.getTurretEncoderCounts() - turret_home) < 10.0) {
+                if(Math.abs(stevesRobot.getTurretEncoderCounts() - turret_home) < 5.0) {
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_start;
                 }
