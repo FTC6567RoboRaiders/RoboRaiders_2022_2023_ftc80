@@ -191,19 +191,19 @@ public class TestBotTeleop extends OpMode {
                 myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
                 myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
 
-                if (gamepad2.dpad_right) {
+                if (gamepad2.b) {
                     stevesRobot.setTurretMotorTargetPosition(turret_right);
                     turretFinalPosition = turret_right;
                     turretState = tState.turret_turning;
                     stevesRobot.turretRunWithEncodersSTP();
                     stevesRobot.setTurretMotorVelocity(500.0);
-                } else if (gamepad2.dpad_left) {
+                } else if (gamepad2.x) {
                     stevesRobot.setTurretMotorTargetPosition(turret_left);
                     turretFinalPosition = turret_left;
                     turretState = tState.turret_turning;
                     stevesRobot.turretRunWithEncodersSTP();
                     stevesRobot.setTurretMotorVelocity(500.0);
-                } else if (gamepad2.dpad_down) {
+                } else if (gamepad2.a) {
                     stevesRobot.setTurretMotorTargetPosition(turret_back);
                     turretFinalPosition = turret_back;
                     turretState = tState.turret_turning;
@@ -215,20 +215,20 @@ public class TestBotTeleop extends OpMode {
             case turret_turning:
 //                myLogger.Debug("turretState: "+turretState);
 //                myLogger.Debug("TEC: " + stevesRobot.getTurretEncoderCounts());
-                while(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) > 5.0){
-                    if(gamepad2.y){
-                        //set lift to high position
-                    }
-                    if(gamepad2.b){
-                        //set lift to middle position
-                    }
-                    if(gamepad2.a){
-                        //set lift to low position
-                    }
-                    if(gamepad2.x){
-                        //set lift to ground position
-                    }
-                }
+//                while(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) > 5.0){
+//                    if(gamepad2.dpad_up){
+//                        //set lift to high position
+//                    }
+//                    if(gamepad2.b){
+//                        //set lift to middle position
+//                    }
+//                    if(gamepad2.a){
+//                        //set lift to low position
+//                    }
+//                    if(gamepad2.x){
+//                        //set lift to ground position
+//                    }
+//                }
                 if(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) < 5.0){
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_deposit;
@@ -278,7 +278,7 @@ public class TestBotTeleop extends OpMode {
                 break;
 
         }
-        if(gamepad2.dpad_up && turretState != tState.turret_start){
+        if(gamepad2.y && turretState != tState.turret_start){
             turretState = tState.turret_start;
 
         }
