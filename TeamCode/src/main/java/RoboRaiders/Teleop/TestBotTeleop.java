@@ -71,6 +71,8 @@ public class TestBotTeleop extends OpMode {
 
         // Read inverse IMU heading, as the IMU heading is CW positive
         double botHeading = stevesRobot.getHeading();
+        boolean lbumper = gamepad2.left_bumper;
+        boolean rbumper = gamepad2.right_bumper;
 
         double y = -gamepad1.left_stick_y; // Remember, this is reversed!`
         double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
@@ -213,6 +215,15 @@ public class TestBotTeleop extends OpMode {
                 break;
         }
 
+        if(lbumper){
+            stevesRobot.setinTakeServoPosition(1.0);
+        }
+        else if (rbumper){
+            stevesRobot.setinTakeServoPosition(0.0);
+        }
+        else {
+            stevesRobot.setinTakeServoPosition(0.5);
+        }
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
