@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -23,7 +25,8 @@ public class TestRobot {
     public DcMotorEx lRMotor = null;
     public DcMotorEx rRMotor = null;
     public DcMotorEx turretMotor = null;
-
+    public DcMotorEx liftMotor = null;
+    private Servo inTake;
     public BNO055IMU imu;
 
     /* Local OpMode Members */
@@ -59,13 +62,14 @@ public class TestRobot {
         hwMap = ahwMap;
 
         // Define and initialize motors
-        // Define and initialize motors
         lFMotor = hwMap.get(DcMotorEx.class, "lFMotor");
         rFMotor = hwMap.get(DcMotorEx.class, "rFMotor");
         lRMotor = hwMap.get(DcMotorEx.class, "lRMotor");
         rRMotor = hwMap.get(DcMotorEx.class, "rRMotor");
 
         turretMotor = hwMap.get(DcMotorEx.class, "turretMotor");
+
+        liftMotor = hwMap.get(DcMotorEx.class, "liftMotor");
 
 
         // Defines the directions the motors will spin
@@ -76,12 +80,16 @@ public class TestRobot {
 
         turretMotor.setDirection(DcMotor.Direction.FORWARD);
 
+        liftMotor.setDirection(DcMotor.Direction.FORWARD);
+
         lFMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rFMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lRMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rRMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         turretMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //have the motors on the drivetrain break here.
         // Set all motors to zero power
@@ -92,10 +100,13 @@ public class TestRobot {
 
         turretMotor.setPower(0.0);
 
+        liftMotor.setPower(0.0);
+
 
         // Stop and reset encoders
         resetEncoders();
         turretResetEncoders();
+        liftResetEncoders();
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODER if encoders are installed, and we wouldn't use encoders for teleop, even if we
@@ -106,6 +117,11 @@ public class TestRobot {
 
         turretMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        // define and initialize the servo
+        inTake = hwMap.get(Servo.class, "inTakeServo");
+        setinTakeServoPosition(0.5); // set to home position
 
         // Define and initialize sensors
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -399,6 +415,17 @@ public class TestRobot {
 
     }
 
+    public void liftResetEncoders() {
+
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+    }
+
+    public void setLiftPower(double liftPower) {
+
+        liftMotor.setPower(liftPower);
+
+    }
 
 
     //**********************************************************************************************
@@ -407,7 +434,31 @@ public class TestRobot {
     //
     //**********************************************************************************************
 
+    //**********************************************************************************************
+    //
+    // Servo METHODS
+    //
+    //**********************************************************************************************
 
+    /**
+     * this sets the servo position for our intake
+     *
+     * @param servoPosition - servo position
+     *                      - 0.5 center position
+     *                      - 0.0 intake position
+     *                      - 1.0 scoring position
+     *
+     */
+    public void setinTakeServoPosition(double servoPosition){
+        inTake.setPosition(servoPosition);
+    }
+
+
+    //**********************************************************************************************
+    //
+    // End Servo METHODS
+    //
+    //**********************************************************************************************
 
     //**********************************************************************************************
     //
