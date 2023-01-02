@@ -16,7 +16,7 @@ import RoboRaiders.Robot.TestRobot;
 
 public class LiftTest extends OpMode {
 
-    TestRobot LiftTestBot = new TestRobot;
+    TestRobot LiftTestBot = new TestRobot();
 
     @Override
     public void init() {

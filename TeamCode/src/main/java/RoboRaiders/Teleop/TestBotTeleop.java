@@ -66,33 +66,17 @@ public class TestBotTeleop extends OpMode {
          * To Do: Move the drive code into separate method, could also move turret, lift and
          * grabber code into separate methods.
          */
-        //double autoHeading = RoboRaidersProperties.getHeading();
-
-
-        // Read inverse IMU heading, as the IMU heading is CW positive
 
 
         boolean leftBumper = gamepad2.left_bumper;
         boolean rightBumper = gamepad2.right_bumper;
-        // Denominator is the largest motor power (absolute value) or 1
-        // This ensures all the powers maintain the same ratio, but only when
-        // at least one is out of the range [-1, 1]
+
 
 
         doTurret();
         doLift();
         doDrive();
 
-
-        if(leftBumper){
-            stevesRobot.setinTakeServoPosition(1.0);
-        }
-        else if (rightBumper){
-            stevesRobot.setinTakeServoPosition(0.0);
-        }
-        else {
-            stevesRobot.setinTakeServoPosition(0.5);
-        }
 
 
 //
@@ -315,6 +299,9 @@ public class TestBotTeleop extends OpMode {
         }
     }
     public void doDrive(){
+        //double autoHeading = RoboRaidersProperties.getHeading();
+        // Read inverse IMU heading, as the IMU heading is CW positive
+
         double botHeading = stevesRobot.getHeading();
 
         double y = -gamepad1.left_stick_y; // Remember, this is reversed!`
@@ -324,11 +311,16 @@ public class TestBotTeleop extends OpMode {
         double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
         double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
 
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio, but only when
+        // at least one is out of the range [-1, 1]
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
         double frontLeftPower = (rotY + rotX + rx) / denominator;
         double backLeftPower = (rotY - rotX + rx) / denominator;
         double frontRightPower = (rotY - rotX - rx) / denominator;
         double backRightPower = (rotY + rotX - rx) / denominator;
+        double lTrigger = gamepad1.left_trigger;
+        double rTrigger = gamepad1.right_trigger;
 
         telemetry.addLine("MAKE SURE THE ARROWS ON MOTORS 1 AND 3 FACE THE DRIVER");
         telemetry.addLine("Variables");
@@ -344,6 +336,22 @@ public class TestBotTeleop extends OpMode {
         telemetry.addData("frontRightPower", String.valueOf(frontRightPower));
         telemetry.addData("backRightPower", String.valueOf(backRightPower));
         telemetry.addData("auto heading: ", RoboRaidersProperties.getHeading());
+
+        if(lTrigger > 0.0){
+            frontLeftPower = (frontLeftPower*0.65) - (0.2 * lTrigger);
+            frontRightPower = (frontLeftPower*0.65) - (0.2 * lTrigger);
+            backLeftPower = (frontLeftPower*0.65) - (0.2 * lTrigger);
+            backRightPower = (frontLeftPower*0.65) - (0.2 * lTrigger);
+
+        }
+
+        else if(rTrigger > 0.0){
+            frontLeftPower = (frontLeftPower*0.65) + (0.2 * lTrigger);
+            frontRightPower = (frontLeftPower*0.65) + (0.2 * lTrigger);
+            backLeftPower = (frontLeftPower*0.65) + (0.2 * lTrigger);
+            backRightPower = (frontLeftPower*0.65) + (0.2 * lTrigger);
+
+        }
 
 
         stevesRobot.setDriveMotorPower(
