@@ -70,17 +70,10 @@ public class TestBotTeleop extends OpMode {
 
 
         // Read inverse IMU heading, as the IMU heading is CW positive
-        double botHeading = stevesRobot.getHeading();
-        boolean lbumper = gamepad2.left_bumper;
-        boolean rbumper = gamepad2.right_bumper;
 
-        double y = -gamepad1.left_stick_y; // Remember, this is reversed!`
-        double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-        double rx = gamepad1.right_stick_x;
 
-        double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
-        double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
-
+        boolean leftBumper = gamepad2.left_bumper;
+        boolean rightBumper = gamepad2.right_bumper;
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
         // at least one is out of the range [-1, 1]
@@ -88,38 +81,20 @@ public class TestBotTeleop extends OpMode {
 
         doTurret();
         doLift();
+        doDrive();
 
 
-        if(lbumper){
+        if(leftBumper){
             stevesRobot.setinTakeServoPosition(1.0);
         }
-        else if (rbumper){
+        else if (rightBumper){
             stevesRobot.setinTakeServoPosition(0.0);
         }
         else {
             stevesRobot.setinTakeServoPosition(0.5);
         }
 
-        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX - rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
 
-        telemetry.addLine("MAKE SURE THE ARROWS ON MOTORS 1 AND 3 FACE THE DRIVER");
-        telemetry.addLine("Variables");
-        telemetry.addData("botHeading", String.valueOf(botHeading));
-        telemetry.addData("y", String.valueOf(y));
-        telemetry.addData("x", String.valueOf(x));
-        telemetry.addData("rx", String.valueOf(rx));
-        telemetry.addData("rotX", String.valueOf(rotX));
-        telemetry.addData("rotY", String.valueOf(rotY));
-        telemetry.addData("denominator", String.valueOf(denominator));
-        telemetry.addData("frontLeftPower", String.valueOf(frontLeftPower));
-        telemetry.addData("backLeftPower", String.valueOf(backLeftPower));
-        telemetry.addData("frontRightPower", String.valueOf(frontRightPower));
-        telemetry.addData("backRightPower", String.valueOf(backRightPower));
-        telemetry.addData("auto heading: ", RoboRaidersProperties.getHeading());
 //
 //        myLogger.Debug("botheading ", botHeading);
 //        myLogger.Debug("x / y / rx ", x, y, rx);
@@ -135,12 +110,6 @@ public class TestBotTeleop extends OpMode {
          * To Do: Add some kind of button push to toggle or change the maximum speed of robot
          */
 
-        stevesRobot.setDriveMotorPower(
-                frontLeftPower*0.65,
-                frontRightPower*0.65,
-                backLeftPower*0.65,
-                backRightPower*0.65);
- //               dtLogger);
 
     }
     /**
@@ -344,5 +313,44 @@ public class TestBotTeleop extends OpMode {
                 liftState = lState.lift_start;
                 break;
         }
+    }
+    public void doDrive(){
+        double botHeading = stevesRobot.getHeading();
+
+        double y = -gamepad1.left_stick_y; // Remember, this is reversed!`
+        double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+        double rx = gamepad1.right_stick_x;
+
+        double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
+        double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
+
+        double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+        double frontLeftPower = (rotY + rotX + rx) / denominator;
+        double backLeftPower = (rotY - rotX + rx) / denominator;
+        double frontRightPower = (rotY - rotX - rx) / denominator;
+        double backRightPower = (rotY + rotX - rx) / denominator;
+
+        telemetry.addLine("MAKE SURE THE ARROWS ON MOTORS 1 AND 3 FACE THE DRIVER");
+        telemetry.addLine("Variables");
+        telemetry.addData("botHeading", String.valueOf(botHeading));
+        telemetry.addData("y", String.valueOf(y));
+        telemetry.addData("x", String.valueOf(x));
+        telemetry.addData("rx", String.valueOf(rx));
+        telemetry.addData("rotX", String.valueOf(rotX));
+        telemetry.addData("rotY", String.valueOf(rotY));
+        telemetry.addData("denominator", String.valueOf(denominator));
+        telemetry.addData("frontLeftPower", String.valueOf(frontLeftPower));
+        telemetry.addData("backLeftPower", String.valueOf(backLeftPower));
+        telemetry.addData("frontRightPower", String.valueOf(frontRightPower));
+        telemetry.addData("backRightPower", String.valueOf(backRightPower));
+        telemetry.addData("auto heading: ", RoboRaidersProperties.getHeading());
+
+
+        stevesRobot.setDriveMotorPower(
+                frontLeftPower*0.65,
+                frontRightPower*0.65,
+                backLeftPower*0.65,
+                backRightPower*0.65);
+        //               dtLogger);
     }
 }
