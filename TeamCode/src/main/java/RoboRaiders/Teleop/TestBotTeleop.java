@@ -278,6 +278,10 @@ public class TestBotTeleop extends OpMode {
                 break;
 
         }
+        if(gamepad2.dpad_up && turretState != tState.turret_start){
+            turretState = tState.turret_start;
+
+        }
     }
     public void doLift(){
         switch(liftState){
