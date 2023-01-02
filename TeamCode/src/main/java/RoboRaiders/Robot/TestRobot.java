@@ -426,6 +426,22 @@ public class TestRobot {
         liftMotor.setPower(liftPower);
 
     }
+    public void setLiftMotorTargetPosition(double liftPosition){
+        liftMotor.setTargetPosition((int)liftPosition);
+    }
+    public void setLiftMotorVelocity(double liftVelocity){
+        liftMotor.setVelocity(liftVelocity);
+
+    }
+    public double getLiftEncoderCounts(){
+        return liftMotor.getTargetPosition();
+    }
+    public void liftRunWithEncodersSTP(){
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+    public void setLiftMotorPower(double liftPower){
+        liftMotor.setPower(liftPower);
+    }
 
 
     //**********************************************************************************************

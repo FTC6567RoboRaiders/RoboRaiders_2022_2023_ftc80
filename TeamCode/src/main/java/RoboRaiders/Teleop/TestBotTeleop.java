@@ -27,8 +27,7 @@ public class TestBotTeleop extends OpMode {
         lift_start,
         lift_extending,
         lift_deposit,
-        lift_returning,
-        lift_returningHome
+        lift_retract,
 
 
     }
@@ -38,6 +37,12 @@ public class TestBotTeleop extends OpMode {
     double turret_left = -100.0; // 1/4 of a turn
     double turret_back = 190.0; // 1/2 of a turn
     double turretFinalPosition;
+
+    double lift_ground = 0.0;
+    double lift_high = 600.0;
+    double lift_middle = 400.0;
+    double lift_low = 200.0;
+    double liftFinalPosition;
 
     // Create an instance of the TestRobot and store it into StevesRobot
     public TestRobot stevesRobot = new TestRobot();
@@ -317,20 +322,74 @@ public class TestBotTeleop extends OpMode {
     public void doLift(){
         switch(liftState){
             case lift_start:
-                liftState = lState.lift_extending;
+                myLogger.Debug("STARTHERE,STARTHERE,STARTHERE,STARTHERE");
+                myLogger.Debug("turretState: "+turretState);
+                myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
+                myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
+                myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
+
+                if (gamepad2.dpad_down) {
+                    stevesRobot.setLiftMotorTargetPosition(lift_low);
+                    liftFinalPosition = lift_low;
+                    liftState = lState.lift_extending;
+                    stevesRobot.liftRunWithEncodersSTP();
+                    stevesRobot.setLiftMotorVelocity(500.0);
+                }
+
+                else if (gamepad2.dpad_left) {
+                    stevesRobot.setLiftMotorTargetPosition(lift_ground);
+                    liftFinalPosition = lift_low;
+                    liftState = lState.lift_extending;
+                    stevesRobot.liftRunWithEncodersSTP();
+                    stevesRobot.setLiftMotorVelocity(500.0);
+
+                }
+
+                else if (gamepad2.dpad_right) {
+
+                    stevesRobot.setLiftMotorTargetPosition(lift_middle);
+                    liftFinalPosition = lift_low;
+                    liftState = lState.lift_extending;
+                    stevesRobot.liftRunWithEncodersSTP();
+                    stevesRobot.setLiftMotorVelocity(500.0);
+
+                    }
+
+                else if (gamepad2.dpad_up) {
+                    stevesRobot.setLiftMotorTargetPosition(lift_high);
+                    liftFinalPosition = lift_low;
+                    stevesRobot.liftRunWithEncodersSTP();
+                    stevesRobot.setLiftMotorVelocity(500.0);
+                    liftState = lState.lift_extending;
+                }
+                else {
+                    stevesRobot.setLiftMotorPower(0.5 * (-gamepad2.right_stick_y));
+
+                }
+
                 break;
+
+
             case lift_extending:
-                liftState = lState.lift_deposit;
+                if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) < 5.0) {
+                    stevesRobot.setLiftMotorVelocity(0.0);
+                    turretState = tState.turret_deposit;
+                }
+
                 break;
             case lift_deposit:
-                liftState = lState.lift_returning;
+                stevesRobot.setLiftMotorTargetPosition(lift_ground);
+                stevesRobot.setLiftMotorVelocity(500.0);
+                liftState = lState.lift_retract;
                 break;
-            case lift_returning:
-                liftState = lState.lift_returningHome;
+            case lift_retract:
+                if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) < 5.0) {
+                    stevesRobot.setLiftMotorVelocity(0.0);
+                    liftState = lState.lift_start;
+                }
                 break;
-            case lift_returningHome:
+            default:
                 liftState = lState.lift_start;
-                break;
         }
     }
     public void doDrive(){
