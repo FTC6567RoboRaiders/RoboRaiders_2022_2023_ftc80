@@ -87,24 +87,8 @@ public class TestBotTeleop extends OpMode {
 
 
         doTurret();
+        doLift();
 
-        switch(liftState){
-            case lift_start:
-                liftState = lState.lift_extending;
-                break;
-            case lift_extending:
-                liftState = lState.lift_deposit;
-                break;
-            case lift_deposit:
-                liftState = lState.lift_returning;
-                break;
-            case lift_returning:
-                liftState = lState.lift_returningHome;
-                break;
-            case lift_returningHome:
-                liftState = lState.lift_start;
-                break;
-        }
 
         if(lbumper){
             stevesRobot.setinTakeServoPosition(1.0);
@@ -340,6 +324,25 @@ public class TestBotTeleop extends OpMode {
                 turretState = tState.turret_start;
                 break;
 
+        }
+    }
+    public void doLift(){
+        switch(liftState){
+            case lift_start:
+                liftState = lState.lift_extending;
+                break;
+            case lift_extending:
+                liftState = lState.lift_deposit;
+                break;
+            case lift_deposit:
+                liftState = lState.lift_returning;
+                break;
+            case lift_returning:
+                liftState = lState.lift_returningHome;
+                break;
+            case lift_returningHome:
+                liftState = lState.lift_start;
+                break;
         }
     }
 }
