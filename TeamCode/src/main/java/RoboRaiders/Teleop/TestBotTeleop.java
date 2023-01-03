@@ -190,11 +190,14 @@ public class TestBotTeleop extends OpMode {
     public void doTurret(){
         switch(turretState){
             case turret_start:
-                myLogger.Debug("STARTHERE,STARTHERE,STARTHERE,STARTHERE");
+                myLogger.Debug("TURRET: STARTHERE,STARTHERE,STARTHERE,STARTHERE");
                 myLogger.Debug("turretState: "+turretState);
-                myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
-                myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
-                myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
+                myLogger.Debug("liftState: "+liftState);
+                myLogger.Debug("gamepad2.dpad_right"+gamepad2.b);
+                myLogger.Debug("gamepad2.dpad_left"+gamepad2.x);
+                myLogger.Debug("gamepad2.dpad_down"+gamepad2.a);
+                myLogger.Debug("gamepad2.dpad_down"+gamepad2.y);
+                myLogger.Debug("Lift Encoder Counts Compared to Final Position: " + Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition));
                 if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0){
                     if (gamepad2.b) {
 
@@ -263,13 +266,6 @@ public class TestBotTeleop extends OpMode {
                     stevesRobot.setTurretMotorPower(0.5 * gamepad2.left_stick_x);
 
                 }
-//                if(gamepad2.right_stick_button) {
-//                    stevesRobot.setTurretMotorTargetPosition(turret_home);
-//                    stevesRobot.setTurretMotorVelocity(500.0);
-//                    myStopWatch.startTime();
-//                    turretState = tState.turret_returningHome;
-//                    break;
-//                }
 
 
                 break;
@@ -314,8 +310,10 @@ public class TestBotTeleop extends OpMode {
     public void doLift(){
         switch(liftState){
             case lift_start:
-                myLogger.Debug("STARTHERE,STARTHERE,STARTHERE,STARTHERE");
+                myLogger.Debug("LIFT: STARTHERE,STARTHERE,STARTHERE,STARTHERE");
                 myLogger.Debug("turretState: "+turretState);
+                myLogger.Debug("liftState: "+liftState);
+                myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_up);
                 myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
                 myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
                 myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
