@@ -195,7 +195,7 @@ public class TestBotTeleop extends OpMode {
                 myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
                 myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
                 myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
-                if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 5.0){
+                if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0){
                     if (gamepad2.b) {
 
                         stevesRobot.setTurretMotorTargetPosition(turret_right);
@@ -231,6 +231,10 @@ public class TestBotTeleop extends OpMode {
                         stevesRobot.setTurretMotorPower(0.5 * gamepad2.left_stick_x);
 
                     }
+                }
+                else{
+
+                    telemetry.addData("LIFT NOT HIGH ENOUGH TO SPIN TURRET", "Silly Goose");
                 }
 
 
