@@ -261,9 +261,9 @@ public class TestBotTeleop extends OpMode {
             case turret_deposit:
                 if(gamepad2.right_stick_button && liftState == lState.lift_deposit) {
                     myStopWatch.startTime();
-                    turretState = tState.turret_returning;
-                    stevesRobot.setinTakeServoPosition(1.0);
                     stevesRobot.setTurretMotorPower(0.0);
+                    stevesRobot.setinTakeServoPosition(1.0);
+                    turretState = tState.turret_returning;
 
                 }
                 else {
@@ -377,9 +377,11 @@ public class TestBotTeleop extends OpMode {
 
                 break;
             case lift_deposit:
-                stevesRobot.setLiftMotorTargetPosition(lift_ground);
-                stevesRobot.setLiftMotorVelocity(500.0);
-                liftState = lState.lift_retract;
+                if(turretState == tState.turret_returningHome){
+                    stevesRobot.setLiftMotorTargetPosition(lift_ground);
+                    stevesRobot.setLiftMotorVelocity(500.0);
+                    liftState = lState.lift_retract;
+                }
                 break;
             case lift_retract:
                 if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) < 5.0) {
