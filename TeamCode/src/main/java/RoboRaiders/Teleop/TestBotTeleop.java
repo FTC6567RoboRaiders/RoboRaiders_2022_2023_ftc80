@@ -193,10 +193,10 @@ public class TestBotTeleop extends OpMode {
                 myLogger.Debug("TURRET: STARTHERE,STARTHERE,STARTHERE,STARTHERE");
                 myLogger.Debug("turretState: "+turretState);
                 myLogger.Debug("liftState: "+liftState);
-                myLogger.Debug("gamepad2.dpad_right"+gamepad2.b);
-                myLogger.Debug("gamepad2.dpad_left"+gamepad2.x);
-                myLogger.Debug("gamepad2.dpad_down"+gamepad2.a);
-                myLogger.Debug("gamepad2.dpad_down"+gamepad2.y);
+                myLogger.Debug("gamepad2.b "+gamepad2.b);
+                myLogger.Debug("gamepad2.x "+gamepad2.x);
+                myLogger.Debug("gamepad2.a "+gamepad2.a);
+                myLogger.Debug("gamepad2.y "+gamepad2.y);
                 myLogger.Debug("Lift Encoder Counts Compared to Final Position: " + Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition));
                 if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0){
                     if (gamepad2.b) {
@@ -313,10 +313,10 @@ public class TestBotTeleop extends OpMode {
                 myLogger.Debug("LIFT: STARTHERE,STARTHERE,STARTHERE,STARTHERE");
                 myLogger.Debug("turretState: "+turretState);
                 myLogger.Debug("liftState: "+liftState);
-                myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_up);
-                myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
-                myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
-                myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
+                myLogger.Debug("gamepad2.dpad_up "+gamepad2.dpad_up);
+                myLogger.Debug("gamepad2.dpad_right "+gamepad2.dpad_right);
+                myLogger.Debug("gamepad2.dpad_left "+gamepad2.dpad_left);
+                myLogger.Debug("gamepad2.dpad_down "+gamepad2.dpad_down);
 
                 if (gamepad2.dpad_down) {
                     stevesRobot.setLiftMotorTargetPosition(lift_low);
