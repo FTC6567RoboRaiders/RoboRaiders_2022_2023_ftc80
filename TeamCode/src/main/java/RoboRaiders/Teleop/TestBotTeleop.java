@@ -195,62 +195,51 @@ public class TestBotTeleop extends OpMode {
                 myLogger.Debug("gamepad2.dpad_right"+gamepad2.dpad_right);
                 myLogger.Debug("gamepad2.dpad_left"+gamepad2.dpad_left);
                 myLogger.Debug("gamepad2.dpad_down"+gamepad2.dpad_down);
+                if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 5.0){
+                    if (gamepad2.b) {
 
-                if (gamepad2.b) {
+                        stevesRobot.setTurretMotorTargetPosition(turret_right);
+                        turretFinalPosition = turret_right;
+                        turretState = tState.turret_turning;
+                        stevesRobot.turretRunWithEncodersSTP();
+                        stevesRobot.setTurretMotorVelocity(500.0);
 
-                    stevesRobot.setTurretMotorTargetPosition(turret_right);
-                    turretFinalPosition = turret_right;
-                    turretState = tState.turret_turning;
-                    stevesRobot.turretRunWithEncodersSTP();
-                    stevesRobot.setTurretMotorVelocity(500.0);
+                    }
 
+                    else if (gamepad2.x) {
+
+                        stevesRobot.setTurretMotorTargetPosition(turret_left);
+                        turretFinalPosition = turret_left;
+                        turretState = tState.turret_turning;
+                        stevesRobot.turretRunWithEncodersSTP();
+                        stevesRobot.setTurretMotorVelocity(500.0);
+
+                    }
+
+                    else if (gamepad2.a) {
+
+                        stevesRobot.setTurretMotorTargetPosition(turret_back);
+                        turretFinalPosition = turret_back;
+                        turretState = tState.turret_turning;
+                        stevesRobot.turretRunWithEncodersSTP();
+                        stevesRobot.setTurretMotorVelocity(500.0);
+
+                    }
+
+                    else {
+
+                        stevesRobot.setTurretMotorPower(0.5 * gamepad2.left_stick_x);
+
+                    }
                 }
 
-                else if (gamepad2.x) {
-
-                    stevesRobot.setTurretMotorTargetPosition(turret_left);
-                    turretFinalPosition = turret_left;
-                    turretState = tState.turret_turning;
-                    stevesRobot.turretRunWithEncodersSTP();
-                    stevesRobot.setTurretMotorVelocity(500.0);
-
-                }
-
-                else if (gamepad2.a) {
-
-                    stevesRobot.setTurretMotorTargetPosition(turret_back);
-                    turretFinalPosition = turret_back;
-                    turretState = tState.turret_turning;
-                    stevesRobot.turretRunWithEncodersSTP();
-                    stevesRobot.setTurretMotorVelocity(500.0);
-
-                }
-
-                else {
-
-                   stevesRobot.setTurretMotorPower(0.5 * gamepad2.left_stick_x);
-
-                }
 
                 break;
 
             case turret_turning:
 //                myLogger.Debug("turretState: "+turretState);
 //                myLogger.Debug("TEC: " + stevesRobot.getTurretEncoderCounts());
-//                while(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) > 5.0){
-//                    if(gamepad2.dpad_up){
-//                        //set lift to high position
-//                    }
-//                    if(gamepad2.b){
-//                        //set lift to middle position
-//                    }
-//                    if(gamepad2.a){
-//                        //set lift to low position
-//                    }
-//                    if(gamepad2.x){
-//                        //set lift to ground position
-//                    }
-//                }
+
                 if(Math.abs(stevesRobot.getTurretEncoderCounts() - turretFinalPosition) < 5.0) {
                     stevesRobot.setTurretMotorVelocity(0.0);
                     turretState = tState.turret_deposit;
@@ -363,7 +352,6 @@ public class TestBotTeleop extends OpMode {
                 }
                 else {
                     stevesRobot.setLiftMotorPower(0.5 * (-gamepad2.right_stick_y));
-
                 }
 
                 break;
@@ -372,7 +360,7 @@ public class TestBotTeleop extends OpMode {
             case lift_extending:
                 if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) < 5.0) {
                     stevesRobot.setLiftMotorVelocity(0.0);
-                    turretState = tState.turret_deposit;
+                    liftState = lState.lift_deposit;
                 }
 
                 break;
