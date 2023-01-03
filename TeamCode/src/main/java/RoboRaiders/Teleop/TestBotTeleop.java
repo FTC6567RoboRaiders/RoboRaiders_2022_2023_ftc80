@@ -427,15 +427,19 @@ public class TestBotTeleop extends OpMode {
             frontRightPower = (frontLeftPower*0.65) - (0.2 * lTrigger);
             backLeftPower = (frontLeftPower*0.65) - (0.2 * lTrigger);
             backRightPower = (frontLeftPower*0.65) - (0.2 * lTrigger);
-
         }
-
         else if(rTrigger > 0.0){
             frontLeftPower = (frontLeftPower*0.65) + (0.2 * lTrigger);
             frontRightPower = (frontLeftPower*0.65) + (0.2 * lTrigger);
             backLeftPower = (frontLeftPower*0.65) + (0.2 * lTrigger);
             backRightPower = (frontLeftPower*0.65) + (0.2 * lTrigger);
+        }
 
+        if(gamepad2.right_bumper) {
+            stevesRobot.setinTakeServoPosition(0.0);
+        }
+        else if(gamepad2.left_bumper) {
+            stevesRobot.setinTakeServoPosition(1.0);
         }
 
 
