@@ -259,15 +259,14 @@ public class TestBotTeleop extends OpMode {
                 break;
 
             case turret_deposit:
-                if(gamepad2.right_stick_button) {
-
+                if(gamepad2.right_stick_button && liftState == lState.lift_deposit) {
                     myStopWatch.startTime();
                     turretState = tState.turret_returning;
+                    stevesRobot.setinTakeServoPosition(1.0);
                     stevesRobot.setTurretMotorPower(0.0);
 
                 }
                 else {
-
                     stevesRobot.setTurretMotorPower(0.5 * gamepad2.left_stick_x);
 
                 }

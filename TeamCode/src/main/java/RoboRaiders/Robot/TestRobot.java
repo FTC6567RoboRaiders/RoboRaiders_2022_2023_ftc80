@@ -26,7 +26,7 @@ public class TestRobot {
     public DcMotorEx rRMotor = null;
     public DcMotorEx turretMotor = null;
     public DcMotorEx liftMotor = null;
-    // private Servo inTake;
+    private Servo inTake;
     public BNO055IMU imu;
 
     /* Local OpMode Members */
@@ -120,8 +120,8 @@ public class TestRobot {
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // define and initialize the servo
-        // inTake = hwMap.get(Servo.class, "inTakeServo");
-        // setinTakeServoPosition(0.5); // set to home position
+        inTake = hwMap.get(Servo.class, "inTakeServo");
+        setinTakeServoPosition(0.5); // set to home position
 
         // Define and initialize sensors
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -465,9 +465,9 @@ public class TestRobot {
      *                      - 1.0 scoring position
      *
      */
-//    public void setinTakeServoPosition(double servoPosition){
-//        inTake.setPosition(servoPosition);
-//    }
+    public void setinTakeServoPosition(double servoPosition){
+        inTake.setPosition(servoPosition);
+    }
 
 
     //**********************************************************************************************
