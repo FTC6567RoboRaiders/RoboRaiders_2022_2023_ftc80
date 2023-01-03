@@ -198,46 +198,53 @@ public class TestBotTeleop extends OpMode {
                 myLogger.Debug("gamepad2.a "+gamepad2.a);
                 myLogger.Debug("gamepad2.y "+gamepad2.y);
                 myLogger.Debug("Lift Encoder Counts Compared to Final Position: " + Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition));
-                if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0){
-                    if (gamepad2.b) {
 
-                        stevesRobot.setTurretMotorTargetPosition(turret_right);
-                        turretFinalPosition = turret_right;
-                        turretState = tState.turret_turning;
+
+                if (gamepad2.b) {
+                    stevesRobot.setTurretMotorTargetPosition(turret_right);
+                    turretFinalPosition = turret_right;
+                    turretState = tState.turret_turning;
+                    stevesRobot.setLiftMotorTargetPosition(20);
+                    stevesRobot.setLiftMotorVelocity(500.0);
+                    if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0) {
                         stevesRobot.turretRunWithEncodersSTP();
                         stevesRobot.setTurretMotorVelocity(500.0);
-
                     }
 
-                    else if (gamepad2.x) {
-
-                        stevesRobot.setTurretMotorTargetPosition(turret_left);
-                        turretFinalPosition = turret_left;
-                        turretState = tState.turret_turning;
-                        stevesRobot.turretRunWithEncodersSTP();
-                        stevesRobot.setTurretMotorVelocity(500.0);
-
-                    }
-
-                    else if (gamepad2.a) {
-
-                        stevesRobot.setTurretMotorTargetPosition(turret_back);
-                        turretFinalPosition = turret_back;
-                        turretState = tState.turret_turning;
-                        stevesRobot.turretRunWithEncodersSTP();
-                        stevesRobot.setTurretMotorVelocity(500.0);
-
-                    }
-
-                    else {
-
-                        stevesRobot.setTurretMotorPower(0.5 * gamepad2.left_stick_x);
-
-                    }
                 }
-                else{
 
-                    telemetry.addData("LIFT NOT HIGH ENOUGH TO SPIN TURRET", "Silly Goose");
+                else if (gamepad2.x) {
+
+                    stevesRobot.setTurretMotorTargetPosition(turret_left);
+                    turretFinalPosition = turret_left;
+                    turretState = tState.turret_turning;
+                    stevesRobot.setLiftMotorTargetPosition(20);
+                    stevesRobot.setLiftMotorVelocity(500.0);
+                    if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0) {
+                        stevesRobot.turretRunWithEncodersSTP();
+                        stevesRobot.setTurretMotorVelocity(500.0);
+                    }
+
+                }
+
+                else if (gamepad2.a) {
+
+                    stevesRobot.setTurretMotorTargetPosition(turret_back);
+                    turretFinalPosition = turret_back;
+                    turretState = tState.turret_turning;
+                    stevesRobot.setLiftMotorTargetPosition(20);
+                    stevesRobot.setLiftMotorVelocity(500.0);
+                    if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0) {
+                        stevesRobot.turretRunWithEncodersSTP();
+                        stevesRobot.setTurretMotorVelocity(500.0);
+                    }
+
+                }
+
+                else {
+
+                    stevesRobot.setTurretMotorPower(0.5 * gamepad2.left_stick_x);
+
                 }
 
 
