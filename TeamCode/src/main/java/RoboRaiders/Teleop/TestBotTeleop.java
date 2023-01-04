@@ -208,7 +208,9 @@ public class TestBotTeleop extends OpMode {
                 myLogger.Debug("Lift Encoder Counts Compared to Final Position: " + Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition));
 
 
-                /** When b, x, a gamepad2 button is pushed have the lift extend 5-6 inches (how many encoder counts??)
+                /** Some rambling to get my thoughts together...what is written here was under extreme duress and tiredness
+                 *
+                 * When b, x, a gamepad2 button is pushed have the lift extend 5-6 inches (how many encoder counts??)
                  * so that the intake mechanism is clear of the chassis.  Once clear of the chassis then we can start
                  * rotating to the appropriate position.
                  *
@@ -220,55 +222,48 @@ public class TestBotTeleop extends OpMode {
                  * however, if the lift is not in a start state, i think we don't want to "extend" the lift since it is already
                  * being extended....does this make sense????
                  *
+                 * what if the lift is extended but below the height that we need to go, do we extend the lift and then rotate? or
+                 * ignore what the "gunner" pushed
+                 *
                  */
-
-                if (gamepad2.b) {                                                                   // gamepad2.b button pushed
-
-                    stevesRobot.setTurretMotorTargetPosition(turret_right);                         // Set the target position for the turret
-                    turretFinalPosition = turret_right;                                             // Remember the target position for the turret
-                    turretState = tState.turret_liftMovingToTargetRotatePosition;                   // New state, indicate that the lift is moving to target rotate position
-                    stevesRobot.setLiftMotorTargetPosition(20);                                     // Set the position to extend the lift to
-                    liftRotatePosition = 20.0;                                                      // Remember the position to extend the lift to
-                    stevesRobot.setLiftMotorVelocity(500.0);                                        // Apply a velocity to the lift motor
-
-                }                                                                                   // end gamepad2.b button pushed
 
                 /**
-                 * NOTE: Do the same stuff as above for gamepad2.x and gamepad2.a!!!
+                 * So we are gonna turn the turret either now or later, so set the target position and remember it
                  */
+                if (gamepad2.b) {                                                                   // gamepad2.b button pushed
+                    stevesRobot.setTurretMotorTargetPosition(turret_right);                         // Set the target position for the turret
+                    turretFinalPosition = turret_right;                                             // Remember the target position for the turret
+                }
                 else if (gamepad2.x) {
-
-                    stevesRobot.setTurretMotorTargetPosition(turret_left);
-                    turretFinalPosition = turret_left;
-                    turretState = tState.turret_turning;
-                    stevesRobot.setLiftMotorTargetPosition(20);
-                    stevesRobot.setLiftMotorVelocity(500.0);
-                    if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0) {
-                        stevesRobot.turretRunWithEncodersSTP();
-                        stevesRobot.setTurretMotorVelocity(500.0);
-                    }
-
+                    stevesRobot.setTurretMotorTargetPosition(turret_left);                          // Set the target position for the turret
+                    turretFinalPosition = turret_left;                                              // Remember the target position for the turret
                 }
-
                 else if (gamepad2.a) {
-
-                    stevesRobot.setTurretMotorTargetPosition(turret_back);
-                    turretFinalPosition = turret_back;
-                    turretState = tState.turret_turning;
-                    stevesRobot.setLiftMotorTargetPosition(20);
-                    stevesRobot.setLiftMotorVelocity(500.0);
-                    if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0) {
-                        stevesRobot.turretRunWithEncodersSTP();
-                        stevesRobot.setTurretMotorVelocity(500.0);
-                    }
-
-                }
-                else {                                                                              // Allow the gunner to "adjust" the turret position
-
-                    stevesRobot.setTurretMotorPower(0.5 * gamepad2.left_stick_x);
-
+                    stevesRobot.setTurretMotorTargetPosition(turret_back);                          // Set the target position for the turret
+                    turretFinalPosition = turret_back;                                              // Remember the target position for the turret
                 }
 
+                /**
+                 * So if the lift state is lift_start, that means the lift is in home position.  So start to extending it.
+                 */
+                 if (liftState == lState.lift_start) {                                              // is the lift in start state?
+                     stevesRobot.setLiftMotorTargetPosition(20);                                    // Set the position to extend the lift to
+                     liftRotatePosition = 20.0;                                                     // Remember the position to extend the lift to
+                     stevesRobot.setLiftMotorVelocity(500.0);                                       // Apply a velocity to the lift motor
+                     turretState = tState.turret_liftMovingToTargetRotatePosition;                  // New state, indicate that the lift is moving to target rotate position
+                 }
+
+                 /**
+                  * Lift state is not lift_start, we can rotate the turret as long as we are above the height of the chassis -AND- we are not retracting the lift
+                  */
+                 else {                                                                             // the lift is not in start state
+                     if (Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0 && // the lift is above where we can start to rotate -AND-
+                             liftState != lState.lift_retract) {                                    // the lift is not retracting (coming down)
+                         stevesRobot.turretRunWithEncodersSTP();                                    // Yes, so ensure the turret motor is running with set target position
+                         stevesRobot.setTurretMotorVelocity(500.0);                                 // Apply velocity to turret motor, note that the target position was set above
+                         turretState = tState.turret_turning;                                       // jump to turret_turning state since we don't need to wait for the lift
+                     }
+                 }
                 break;
 
             // the lift is extending to the target rotate position
