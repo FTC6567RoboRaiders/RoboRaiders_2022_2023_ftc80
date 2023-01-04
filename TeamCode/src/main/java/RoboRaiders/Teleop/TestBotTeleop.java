@@ -75,7 +75,7 @@ public class TestBotTeleop extends OpMode {
          * grabber code into separate methods.
          */
 
-        buttonA_B_X_Pushed = true;
+        buttonA_B_X_Pushed = false;
         boolean leftBumper = gamepad2.left_bumper;
         boolean rightBumper = gamepad2.right_bumper;
 
