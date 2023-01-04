@@ -253,9 +253,13 @@ public class TestBotTeleop extends OpMode {
                  * So if the lift state is lift_start, that means the lift is in home position.  So start to extending it.
                  */
                 if (buttonA_B_X_Pushed) {
+                    myLogger.Debug("IT HAS ENTERED BUTTON ABX IF STATEMENT");
                     if (liftState == lState.lift_start) {                                              // is the lift in start state?
-                        stevesRobot.setLiftMotorTargetPosition(20);                                    // Set the position to extend the lift to
-                        liftRotatePosition = 20.0;                                                     // Remember the position to extend the lift to
+                        myLogger.Debug("IT HAS ENTERED LIFT STATE BEING IN START");
+                        liftRotatePosition = 50.0;                                                    // Remember the position to extend the lift to
+                        stevesRobot.setLiftMotorTargetPosition(50.0);                                 // Set the position to extend the lift to
+
+                        stevesRobot.liftRunWithEncodersSTP();
                         stevesRobot.setLiftMotorVelocity(500.0);                                       // Apply a velocity to the lift motor
                         turretState = tState.turret_liftMovingToTargetRotatePosition;                  // New state, indicate that the lift is moving to target rotate position
                     }
@@ -277,9 +281,11 @@ public class TestBotTeleop extends OpMode {
 
             // the lift is extending to the target rotate position
             case turret_liftMovingToTargetRotatePosition:
+                myLogger.Debug("HAS ENTERED TARGET ROTATE POSITION CASE");
                 if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftRotatePosition) > 20.0) {      // Has the lift extended far enough to begin rotating the turret?
+                    myLogger.Debug("HAS REACHED WITHIN 5 ENCODERS OF FINAL POSITION");
                     stevesRobot.turretRunWithEncodersSTP();                                         // Yes, so ensure the turret motor is running with set target position
-                    stevesRobot.setTurretMotorVelocity(500.0);                                      // Apply velocity to turret motor, note that the target position was set above
+                    stevesRobot.setTurretMotorVelocity(2000.0);                                      // Apply velocity to turret motor, note that the target position was set above
                                                                                                     // in the turret_start state when the appropriate button was pushed
                     stevesRobot.setLiftMotorVelocity(0.0);                                          // Stop the lift motor
                     turretState = tState.turret_turning;                                            // Indicate that the turret is now turning to the requested position
