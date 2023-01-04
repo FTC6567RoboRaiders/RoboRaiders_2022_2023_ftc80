@@ -55,6 +55,7 @@ public class TestBotTeleop extends OpMode {
     lState liftState = lState.lift_start;
     public RRStopWatch myStopWatch = new RRStopWatch();
     boolean yButton = false;
+    boolean buttonA_B_X_Pushed = false;
 
     @Override
     public void init() {
@@ -233,37 +234,45 @@ public class TestBotTeleop extends OpMode {
                 if (gamepad2.b) {                                                                   // gamepad2.b button pushed
                     stevesRobot.setTurretMotorTargetPosition(turret_right);                         // Set the target position for the turret
                     turretFinalPosition = turret_right;                                             // Remember the target position for the turret
+                    buttonA_B_X_Pushed = true;                                                      // Remember that b, x or the a button was pushed
                 }
                 else if (gamepad2.x) {
                     stevesRobot.setTurretMotorTargetPosition(turret_left);                          // Set the target position for the turret
                     turretFinalPosition = turret_left;                                              // Remember the target position for the turret
+                    buttonA_B_X_Pushed = true;                                                      // Remember that b, x or the a button was pushed
+
                 }
                 else if (gamepad2.a) {
                     stevesRobot.setTurretMotorTargetPosition(turret_back);                          // Set the target position for the turret
                     turretFinalPosition = turret_back;                                              // Remember the target position for the turret
+                    buttonA_B_X_Pushed = true;                                                      // Remember that b, x or the a button was pushed
+
                 }
 
                 /**
                  * So if the lift state is lift_start, that means the lift is in home position.  So start to extending it.
                  */
-                 if (liftState == lState.lift_start) {                                              // is the lift in start state?
-                     stevesRobot.setLiftMotorTargetPosition(20);                                    // Set the position to extend the lift to
-                     liftRotatePosition = 20.0;                                                     // Remember the position to extend the lift to
-                     stevesRobot.setLiftMotorVelocity(500.0);                                       // Apply a velocity to the lift motor
-                     turretState = tState.turret_liftMovingToTargetRotatePosition;                  // New state, indicate that the lift is moving to target rotate position
-                 }
+                if (buttonA_B_X_Pushed) {
+                    if (liftState == lState.lift_start) {                                              // is the lift in start state?
+                        stevesRobot.setLiftMotorTargetPosition(20);                                    // Set the position to extend the lift to
+                        liftRotatePosition = 20.0;                                                     // Remember the position to extend the lift to
+                        stevesRobot.setLiftMotorVelocity(500.0);                                       // Apply a velocity to the lift motor
+                        turretState = tState.turret_liftMovingToTargetRotatePosition;                  // New state, indicate that the lift is moving to target rotate position
+                    }
 
-                 /**
-                  * Lift state is not lift_start, we can rotate the turret as long as we are above the height of the chassis -AND- we are not retracting the lift
-                  */
-                 else {                                                                             // the lift is not in start state
-                     if (Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0 && // the lift is above where we can start to rotate -AND-
-                             liftState != lState.lift_retract) {                                    // the lift is not retracting (coming down)
-                         stevesRobot.turretRunWithEncodersSTP();                                    // Yes, so ensure the turret motor is running with set target position
-                         stevesRobot.setTurretMotorVelocity(500.0);                                 // Apply velocity to turret motor, note that the target position was set above
-                         turretState = tState.turret_turning;                                       // jump to turret_turning state since we don't need to wait for the lift
-                     }
-                 }
+                    /**
+                     * Lift state is not lift_start, we can rotate the turret as long as we are above the height of the chassis -AND- we are not retracting the lift
+                     */
+                    else {                                                                             // the lift is not in start state
+                        if (Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0 && // the lift is above where we can start to rotate -AND-
+                                liftState != lState.lift_retract) {                                    // the lift is not retracting (coming down)
+                            stevesRobot.turretRunWithEncodersSTP();                                    // Yes, so ensure the turret motor is running with set target position
+                            stevesRobot.setTurretMotorVelocity(500.0);                                 // Apply velocity to turret motor, note that the target position was set above
+                            turretState = tState.turret_turning;                                       // jump to turret_turning state since we don't need to wait for the lift
+                        }
+                    }
+                }                                                                                   // if a, b, or x button pushed
+
                 break;
 
             // the lift is extending to the target rotate position
