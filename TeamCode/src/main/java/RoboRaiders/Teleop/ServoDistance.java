@@ -40,7 +40,7 @@ public class ServoDistance extends OpMode {
         telemetry.addData("gamepad1.a: ",gamepad1.a);
         telemetry.addData("gamepad1.b: ",gamepad1.b);
         telemetry.addData("gamepad1.y: ",gamepad1.y);
-        telemetry.addData("distance: ",stevesRobot.getDistance());
+      //  telemetry.addData("distance: ",stevesRobot.getDistance());
         telemetry.addData("inTake position: ", stevesRobot.getIntakePosition());
 
         if (gamepad1.a)
