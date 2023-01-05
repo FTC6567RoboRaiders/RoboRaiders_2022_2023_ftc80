@@ -66,10 +66,10 @@ public class ServoDistance extends OpMode {
             telemetry.addData("Setting direction: 0", true);
             stevesRobot.activateInTake(0);
         }
-        else {
-            telemetry.addData("Setting direction: 0", true);
-            stevesRobot.activateInTake(0);
-        }
+//        else {
+//            telemetry.addData("Setting direction: 0", true);
+//            stevesRobot.activateInTake(0);
+//        }
 
     }
     /**
