@@ -47,8 +47,8 @@ public class ServoDistance extends OpMode {
         {
        //     if (stevesRobot.getDistance() < 20.0)
        //     {
-                telemetry.addData("Setting direction: 0", true);
-                stevesRobot.activateInTake(0);
+                telemetry.addData("Setting direction: 1", true);
+                stevesRobot.activateInTake(1);
         //    }
             //     else
 //            {
