@@ -42,8 +42,8 @@ public class BasicTeleop extends OpMode {
         telemetry.addData("+-------------------------", "--------------------------------+");
         telemetry.addData("| Gamepad2 Left Stick X:  ", "Rotates turret at 75% max power |");
         telemetry.addData("| Gamepad2 Right Stick Y: ", "Lift goes up and lift goes down |");
-        telemetry.addData("| Gamepad2 Right Bumper:  ", "Releases cone                   |");
-        telemetry.addData("| Gamepad2 Left Bumper:   ", "Grabs cone                      |");
+        telemetry.addData("| Gamepad2 Right Bumper:  ", "Grabs cone                      |");
+        telemetry.addData("| Gamepad2 Left Bumper:   ", "Release cone                    |");
         telemetry.addData("+-------------------------", "--------------------------------+");
 
 
