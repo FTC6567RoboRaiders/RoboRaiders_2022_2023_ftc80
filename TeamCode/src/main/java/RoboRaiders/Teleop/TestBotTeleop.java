@@ -240,13 +240,11 @@ public class TestBotTeleop extends OpMode {
                     stevesRobot.setTurretMotorTargetPosition(turret_left);                          // Set the target position for the turret
                     turretFinalPosition = turret_left;                                              // Remember the target position for the turret
                     buttonA_B_X_Pushed = true;                                                      // Remember that b, x or the a button was pushed
-
                 }
                 else if (gamepad2.a) {
                     stevesRobot.setTurretMotorTargetPosition(turret_back);                          // Set the target position for the turret
                     turretFinalPosition = turret_back;                                              // Remember the target position for the turret
                     buttonA_B_X_Pushed = true;                                                      // Remember that b, x or the a button was pushed
-
                 }
 
                 /**
