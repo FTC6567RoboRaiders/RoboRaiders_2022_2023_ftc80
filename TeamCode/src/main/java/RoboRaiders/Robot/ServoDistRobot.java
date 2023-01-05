@@ -52,10 +52,10 @@ public class ServoDistRobot {
         // Save reference to hardware map
         hwMap = ahwMap;
 
-        inTake = hwMap.get(Servo.class, "inTake");
+        inTake = hwMap.get(Servo.class, "inTakeServo");
   //      inTake.setPosition(0.0);
 
-        sensorRange = hwMap.get(DistanceSensor.class, "sensorRange");
+        //     sensorRange = hwMap.get(DistanceSensor.class, "sensorRange");
 
         // Define and initialize sensors
         imu = hwMap.get(BNO055IMU.class, "imu");

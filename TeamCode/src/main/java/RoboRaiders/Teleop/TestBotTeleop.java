@@ -36,7 +36,7 @@ public class TestBotTeleop extends OpMode {
     double turret_home = 0.0;
     double turret_right = 100.0; // 1/4 of a turn
     double turret_left = -100.0; // 1/4 of a turn
-    double turret_back = 190.0; // 1/2 of a turn
+    double turret_back = 185.0; // 1/2 of a turn
     double turretFinalPosition;
 
     double lift_ground = 0.0;
