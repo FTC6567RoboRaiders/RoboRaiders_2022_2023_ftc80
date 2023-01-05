@@ -15,7 +15,7 @@ import RoboRaiders.Utilities.RRStopWatch.RRStopWatch;
 public class TestBotTeleop extends OpMode {
 
 
-
+//It is Wade, just curious if I can push from home.
     enum tState {
         turret_start,
         turret_liftMovingToTargetRotatePosition,
