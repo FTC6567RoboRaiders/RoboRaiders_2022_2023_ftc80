@@ -40,19 +40,14 @@ public class BasicTeleop extends OpMode {
 
         telemetry.addData("        Gamepad2 Controls ", "as follows:");
         telemetry.addData("+-------------------------", "--------------------------------+");
-        telemetry.addData("| Gamepad2 Left Stick X:  ", "Rotates turret at 75% max power |");
-        telemetry.addData("| Gamepad2 Right Stick Y: ", "Lift goes up and lift goes down |");
+        telemetry.addData("| Gamepad2 Right Stick X: ", "Rotates turret at 75% max power |");
+        telemetry.addData("| Gamepad2 Left Stick Y:  ", "Lift goes up and lift goes down |");
         telemetry.addData("| Gamepad2 Right Bumper:  ", "Grabs cone                      |");
         telemetry.addData("| Gamepad2 Left Bumper:   ", "Release cone                    |");
         telemetry.addData("+-------------------------", "--------------------------------+");
 
-
-
-
-
-
-        stevesRobot.setTurretMotorPower(0.75*gamepad2.left_stick_x);  //* moves the turret at 75% maximum power
-        stevesRobot.setLiftMotorPower(-gamepad2.right_stick_y);        //* moves the lift up and down
+        stevesRobot.setTurretMotorPower(0.75*gamepad2.right_stick_x);  //* moves the turret at 75% maximum power
+        stevesRobot.setLiftMotorPower(-gamepad2.left_stick_y);        //* moves the lift up and down
 
         if (gamepad2.left_bumper) {
             stevesRobot.setinTakeServoPosition(1.0);                                        // Have the intake mechanism deposit the cone
