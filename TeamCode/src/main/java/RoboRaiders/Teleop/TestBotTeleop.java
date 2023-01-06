@@ -8,6 +8,20 @@ import RoboRaiders.Properties.RoboRaidersProperties;
 import RoboRaiders.Robot.TestRobot;
 import RoboRaiders.Utilities.RRStopWatch.RRStopWatch;
 
+/**
+ * These Things Should Work
+ * ========================
+ * Will the robot raise the intake before rotating if its in a notch?
+ * Will the robot not raise and just rotate the intake if the it is up at a deposit level?
+ * Can the robot rotate to all 4 sides?
+ * Can the robot deposit at all 4 levels?
+ * Can the robot intake and out-take the cone?
+ * Will the robot return home at the press of a button?
+ * Can the robot be manually controlled by the joysticks?
+ * If the robot is resetting home and it lands on one of the four corners, can it be moved manually without the robot getting to the desired encoders? (Can use the manual joysticks while its moving to help it?)
+ */
+
+
 // This line establishes this op mode as a teleop op mode and allows for it to be displayed
 // in the drop down list on the Driver Station phone to be chosen to run.
 @TeleOp (name="Steve's TestBot Teleop", group="Test Teleops")
