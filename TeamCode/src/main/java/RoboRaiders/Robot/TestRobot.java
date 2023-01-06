@@ -434,7 +434,7 @@ public class TestRobot {
 
     }
     public double getLiftEncoderCounts(){
-        return liftMotor.getTargetPosition();
+        return liftMotor.getCurrentPosition();
     }
     public void liftRunWithEncodersSTP(){
         liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);

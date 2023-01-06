@@ -36,13 +36,13 @@ public class TestBotTeleop extends OpMode {
     double turret_home = 0.0;
     double turret_right = 100.0; // 1/4 of a turn
     double turret_left = -100.0; // 1/4 of a turn
-    double turret_back = 190.0; // 1/2 of a turn
+    double turret_back = 185.0; // 1/2 of a turn
     double turretFinalPosition;
 
     double lift_ground = 0.0;
-    double lift_high = 600.0;
-    double lift_middle = 400.0;
-    double lift_low = 200.0;
+    double lift_high = 8000.0;
+    double lift_middle = 5900.0;
+    double lift_low = 2000.0;
     double liftFinalPosition;
     double liftRotatePosition;
 
@@ -240,13 +240,11 @@ public class TestBotTeleop extends OpMode {
                     stevesRobot.setTurretMotorTargetPosition(turret_left);                          // Set the target position for the turret
                     turretFinalPosition = turret_left;                                              // Remember the target position for the turret
                     buttonA_B_X_Pushed = true;                                                      // Remember that b, x or the a button was pushed
-
                 }
                 else if (gamepad2.a) {
                     stevesRobot.setTurretMotorTargetPosition(turret_back);                          // Set the target position for the turret
                     turretFinalPosition = turret_back;                                              // Remember the target position for the turret
                     buttonA_B_X_Pushed = true;                                                      // Remember that b, x or the a button was pushed
-
                 }
 
                 /**
@@ -256,11 +254,11 @@ public class TestBotTeleop extends OpMode {
                     myLogger.Debug("IT HAS ENTERED BUTTON ABX IF STATEMENT");
                     if (liftState == lState.lift_start) {                                              // is the lift in start state?
                         myLogger.Debug("IT HAS ENTERED LIFT STATE BEING IN START");
-                        liftRotatePosition = 50.0;                                                    // Remember the position to extend the lift to
-                        stevesRobot.setLiftMotorTargetPosition(50.0);                                 // Set the position to extend the lift to
+                        liftRotatePosition = 2000.0;                                                    // Remember the position to extend the lift to
+                        stevesRobot.setLiftMotorTargetPosition(2000.0);                                 // Set the position to extend the lift to
 
                         stevesRobot.liftRunWithEncodersSTP();
-                        stevesRobot.setLiftMotorVelocity(500.0);                                       // Apply a velocity to the lift motor
+                        stevesRobot.setLiftMotorVelocity(1500.0);                                       // Apply a velocity to the lift motor
                         turretState = tState.turret_liftMovingToTargetRotatePosition;                  // New state, indicate that the lift is moving to target rotate position
                     }
 
@@ -268,10 +266,10 @@ public class TestBotTeleop extends OpMode {
                      * Lift state is not lift_start, we can rotate the turret as long as we are above the height of the chassis -AND- we are not retracting the lift
                      */
                     else {                                                                             // the lift is not in start state
-                        if (Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) > 20.0 && // the lift is above where we can start to rotate -AND-
+                        if (Math.abs(stevesRobot.getLiftEncoderCounts() - liftFinalPosition) < 5.0 && // the lift is above where we can start to rotate -AND-
                                 liftState != lState.lift_retract) {                                    // the lift is not retracting (coming down)
                             stevesRobot.turretRunWithEncodersSTP();                                    // Yes, so ensure the turret motor is running with set target position
-                            stevesRobot.setTurretMotorVelocity(500.0);                                 // Apply velocity to turret motor, note that the target position was set above
+                            stevesRobot.setTurretMotorVelocity(600.0);                                 // Apply velocity to turret motor, note that the target position was set above
                             turretState = tState.turret_turning;                                       // jump to turret_turning state since we don't need to wait for the lift
                         }
                     }
@@ -282,10 +280,12 @@ public class TestBotTeleop extends OpMode {
             // the lift is extending to the target rotate position
             case turret_liftMovingToTargetRotatePosition:
                 myLogger.Debug("HAS ENTERED TARGET ROTATE POSITION CASE");
-                if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftRotatePosition) > 20.0) {      // Has the lift extended far enough to begin rotating the turret?
+                myLogger.Debug("Lift Encoder:", stevesRobot.getLiftEncoderCounts());
+                if(Math.abs(stevesRobot.getLiftEncoderCounts() - liftRotatePosition) < 5.0) {// Has the lift extended far enough to begin rotating the turret?
+                    myLogger.Debug("Lift Encoder:", stevesRobot.getLiftEncoderCounts());
                     myLogger.Debug("HAS REACHED WITHIN 5 ENCODERS OF FINAL POSITION");
                     stevesRobot.turretRunWithEncodersSTP();                                         // Yes, so ensure the turret motor is running with set target position
-                    stevesRobot.setTurretMotorVelocity(2000.0);                                      // Apply velocity to turret motor, note that the target position was set above
+                    stevesRobot.setTurretMotorVelocity(600.0);                                      // Apply velocity to turret motor, note that the target position was set above
                                                                                                     // in the turret_start state when the appropriate button was pushed
                     stevesRobot.setLiftMotorVelocity(0.0);                                          // Stop the lift motor
                     turretState = tState.turret_turning;                                            // Indicate that the turret is now turning to the requested position
@@ -305,8 +305,13 @@ public class TestBotTeleop extends OpMode {
 
                 break;
 
+
             // the turret is in the deposit position
+
             case turret_deposit:
+                myLogger.Debug("turret deposit");
+                myLogger.Debug(" lift state: ", String.valueOf(liftState));
+
                 if(gamepad2.right_stick_button && liftState == lState.lift_deposit) {               // Has the right stick button on gamepad 2 been pushed AND the lift is in the
                                                                                                     // deposit state?
                     myStopWatch.startTime();                                                        // Yes, start the stop watch (we will give the deposit mechanism x number of
@@ -314,7 +319,7 @@ public class TestBotTeleop extends OpMode {
                     stevesRobot.setTurretMotorPower(0.0);                                           // Stop the turret, the turret may have been adjusted by the gunner (see below)
                     stevesRobot.setinTakeServoPosition(1.0);                                        // Have the intake mechanism deposit the cone
                     turretState = tState.turret_returning;                                          // Indicate that the turret will be returning to home
-
+// "Just type 'do good'" -Joshua Lipke
                 }
                 else {                                                                              // No
                     stevesRobot.setTurretMotorPower(0.5 * gamepad2.left_stick_x);                   // Allow the gunner to "adjust" the turret
@@ -332,7 +337,7 @@ public class TestBotTeleop extends OpMode {
                 telemetry.update();
                 if(myStopWatch.getElaspedTime() >= 5.0) {                                           // Has deposit been completed??
                     stevesRobot.setTurretMotorTargetPosition(turret_home);                          // Yes, indicate to have the turret return to home
-                    stevesRobot.setTurretMotorVelocity(500.0);                                      // Apply a velocity
+                    stevesRobot.setTurretMotorVelocity(600.0);                                      // Apply a velocity
                     turretState = tState.turret_returningHome;                                      // Indicate the turret is returning home
                 }
 
@@ -387,36 +392,36 @@ public class TestBotTeleop extends OpMode {
                     liftFinalPosition = lift_low;
                     liftState = lState.lift_extending;
                     stevesRobot.liftRunWithEncodersSTP();
-                    stevesRobot.setLiftMotorVelocity(500.0);
+                    stevesRobot.setLiftMotorVelocity(1500.0);
                 }
 
                 else if (gamepad2.dpad_left) {
                     stevesRobot.setLiftMotorTargetPosition(lift_ground);
-                    liftFinalPosition = lift_low;
+                    liftFinalPosition = lift_ground;
                     liftState = lState.lift_extending;
                     stevesRobot.liftRunWithEncodersSTP();
-                    stevesRobot.setLiftMotorVelocity(500.0);
+                    stevesRobot.setLiftMotorVelocity(1500.0);
 
                 }
 
                 else if (gamepad2.dpad_right) {
 
                     stevesRobot.setLiftMotorTargetPosition(lift_middle);
-                    liftFinalPosition = lift_low;
+                    liftFinalPosition = lift_middle;
                     liftState = lState.lift_extending;
                     stevesRobot.liftRunWithEncodersSTP();
-                    stevesRobot.setLiftMotorVelocity(500.0);
+                    stevesRobot.setLiftMotorVelocity(1500.0);
 
                     }
 
                 else if (gamepad2.dpad_up) {
                     stevesRobot.setLiftMotorTargetPosition(lift_high);
-                    liftFinalPosition = lift_low;
+                    liftFinalPosition = lift_high;
                     stevesRobot.liftRunWithEncodersSTP();
-                    stevesRobot.setLiftMotorVelocity(500.0);
+                    stevesRobot.setLiftMotorVelocity(1500.0);
                     liftState = lState.lift_extending;
                 }
-                else {
+                else if(turretState != tState.turret_liftMovingToTargetRotatePosition){
                     stevesRobot.setLiftMotorPower(0.5 * (-gamepad2.right_stick_y));
                 }
 
@@ -433,7 +438,7 @@ public class TestBotTeleop extends OpMode {
             case lift_deposit:
                 if(turretState == tState.turret_returningHome){
                     stevesRobot.setLiftMotorTargetPosition(lift_ground);
-                    stevesRobot.setLiftMotorVelocity(500.0);
+                    stevesRobot.setLiftMotorVelocity(1500.0);
                     liftState = lState.lift_retract;
                 }
                 break;
@@ -471,7 +476,6 @@ public class TestBotTeleop extends OpMode {
         double lTrigger = gamepad1.left_trigger;
         double rTrigger = gamepad1.right_trigger;
 
-        telemetry.addLine("MAKE SURE THE ARROWS ON MOTORS 1 AND 3 FACE THE DRIVER");
         telemetry.addLine("Variables");
         telemetry.addData("botHeading", String.valueOf(botHeading));
         telemetry.addData("y", String.valueOf(y));
