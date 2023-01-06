@@ -433,6 +433,7 @@ public class TestRobot {
         liftMotor.setVelocity(liftVelocity);
 
     }
+
     public double getLiftEncoderCounts(){
         return liftMotor.getCurrentPosition();
     }
