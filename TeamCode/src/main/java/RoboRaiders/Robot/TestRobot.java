@@ -440,6 +440,12 @@ public class TestRobot {
     public void liftRunWithEncodersSTP(){
         liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
+    public void liftRunWithEncoders(){
+        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void liftRunWithoutEncoders(){
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
     public void setLiftMotorPower(double liftPower){
         liftMotor.setPower(liftPower);
     }
