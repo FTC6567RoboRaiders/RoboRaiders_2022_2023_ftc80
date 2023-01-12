@@ -106,6 +106,7 @@ public class DectectATAndParkLO extends LinearOpMode {
          */
         //This Part Will Deposit Cone, Same Code Regardless of AprilTag
 
+        //Move Forward Off Wall
         numofticks = stevesRobot.driveTrainCalculateCounts(1);
         telemetry.addData("numofticks: ", numofticks);
         stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
@@ -114,6 +115,10 @@ public class DectectATAndParkLO extends LinearOpMode {
         }
         stevesRobot.resetEncoders();
         stevesRobot.runWithEncoders();
+        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+
+        //Move Left
         numofticks = stevesRobot.driveTrainCalculateCounts(18);
         telemetry.addData("numofticks: ", numofticks);
         stevesRobot.setDriveMotorPower(0.25, -0.25, -0.25, 0.25);
@@ -122,20 +127,22 @@ public class DectectATAndParkLO extends LinearOpMode {
         }
         stevesRobot.resetEncoders();
         stevesRobot.runWithEncoders();
+        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+        //Move Forward to Junction
         numofticks = stevesRobot.driveTrainCalculateCounts(25);
         telemetry.addData("numofticks: ", numofticks);
         stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
         while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
             telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
         }
+
         stevesRobot.resetEncoders();
         stevesRobot.runWithEncoders();
-
+        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
         //Move Lift To Turn Turret
-        stevesRobot.setLiftMotorTargetPosition(-3000);
-        stevesRobot.liftRunWithEncodersSTP();
-        stevesRobot.setLiftMotorVelocity(-1500.0);
-        while (opModeIsActive() && Math.abs(stevesRobot.getLiftEncoderCounts()) <= 3000){
+
+        while (Math.abs(stevesRobot.getLiftEncoderCounts() + 3000) <= 5.0){
             stevesRobot.liftRunWithoutEncoders();
             telemetry.addData("getLiftEncoderCounts()", stevesRobot.getLiftEncoderCounts());
         }
@@ -143,15 +150,15 @@ public class DectectATAndParkLO extends LinearOpMode {
         stevesRobot.setTurretMotorTargetPosition(-94.5);
         stevesRobot.turretRunWithEncodersSTP();
         stevesRobot.setTurretMotorVelocity(600.0);
-        while (opModeIsActive() && Math.abs(stevesRobot.getTurretEncoderCounts()) <= 94.5){
+        while (Math.abs(stevesRobot.getTurretEncoderCounts() + 94.5) < 94.5){
             telemetry.addData("getTurretEncoderCounts()", stevesRobot.getTurretEncoderCounts());
 
         }
         //Lift Move to Height
         stevesRobot.setLiftMotorTargetPosition(-7750);
         stevesRobot.liftRunWithEncodersSTP();
-        stevesRobot.setLiftMotorVelocity(-1500.0);
-        while (opModeIsActive() && Math.abs(stevesRobot.getLiftEncoderCounts()) <= 7750.0){
+        stevesRobot.setLiftMotorVelocity(1500.0);
+        while (Math.abs(stevesRobot.getLiftEncoderCounts() + 7750) < 5.0){
             stevesRobot.liftRunWithoutEncoders();
             telemetry.addData("getLiftEncoderCounts()", stevesRobot.getLiftEncoderCounts());
         }

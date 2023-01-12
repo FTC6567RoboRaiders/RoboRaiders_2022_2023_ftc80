@@ -54,7 +54,7 @@ public class TestBotTeleop extends OpMode {
     double turretFinalPosition;
 
     double lift_ground = 150.0;
-    double lift_high = 750.0;
+    double lift_high = 7550.0;
     double lift_middle = 5950.0;
     double lift_low = 3050.0;
     double liftFinalPosition;
@@ -338,6 +338,7 @@ public class TestBotTeleop extends OpMode {
 // "Just type 'do good'" -Joshua Lipke
                 }
                 else{
+                    stevesRobot.turretRunWithoutEncoders();
                     stevesRobot.setTurretMotorPower(0.40 * gamepad2.left_stick_x);                   // Allow the gunner to "adjust" the turret
 
                 }
@@ -463,6 +464,7 @@ public class TestBotTeleop extends OpMode {
 
                 }
                 else{
+                    stevesRobot.turretRunWithoutEncoders();
                     stevesRobot.setTurretMotorPower(0.40 * gamepad2.left_stick_x);                   // Allow the gunner to "adjust" the turret
 
                 }
@@ -484,7 +486,7 @@ public class TestBotTeleop extends OpMode {
         // Read inverse IMU heading, as the IMU heading is CW positive
 
         double botHeading = stevesRobot.getHeading();
-
+        myLogger.Debug("HEADING HEADING HEADING: ", botHeading);
         double y = -gamepad1.left_stick_y; // Remember, this is reversed!`
         double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
         double rx = gamepad1.right_stick_x;
@@ -536,7 +538,8 @@ public class TestBotTeleop extends OpMode {
         else if(gamepad2.left_bumper) {
             stevesRobot.setinTakeServoPosition(1.0);
         }
-        else if(turretState != tState.turret_turning &&  turretState != tState.turret_returningHome) {                                                                              // No
+        else if(turretState != tState.turret_turning &&  turretState != tState.turret_returningHome) {// No
+            stevesRobot.turretRunWithoutEncoders();
             stevesRobot.setTurretMotorPower(0.40 * gamepad2.left_stick_x);                   // Allow the gunner to "adjust" the turret
 
         }
