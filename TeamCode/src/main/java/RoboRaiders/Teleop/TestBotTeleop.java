@@ -337,11 +337,11 @@ public class TestBotTeleop extends OpMode {
                     turretState = tState.turret_returning;                                          // Indicate that the turret will be returning to home
 // "Just type 'do good'" -Joshua Lipke
                 }
-                else{
-                    stevesRobot.turretRunWithoutEncoders();
-                    stevesRobot.setTurretMotorPower(0.40 * gamepad2.left_stick_x);                   // Allow the gunner to "adjust" the turret
-
-                }
+//                else{
+//                    stevesRobot.turretRunWithoutEncoders();
+//                    stevesRobot.setTurretMotorPower(0.40 * gamepad2.right_stick_x);                   // Allow the gunner to "adjust" the turret
+//
+//                }
 
 
                 break;
@@ -442,9 +442,14 @@ public class TestBotTeleop extends OpMode {
                     liftState = lState.lift_extending;
                 }
                 else if(turretState != tState.turret_liftMovingToTargetRotatePosition){
+                    telemetry.addData("ENCODERS OF LIFT:", stevesRobot.getLiftEncoderCounts());
                     stevesRobot.liftRunWithoutEncoders();
-                    stevesRobot.setLiftMotorPower(-0.5 * (-gamepad2.right_stick_y));
+                    stevesRobot.setLiftMotorPower(-0.75 * (-gamepad2.right_stick_y));
+
+
                 }
+
+
 
                 break;
 
@@ -463,11 +468,11 @@ public class TestBotTeleop extends OpMode {
                     liftState = lState.lift_retract;
 
                 }
-                else{
-                    stevesRobot.turretRunWithoutEncoders();
-                    stevesRobot.setTurretMotorPower(0.40 * gamepad2.left_stick_x);                   // Allow the gunner to "adjust" the turret
-
-                }
+//                else{
+//                    stevesRobot.turretRunWithoutEncoders();
+//                    stevesRobot.setTurretMotorPower(0.40 * gamepad2.right_stick_x);                   // Allow the gunner to "adjust" the turret
+//
+//                }
                 break;
             case lift_retract:
                 if(Math.abs(stevesRobot.getLiftEncoderCounts() + lift_ground) < 5.0) {
@@ -487,8 +492,8 @@ public class TestBotTeleop extends OpMode {
 
         double botHeading = stevesRobot.getHeading();
         myLogger.Debug("HEADING HEADING HEADING: ", botHeading);
-        double y = -gamepad1.left_stick_y; // Remember, this is reversed!`
-        double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+        double y = gamepad1.left_stick_y; // Remember, this is reversed!`
+        double x = -gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
         double rx = gamepad1.right_stick_x;
 
         double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
@@ -540,7 +545,7 @@ public class TestBotTeleop extends OpMode {
         }
         else if(turretState != tState.turret_turning &&  turretState != tState.turret_returningHome) {// No
             stevesRobot.turretRunWithoutEncoders();
-            stevesRobot.setTurretMotorPower(0.40 * gamepad2.left_stick_x);                   // Allow the gunner to "adjust" the turret
+            stevesRobot.setTurretMotorPower(0.40 * gamepad2.right_stick_x);                   // Allow the gunner to "adjust" the turret
 
         }
         if(gamepad2.y && turretState != tState.turret_start) {                                      // The y button on gamepad2 has been pushed AND the turret is not in the start state
