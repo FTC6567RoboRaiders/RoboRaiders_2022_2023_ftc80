@@ -46,7 +46,7 @@ public class BasicTeleop extends OpMode {
         telemetry.addData("| Gamepad2 Left Bumper:   ", "Release cone                    |");
         telemetry.addData("+-------------------------", "--------------------------------+");
 
-        stevesRobot.setTurretMotorPower(0.75*gamepad2.right_stick_x);  //* moves the turret at 75% maximum power
+        stevesRobot.setTurretMotorPower(0.55*gamepad2.right_stick_x);  //* moves the turret at 75% maximum power
         stevesRobot.setLiftMotorPower(-gamepad2.left_stick_y);        //* moves the lift up and down
 
         if (gamepad2.left_bumper) {
@@ -72,8 +72,8 @@ public class BasicTeleop extends OpMode {
 
         double botHeading = stevesRobot.getHeading();
 
-        double y = -gamepad1.left_stick_y; // Remember, this is reversed!`
-        double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+        double y = gamepad1.left_stick_y; // Remember, this is reversed!`
+        double x = -gamepad1.left_stick_x; // Counteract imperfect strafing
         double rx = gamepad1.right_stick_x;
 
         double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
@@ -127,10 +127,10 @@ public class BasicTeleop extends OpMode {
 
 
         stevesRobot.setDriveMotorPower(
-                frontLeftPower*0.65,
-                frontRightPower*0.65,
-                backLeftPower*0.65,
-                backRightPower*0.65);
+                frontLeftPower*0.45,
+                frontRightPower*0.45,
+                backLeftPower*0.45,
+                backRightPower*0.45);
         //               dtLogger);
     }
 }
