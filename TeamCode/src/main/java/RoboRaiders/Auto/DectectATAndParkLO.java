@@ -107,165 +107,243 @@ public class DectectATAndParkLO extends LinearOpMode {
          */
         //This Part Will Deposit Cone, Same Code Regardless of AprilTag
 
-//        //Move Forward Off Wall
-//        numofticks = stevesRobot.driveTrainCalculateCounts(1);
-//        telemetry.addData("numofticks: ", numofticks);
-//        stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
-//        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-//            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-//        }
-//        stevesRobot.resetEncoders();
-//        stevesRobot.runWithEncoders();
-//        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-//
-//
-//        //Move Left
-//        numofticks = stevesRobot.driveTrainCalculateCounts(18);
-//        telemetry.addData("numofticks: ", numofticks);
-//        stevesRobot.setDriveMotorPower(0.25, -0.25, -0.25, 0.25);
-//        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-//            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-//        }
-//        stevesRobot.resetEncoders();
-//        stevesRobot.runWithEncoders();
-//        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-//
-//        //Move backwards into wall
-//        numofticks = stevesRobot.driveTrainCalculateCounts(4);
-//        telemetry.addData("numofticks: ", numofticks);
-//        stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
-//        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-//            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-//        }
-//        stevesRobot.resetEncoders();
-//        stevesRobot.runWithEncoders();
-//        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-//
-//        //Move Forward to Junction
-//        numofticks = stevesRobot.driveTrainCalculateCounts(38);
-//        telemetry.addData("numofticks: ", numofticks);
-//        stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
-//        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-//            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-//        }
-//        stevesRobot.resetEncoders();
-//        stevesRobot.runWithEncoders();
-//        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-//
-//        //"smocking makes you hapy" -Joshua sticky
-//        stevesRobot.resetEncoders();
-//        stevesRobot.runWithEncoders();
-//        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-//
-//        //Lift Move to Height
-//        stevesRobot.setLiftMotorTargetPosition(-7750);
-//        stevesRobot.liftRunWithEncodersSTP();
-//        stevesRobot.setLiftMotorVelocity(1500.0);
-//        while (Math.abs(stevesRobot.getLiftEncoderCounts() + 7750) < 5.0){
-//            stevesRobot.liftRunWithoutEncoders();
-//            telemetry.addData("getLiftEncoderCounts()", stevesRobot.getLiftEncoderCounts());
-//        }
-//
-//        sleep(3000);
-//
-//        //Turret Move to Position
-//        stevesRobot.setTurretMotorTargetPosition(-94.5);
-//        stevesRobot.turretRunWithEncodersSTP();
-//        stevesRobot.setTurretMotorVelocity(600.0);
-//        while (Math.abs(stevesRobot.getTurretEncoderCounts() + 94.5) < 94.5){
-//            telemetry.addData("getTurretEncoderCounts()", stevesRobot.getTurretEncoderCounts());
-//
-//        }
-//
-//        sleep(3000);
-//
-//        //Move closer to the pole
-//        numofticks = stevesRobot.driveTrainCalculateCounts(2.75);
-//        telemetry.addData("numofticks: ", numofticks);
-//        stevesRobot.setDriveMotorPower(0.25, -0.25, -0.25, 0.25);
-//        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-//            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-//        }
-//        stevesRobot.resetEncoders();
-//        stevesRobot.runWithEncoders();
-//        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-//
-//        sleep(5000);
-//
-//        //Deposit
-//        stevesRobot.setinTakeServoPosition(1.0);
-//
-//        sleep(500);
-//
-//        //Move away from the pole3
-//        numofticks = stevesRobot.driveTrainCalculateCounts(3);
-//        telemetry.addData("numofticks: ", numofticks);
-//        stevesRobot.setDriveMotorPower(-0.25, 0.25, 0.25, -0.25);
-//        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-//            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-//        }
-//        stevesRobot.resetEncoders();
-//        stevesRobot.runWithEncoders();
-//        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-//
-//        //Return turret to home
-//        //Turret Move to Position
-//        stevesRobot.setTurretMotorTargetPosition(0.0);
-//        stevesRobot.turretRunWithEncodersSTP();
-//        stevesRobot.setTurretMotorVelocity(600.0);
-//        while (Math.abs(stevesRobot.getTurretEncoderCounts() + 0.0) < 0.0){
-//            telemetry.addData("getTurretEncoderCounts()", stevesRobot.getTurretEncoderCounts());
-//
-//        }
-//
-//        sleep(500);
-//
-//        //Return lift to home
-//        stevesRobot.setLiftMotorTargetPosition(0.0);
-//        stevesRobot.liftRunWithEncodersSTP();
-//        stevesRobot.setLiftMotorVelocity(1500.0);
-//        while (Math.abs(stevesRobot.getLiftEncoderCounts()) == 0){
-//            stevesRobot.liftRunWithoutEncoders();
-//            telemetry.addData("getLiftEncoderCounts()", stevesRobot.getLiftEncoderCounts());
-//        }
-//
-//        sleep(500);
-//
-//        //Move To Park
+        // move forward off wall
+        numofticks = stevesRobot.driveTrainCalculateCounts(1.0);
+        telemetry.addData("numofticks: ", numofticks);
+        stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+        }
+        stevesRobot.resetEncoders();
+        stevesRobot.runWithEncoders();
+        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+        // move left
+        numofticks = stevesRobot.driveTrainCalculateCounts(20.5);
+        telemetry.addData("numofticks: ", numofticks);
+        stevesRobot.setDriveMotorPower(0.25, -0.25, -0.25, 0.25);
+        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+        }
+        stevesRobot.resetEncoders();
+        stevesRobot.runWithEncoders();
+        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+        // move backwards into wall
+        numofticks = stevesRobot.driveTrainCalculateCounts(5.0);
+        telemetry.addData("numofticks: ", numofticks);
+        stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
+        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+        }
+        stevesRobot.resetEncoders();
+        stevesRobot.runWithEncoders();
+        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+        //move forward
+        numofticks = stevesRobot.driveTrainCalculateCounts(38.0);
+        telemetry.addData("numofticks: ", numofticks);
+        stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+        }
+        stevesRobot.resetEncoders();
+        stevesRobot.runWithEncoders();
+        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+        sleep(1000);
+
+        //move lift to high junction height
+        stevesRobot.setLiftMotorTargetPosition(-7750);
+        stevesRobot.liftRunWithEncodersSTP();
+        stevesRobot.setLiftMotorVelocity(1500.0);
+        while (Math.abs(stevesRobot.getLiftEncoderCounts() + 7750) < 5.0){
+            stevesRobot.liftRunWithoutEncoders();
+            telemetry.addData("getLiftEncoderCounts()", stevesRobot.getLiftEncoderCounts());
+        }
+
+        sleep(5000);
+
+        // move turret to pole
+        stevesRobot.setTurretMotorTargetPosition(-89.0);
+        stevesRobot.turretRunWithEncodersSTP();
+        stevesRobot.setTurretMotorVelocity(600.0);
+        while (Math.abs(stevesRobot.getTurretEncoderCounts() + 89.0) < 89.0) {
+            telemetry.addData("getTurretEncoderCounts()", stevesRobot.getTurretEncoderCounts());
+        }
+
+        sleep(1500);
+
+        // move closer to pole
+        numofticks = stevesRobot.driveTrainCalculateCounts(4.0);
+        telemetry.addData("numofticks: ", numofticks);
+        stevesRobot.setDriveMotorPower(0.25, -0.25, -0.25, 0.25);
+        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+        }
+        stevesRobot.resetEncoders();
+        stevesRobot.runWithEncoders();
+        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+        sleep(2000);
+
+        // deposit
+        stevesRobot.setinTakeServoPosition(1.0);
+
+        sleep(2000);
+
+        // move away from pole
+        numofticks = stevesRobot.driveTrainCalculateCounts(4.0);
+        telemetry.addData("numofticks: ", numofticks);
+        stevesRobot.setDriveMotorPower(-0.25, 0.25, 0.25, -0.25);
+        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+            telemetry.addData("getSortEncoderCount: ", stevesRobot.getSortedEncoderCount());
+        }
+        stevesRobot.resetEncoders();
+        stevesRobot.runWithEncoders();
+        stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+        switch (aprilTagId) {
+            case 0:
+                //this case does not necessitate movement
+                telemetry.addData("Status: ", "case 1");
+
+                break;
+
+            case 1:
+                telemetry.addData("Status: ", "case 2");
+
+                // move forward off wall
+                numofticks = stevesRobot.driveTrainCalculateCounts(1.0);
+                telemetry.addData("numofticks: ", numofticks);
+                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortedEncoderCount: ", stevesRobot.getSortedEncoderCount());
+                }
+                stevesRobot.resetEncoders();
+                stevesRobot.runWithEncoders();
+                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                telemetry.update();
+
+                // move backwards into wall
+                numofticks = stevesRobot.driveTrainCalculateCounts(42.0);
+                telemetry.addData("numofticks: ", numofticks);
+                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
+                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortedEncoderCount: ", stevesRobot.getSortedEncoderCount());
+                }
+                stevesRobot.resetEncoders();
+                stevesRobot.runWithEncoders();
+                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                // move forward off wall
+                numofticks = stevesRobot.driveTrainCalculateCounts(1.0);
+                telemetry.addData("numofticks: ", numofticks);
+                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortedEncoderCount: ", stevesRobot.getSortedEncoderCount());
+                }
+                stevesRobot.resetEncoders();
+                stevesRobot.runWithEncoders();
+                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                // move right
+                numofticks = stevesRobot.driveTrainCalculateCounts(24.0);
+                telemetry.addData("numofticks: ", numofticks);
+                stevesRobot.setDriveMotorPower(-0.25, 0.25, 0.25, -0.25);
+                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortedEncoderCount: ", stevesRobot.getSortedEncoderCount());
+                }
+                stevesRobot.resetEncoders();
+                stevesRobot.runWithEncoders();
+                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                // move backwards
+                numofticks = stevesRobot.driveTrainCalculateCounts(5.0);
+                telemetry.addData("numofticks: ", numofticks);
+                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
+                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortedEncoderCount: ", stevesRobot.getSortedEncoderCount());
+                }
+                stevesRobot.resetEncoders();
+                stevesRobot.runWithEncoders();
+                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                // move forwards to parking zone
+                numofticks = stevesRobot.driveTrainCalculateCounts(38.0);
+                telemetry.addData("numofticks: ", numofticks);
+                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortedEncoderCount: ", stevesRobot.getSortedEncoderCount());
+                }
+                stevesRobot.resetEncoders();
+                stevesRobot.runWithEncoders();
+                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                break;
+
+            case 2:
+                telemetry.addData("Status: ", "case 2");
+
+                // move forward off wall
+                numofticks = stevesRobot.driveTrainCalculateCounts(1.0);
+                telemetry.addData("numofticks: ", numofticks);
+                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortedEncoderCount: ", stevesRobot.getSortedEncoderCount());
+                }
+                stevesRobot.resetEncoders();
+                stevesRobot.runWithEncoders();
+                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                telemetry.update();
+
+                // move right
+                numofticks = stevesRobot.driveTrainCalculateCounts(52.0);
+                telemetry.addData("numofticks: ", numofticks);
+                stevesRobot.setDriveMotorPower(-0.25, 0.25, 0.25, -0.25);
+                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortedEncoderCount: ", stevesRobot.getSortedEncoderCount());
+                }
+                stevesRobot.resetEncoders();
+                stevesRobot.runWithEncoders();
+                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                // move backwards
+                numofticks = stevesRobot.driveTrainCalculateCounts(5.0);
+                telemetry.addData("numofticks: ", numofticks);
+                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
+                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortedEncoderCount: ", stevesRobot.getSortedEncoderCount());
+                }
+                stevesRobot.resetEncoders();
+                stevesRobot.runWithEncoders();
+                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                // move forwards to parking zone
+                numofticks = stevesRobot.driveTrainCalculateCounts(38.0);
+                telemetry.addData("numofticks: ", numofticks);
+                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+                    telemetry.addData("getSortedEncoderCount: ", stevesRobot.getSortedEncoderCount());
+                }
+                stevesRobot.resetEncoders();
+                stevesRobot.runWithEncoders();
+                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+                break;
+
+        }
+
+        //old cases below
+
 //        switch (aprilTagId) {
 //            case 0:
-//                //Just Stay Where You Are
-//                stevesRobot.setDriveMotorPower(0.0,0.0,0.0,0.0);
-//                break;
-//
-//
-//            case 1:
-//                //move forward and then short right
-//                myLogger.Debug("loop() - Case 2");
-//                telemetry.addData("Status", "Case 2");
-//                telemetry.addData("aprilTagId: ", aprilTagId);
-//
-//                numofticks = stevesRobot.driveTrainCalculateCounts(10.0);
-//                telemetry.addData("numofticks: ", numofticks);
-//                stevesRobot.setDriveMotorPower(-0.5, -0.5, -0.5, -0.5);
-//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
-//                            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-//                }
-//                sleep(500);
-//                numofticks = stevesRobot.driveTrainCalculateCounts(17.0);
-//                telemetry.addData("numofticks: ", numofticks);
-//                stevesRobot.setDriveMotorPower(-0.5, 0.5, 0.5, -0.5);
-//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
-//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-//                }
-//
-//                break;
-//
-//            case 2:
-//                //forward and Then Far Right
+//                //move left, then forward
 //                telemetry.addData("Status", "Case 1");
 //
-//                numofticks = stevesRobot.driveTrainCalculateCounts(10.0);
+//                numofticks = stevesRobot.driveTrainCalculateCounts(1);
 //                telemetry.addData("numofticks: ", numofticks);
 //                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
 //                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
@@ -273,176 +351,145 @@ public class DectectATAndParkLO extends LinearOpMode {
 //                }
 //                stevesRobot.resetEncoders();
 //                stevesRobot.runWithEncoders();
-//                sleep(500);
-//
-//                numofticks = stevesRobot.driveTrainCalculateCounts(27.0);
+//                telemetry.update();
+//                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//                numofticks =  stevesRobot.driveTrainCalculateCounts(20.0);
 //                telemetry.addData("numofticks: ", numofticks);
-//                stevesRobot.setDriveMotorPower(-0.25, 0.25, 0.25, -0.25);
+//                stevesRobot.setDriveMotorPower(0.25, -0.25, -0.25, 0.25);
+//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
+//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+//                }
+//                numofticks = stevesRobot.driveTrainCalculateCounts(1);
+//                telemetry.addData("numofticks: ", numofticks);
+//                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
 //                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
 //                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
 //                }
 //                stevesRobot.resetEncoders();
 //                stevesRobot.runWithEncoders();
+//                telemetry.update();
+//                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//                numofticks = stevesRobot.driveTrainCalculateCounts(4);
+//                telemetry.addData("numofticks: ", numofticks);
+//                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
+//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
+//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+//                }
+//                telemetry.update();
+//                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
 //
+//
+//                sleep(100);
+//                stevesRobot.resetEncoders();
+//                stevesRobot.runWithEncoders();
+//                telemetry.update();
+//                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//                numofticks = stevesRobot.driveTrainCalculateCounts(30);
+//                telemetry.addData("numofticks: ", numofticks);
+//                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
+//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+//                }
+//                telemetry.update();
+//                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//                break;
+//
+//            case 1:
+//                myLogger.Debug("loop() - Case 2");
+//                telemetry.addData("Status", "Case 2");
+//                telemetry.addData("aprilTagId: ", aprilTagId);
+//
+//                //Move right
+//                numofticks = stevesRobot.driveTrainCalculateCounts(3);
+//                telemetry.addData("numofticks: ", numofticks);
+//                stevesRobot.setDriveMotorPower(-0.25, 0.25, 0.25, -0.25);
+//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+//                }
+//
+//                //Move forward
+//                numofticks = stevesRobot.driveTrainCalculateCounts(30);
+//                telemetry.addData("numofticks: ", numofticks);
+//                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+//                }
 //
 //                break;
+//
+//            case 2:
+//                //move right then forward
+//                telemetry.addData("Status", "Case 3");
+//
+//                //Move forward
+//                numofticks = stevesRobot.driveTrainCalculateCounts(0.7);
+//                telemetry.addData("numofticks: ", numofticks);
+//                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+//                }
+//
+//                stevesRobot.resetEncoders();
+//                stevesRobot.runWithEncoders();
+//                telemetry.update();
+//                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//
+//                //Move right
+//                numofticks =  stevesRobot.driveTrainCalculateCounts(28.0);
+//                telemetry.addData("numofticks: ", numofticks);
+//                stevesRobot.setDriveMotorPower(-0.25, 0.25, 0.25, -0.25);
+//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
+//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+//                }
+//
+//                //Move backwards
+//                numofticks = stevesRobot.driveTrainCalculateCounts(2);
+//                telemetry.addData("numofticks: ", numofticks);
+//                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
+//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+//                }
+//
+//                stevesRobot.resetEncoders();
+//                stevesRobot.runWithEncoders();
+//                telemetry.update();
+//                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//
+//                //Move backwards
+//                numofticks = stevesRobot.driveTrainCalculateCounts(4);
+//                telemetry.addData("numofticks: ", numofticks);
+//                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
+//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
+//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+//                }
+//
+//                telemetry.update();
+//                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//
+//                sleep(100);
+//
+//                stevesRobot.resetEncoders();
+//                stevesRobot.runWithEncoders();
+//                telemetry.update();
+//                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//
+//                //Move forward
+//                numofticks = stevesRobot.driveTrainCalculateCounts(30);
+//                telemetry.addData("numofticks: ", numofticks);
+//                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+//                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
+//                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+//                }
+//
+//                telemetry.update();
+//                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+//                break;
+//
 //            default:
 //                myLogger.Debug("loop() - default");
 //                telemetry.addData("No April Tag Found Parking In Default Location", aprilTagId);
 //                break;
 //        }
-        switch (aprilTagId) {
-            case 0:
-                //move left, then forward
-                telemetry.addData("Status", "Case 1");
-
-                numofticks = stevesRobot.driveTrainCalculateCounts(1);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-                stevesRobot.resetEncoders();
-                stevesRobot.runWithEncoders();
-                telemetry.update();
-                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-                numofticks =  stevesRobot.driveTrainCalculateCounts(20.0);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(0.25, -0.25, -0.25, 0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-                numofticks = stevesRobot.driveTrainCalculateCounts(1);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-                stevesRobot.resetEncoders();
-                stevesRobot.runWithEncoders();
-                telemetry.update();
-                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-                numofticks = stevesRobot.driveTrainCalculateCounts(4);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-                telemetry.update();
-                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-
-
-                sleep(100);
-                stevesRobot.resetEncoders();
-                stevesRobot.runWithEncoders();
-                telemetry.update();
-                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-                numofticks = stevesRobot.driveTrainCalculateCounts(30);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-                telemetry.update();
-                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-                break;
-
-            case 1:
-                myLogger.Debug("loop() - Case 2");
-                telemetry.addData("Status", "Case 2");
-                telemetry.addData("aprilTagId: ", aprilTagId);
-
-                //Move right
-                numofticks = stevesRobot.driveTrainCalculateCounts(3);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(-0.25, 0.25, 0.25, -0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-
-                //Move forward
-                numofticks = stevesRobot.driveTrainCalculateCounts(30);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-
-                break;
-
-            case 2:
-                //move right then forward
-                telemetry.addData("Status", "Case 3");
-
-                //Move forward
-                numofticks = stevesRobot.driveTrainCalculateCounts(0.7);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-
-                stevesRobot.resetEncoders();
-                stevesRobot.runWithEncoders();
-                telemetry.update();
-                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-
-                //Move right
-                numofticks =  stevesRobot.driveTrainCalculateCounts(28.0);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(-0.25, 0.25, 0.25, -0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-
-                //Move backwards
-                numofticks = stevesRobot.driveTrainCalculateCounts(2);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-
-                stevesRobot.resetEncoders();
-                stevesRobot.runWithEncoders();
-                telemetry.update();
-                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-
-                //Move backwards
-                numofticks = stevesRobot.driveTrainCalculateCounts(4);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(0.25, 0.25, 0.25, 0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-
-                telemetry.update();
-                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-
-                sleep(100);
-
-                stevesRobot.resetEncoders();
-                stevesRobot.runWithEncoders();
-                telemetry.update();
-                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-
-                //Move forward
-                numofticks = stevesRobot.driveTrainCalculateCounts(30);
-                telemetry.addData("numofticks: ", numofticks);
-                stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
-                while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks){
-                    telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
-                }
-
-                telemetry.update();
-                stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
-                break;
-
-            default:
-                myLogger.Debug("loop() - default");
-                telemetry.addData("No April Tag Found Parking In Default Location", aprilTagId);
-                break;
-        }
     }
     public int getAprilTag() {
         boolean april_tag_found = false;
