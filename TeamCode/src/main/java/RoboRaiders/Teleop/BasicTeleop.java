@@ -57,7 +57,7 @@ public class BasicTeleop extends OpMode {
             stevesRobot.setinTakeServoPosition(0.0);                                        // Have the intake grab a cone
             telemetry.addData("Cone grabbed ", "press left bumper to deposit cone");
         }
-
+        telemetry.addData("BOT HEADING BOT HEADING",stevesRobot.getHeading());
         doDrive();
 
         telemetry.update();

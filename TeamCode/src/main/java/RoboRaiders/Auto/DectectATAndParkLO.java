@@ -151,6 +151,13 @@ public class DectectATAndParkLO extends LinearOpMode {
         stevesRobot.runWithEncoders();
         stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
 
+        if(stevesRobot.getHeading() > 0.0) {
+            while (stevesRobot.getHeading() > 0.02) {
+                stevesRobot.setDriveMotorPower(0.2, -0.2, 0.2, -0.2);
+            }
+            stevesRobot.setDriveMotorPower(0.0, 0.0,0.0,0.0);
+        }
+        myLogger.Debug("ROBOT HEADING ROBOT HEADING ROBOT HEADING", stevesRobot.getHeading());
         sleep(1000);
 
         //move lift to high junction height
