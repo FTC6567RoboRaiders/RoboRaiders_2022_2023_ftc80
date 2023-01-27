@@ -141,22 +141,49 @@ public class DectectATAndParkLO extends LinearOpMode {
         stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
 
         //move forward
-        numofticks = stevesRobot.driveTrainCalculateCounts(38.0);
+        numofticks = stevesRobot.driveTrainCalculateCounts(19.0);
         telemetry.addData("numofticks: ", numofticks);
         stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
         while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
             telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+
         }
+        if(stevesRobot.getHeading() > 0.0) {
+            stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+            while (stevesRobot.getHeading() > 0.02) {
+                stevesRobot.setDriveMotorPower(0.1, -0.1, 0.1, -0.1);
+            }
+        }
+        else if(stevesRobot.getHeading() < 0.0) {
+            stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+            while (stevesRobot.getHeading() < -0.02) {
+                stevesRobot.setDriveMotorPower(-0.1, 0.1, -0.1, 0.1);
+            }
+        }
+        numofticks = stevesRobot.driveTrainCalculateCounts(19.0);
+        telemetry.addData("numofticks: ", numofticks);
+        stevesRobot.setDriveMotorPower(-0.25, -0.25, -0.25, -0.25);
+        while (opModeIsActive() && stevesRobot.getSortedEncoderCount() <= numofticks) {
+            telemetry.addData("getSortEncoderCount()", stevesRobot.getSortedEncoderCount());
+
+        }
+        if(stevesRobot.getHeading() > 0.0) {
+            stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+            while (stevesRobot.getHeading() > 0.02) {
+                stevesRobot.setDriveMotorPower(0.2, -0.2, 0.2, -0.2);
+            }
+        }
+        else if(stevesRobot.getHeading() < 0.0) {
+            stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+            while (stevesRobot.getHeading() < 0.02) {
+                stevesRobot.setDriveMotorPower(-0.2, 0.2, -0.2, 0.2);
+            }
+        }
+
         stevesRobot.resetEncoders();
         stevesRobot.runWithEncoders();
         stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
 
-        if(stevesRobot.getHeading() > 0.0) {
-            while (stevesRobot.getHeading() > 0.02) {
-                stevesRobot.setDriveMotorPower(0.2, -0.2, 0.2, -0.2);
-            }
-            stevesRobot.setDriveMotorPower(0.0, 0.0,0.0,0.0);
-        }
         myLogger.Debug("ROBOT HEADING ROBOT HEADING ROBOT HEADING", stevesRobot.getHeading());
         sleep(1000);
 
@@ -209,6 +236,15 @@ public class DectectATAndParkLO extends LinearOpMode {
         stevesRobot.resetEncoders();
         stevesRobot.runWithEncoders();
         stevesRobot.setDriveMotorPower(0.0, 0.0, 0.0, 0.0);
+
+        //move lift to starting position
+        stevesRobot.setLiftMotorTargetPosition(0);
+        stevesRobot.liftRunWithEncodersSTP();
+        stevesRobot.setLiftMotorVelocity(1500.0);
+        while (Math.abs(stevesRobot.getLiftEncoderCounts() - 7750) < 5.0){
+            stevesRobot.liftRunWithoutEncoders();
+            telemetry.addData("getLiftEncoderCounts()", stevesRobot.getLiftEncoderCounts());
+        }
 
         switch (aprilTagId) {
             case 0:
